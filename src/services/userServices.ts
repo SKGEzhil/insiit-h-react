@@ -1,9 +1,9 @@
 import {endPoint} from "../config/constants.ts";
 
-export function createUser(name: string, email: string, photoUrl: string[]) {
+export function createUser() {
     const query = `
-    mutation Mutation($name: String!, $photoUrl: String!, $email: String!) {
-      createUser(name: $name, photoUrl: $photoUrl, email: $email) {
+    mutation {
+      createUser {
         id
         name
         email
@@ -16,18 +16,20 @@ export function createUser(name: string, email: string, photoUrl: string[]) {
     return fetch(endPoint, {
         method: 'POST',
         headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') !== 'null' ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
         body: JSON.stringify({
             query,
-            variables: { name, email, photoUrl },
+            authRequired: true,
         }),
     })
         .then((response) => {
             if (response.ok) {
                 return response.json();
             } else {
+                console.log(response.json());
                 throw new Error('Network response was not ok.');
             }
         })
@@ -57,11 +59,13 @@ export function isUserExist(email: string) {
     return fetch(endPoint, {
         method: 'POST',
         headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') !== 'null' ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
         body: JSON.stringify({
             query,
+            authRequired: true,
             variables: { email },
         }),
     })
@@ -75,8 +79,9 @@ export function isUserExist(email: string) {
             }
         })
         .then((response) => {
+            console.log("RESPONSE", response);
             if (response.errors) {
-                throw new Error(response.errors[0].message);
+                return response.data.getUser;
             } else {
                 console.log("RESPONSE", response.data);
                 return response.data.getUser;

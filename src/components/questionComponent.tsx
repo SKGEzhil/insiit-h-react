@@ -1,11 +1,13 @@
 
 import React from 'react';
+import {QuestionModel} from "../models/questionModel";
 
 function QuestionComponent( props: {question: QuestionModel} ) {
 
     const title = props.question.title;
     const author = props.question.author.name;
     const body = props.question.body;
+
 
     return (
         <>
@@ -19,7 +21,7 @@ function QuestionComponent( props: {question: QuestionModel} ) {
                         <p className="text-xl">{body}</p>
                     </div>
                     <div>
-                        <p className="text-right text-gray-500">asked by {author}</p>
+                        <p className="text-right text-gray-500"> {} | asked by {author}</p>
                     </div>
                 </div>
             </div>

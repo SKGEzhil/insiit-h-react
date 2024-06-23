@@ -1,18 +1,27 @@
 import {endPoint} from "../config/constants.ts";
+import {useAuth} from "../context/authContext.tsx";
 
 
 export function createQuestion(title: string, body: string, tags: string[], author: string | undefined) {
+
     const query = `
     mutation Mutation($title: String!, $body: String!, $tags: [String!], $author: String!) {
       createQuestion(title: $title, body: $body, tags: $tags, author: $author) {
         id
         title
-        answer
+        answer {
+          answer
+          author {
+            name
+          }
+            date
+        }
         body
         tags
         author {
             name
        }
+       date
       }
     }
   `;
@@ -20,11 +29,13 @@ export function createQuestion(title: string, body: string, tags: string[], auth
     return fetch(endPoint, {
         method: 'POST',
         headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') !== 'null' ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
         body: JSON.stringify({
             query,
+            authRequired: true,
             variables: { title, body, tags, author },
         }),
     })
@@ -33,6 +44,7 @@ export function createQuestion(title: string, body: string, tags: string[], auth
             if (response.ok) {
                 return response.json();
             } else {
+                console.log("RESPONSE:", response.json());
                 throw new Error('Network response was not ok.');
             }
         })
@@ -63,17 +75,21 @@ export function getQuestions() {
           date
         }
         tags
+        date
       }
     }
   `;
 
+
+
     return fetch(endPoint, {
         method: 'POST',
         headers: {
+            // 'Authorization': `Bearer ${localStorage.getItem('userData') !== 'null' ? JSON.parse(localStorage.getItem('userData')).token : 'NONE'}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
-        body: JSON.stringify({ query }),
+        body: JSON.stringify({ query , authRequired: false}),
     })
         .then((response) => {
             if (response.ok) {
@@ -92,6 +108,9 @@ export function getQuestions() {
 }
 
 export function getQuestion(getQuestionId: string) {
+
+    // const {token} = useAuth();
+
     const query = `
     query Query($getQuestionId: ID!) {
       getQuestion(id: $getQuestionId) {
@@ -109,6 +128,7 @@ export function getQuestion(getQuestionId: string) {
           }
           date
         }
+        date
       }
     }
   `;
@@ -121,6 +141,7 @@ export function getQuestion(getQuestionId: string) {
         },
         body: JSON.stringify({
             query,
+            authRequired: false,
             variables: { getQuestionId },
         }),
     })
@@ -160,6 +181,7 @@ export function answerQuestion(id: string, answer: string, author?: string) {
           }
           date
         }
+        date
       }
     }
   `;
@@ -167,11 +189,13 @@ export function answerQuestion(id: string, answer: string, author?: string) {
     return fetch(endPoint, {
         method: 'POST',
         headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
         body: JSON.stringify({
             query,
+            authRequired: true,
             variables: { id, answer, author },
         }),
     })

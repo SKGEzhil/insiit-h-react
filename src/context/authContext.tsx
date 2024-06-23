@@ -1,8 +1,9 @@
-
 // src/context/AuthContext.js
-import { createContext, useContext, useState, useEffect } from 'react';
+import {createContext, useContext, useState, useEffect} from 'react';
 import {googleLogout, useGoogleLogin} from '@react-oauth/google';
-import { createUser, isUserExist } from '../services/userServices';
+import {createUser, isUserExist} from '../services/userServices';
+import { jwtDecode } from "jwt-decode";
+
 
 type authContextType = {
     profile: UserModel | null;
@@ -10,20 +11,25 @@ type authContextType = {
     logout: () => void;
     message: { status: string, message: string } | null;
     setPostLoginAction: (action: () => void) => void;
+    // token: string | null;
 };
 
 
 const AuthContext = createContext<authContextType>(
     {
         profile: null,
-        login: () => {},
-        logout: () => {},
+        login: () => {
+        },
+        logout: () => {
+        },
         message: null,
-        setPostLoginAction: () => {}
+        setPostLoginAction: () => {
+        },
+        // token: null
     }
 );
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({children}) => {
 
     type TokenResponse = googleUserInterface & {
         error: string;
@@ -33,72 +39,93 @@ export const AuthProvider = ({ children }) => {
 
     type googleUserInterface = Omit<TokenResponse, "error" | "error_description" | "error_uri">;
 
-    const [ user, setUser ]
-        = useState<googleUserInterface | null>(null);
-    const [ profile, setProfile ]
+
+    const [profile, setProfile]
         = useState<UserModel | null>(localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null);
     const [message, setMessage] = useState<{ status: string, message: string } | null>(null);
 
-    const [postLoginAction, setPostLoginAction] = useState<(() => void)>(() => {});
+    const [postLoginAction, setPostLoginAction] = useState<(() => void)>(() => {
+    });
+
+    type tokenType = {
+        name: string;
+        email: string;
+        photoUrl: string;
+    }
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => {
             console.log('Login Success:', codeResponse);
-            setUser(codeResponse)
-            console.log("User", user);
+            // setUser(codeResponse)
+
+            fetch('http://localhost:4000/auth/google', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    code: codeResponse.code,
+                }),
+            })
+                .then(r => r.json())
+                .then(r => {
+                    console.log("GOOGLE RESPONSE", r)
+                    if(r.status === 'error'){
+                        throw new Error(r.message)
+                    } else {
+                        localStorage.setItem('token', JSON.stringify(r.data.token));
+
+                        const decodedToken: tokenType = jwtDecode(r.data.token);
+                        console.log("DECODED TOKEN", decodedToken);
+
+                        isUserExist(decodedToken.email).then((response) => {
+                            console.log("RESPONSE", response);
+                            if (response !== null) {
+                                console.log("USER EXIST");
+                                setProfile(response);
+                                localStorage.setItem('userData', JSON.stringify(response));
+                                postLoginAction();
+                            } else {
+                                console.log("USER NOT EXIST");
+                                createUser().then((response) => {
+                                    console.log("RESPONSE", response);
+                                    setProfile(response);
+                                    localStorage.setItem('userData', JSON.stringify(response));
+                                    postLoginAction();
+                                });
+                            }
+                        });
+
+                    }
+                });
+
+            // console.log("User", user);
         },
+        flow: 'auth-code',
         onError: (error) => console.log('Login Failed:', error)
     });
 
 
-
-    useEffect(
-        () => {
-            if (user) {
-                fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${user.access_token}`,
-                        Accept: 'application/json'
-                    }
-                })
-                    .then((response) => response.json())
-                    .then(async (response) => {
-                        console.log('User Info:', response);
-                        try {
-                            const result = await isUserExist(response.email);
-                            if(result === null){
-                                console.log("User does not exist");
-                                const userData = await createUser(response.name, response.email, response.picture);
-                                setProfile(userData);
-                                localStorage.setItem('userData', JSON.stringify(userData));
-                                postLoginAction();
-                                setMessage({status: 'success', message: 'User created successfully'})
-                            } else {
-                                console.log("User exists");
-                                setProfile(result);
-                                localStorage.setItem('userData', JSON.stringify(result));
-                                postLoginAction();
-                                setMessage({status: 'success', message: 'User logged in successfully'})
-                            }
-                        } catch (e) {
-                            setMessage({status: 'error', message: e.message})
-                        }
-                    })
-            }
-        },
-        [ user ]
-    );
+    // useEffect(
+    //     () => {
+    //         if (user) {
+    //
+    //
+    //         }
+    //     },
+    //     [user]
+    // );
 
     const logout = () => {
         googleLogout();
         localStorage.setItem('userData', JSON.stringify(null));
+        localStorage.setItem('token', JSON.stringify(null));
         setProfile(null);
     };
 
 
     return (
-        <AuthContext.Provider value={{ profile, login, logout, message, setPostLoginAction }}>
+        <AuthContext.Provider value={{profile, login, logout, message, setPostLoginAction}}>
             {children}
         </AuthContext.Provider>
     );
