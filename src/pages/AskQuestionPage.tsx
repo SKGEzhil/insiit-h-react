@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {addQuestion} from "../actions";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../context/authContext.tsx";
+import {useShowToast} from "../context/toastContext.tsx";
 
 const AskQuestionPage = () => {
     const [title, setTitle] = useState('');
@@ -17,11 +18,18 @@ const AskQuestionPage = () => {
 
     const {profile} = useAuth();
 
+    const {showToast} = useShowToast();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         // Handle form submission logic here
         console.log({title, body, tags});
-        const question = await createQuestion(title, body, tags, profile?.id);
+        const question = await createQuestion(title, body, tags).catch(
+            (error) => {
+                console.error('Error:', error);
+                showToast({status: 'error', message: error.message});
+            }
+        );
         dispatch(addQuestion(question));
         navigate('/');
     };

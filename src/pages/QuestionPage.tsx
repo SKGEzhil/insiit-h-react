@@ -6,6 +6,7 @@ import ProtectedButton from "../components/protectedButton.tsx";
 import {answerQuestion} from "../services/questionServices.ts";
 import React, {useState} from "react";
 import {useAuth} from "../context/authContext.tsx";
+import {useShowToast} from "../context/toastContext.tsx";
 
 function QuestionPage() {
 
@@ -14,6 +15,8 @@ function QuestionPage() {
 
     const [yourAnswer, setYourAnswer] = useState("");
     const [isAnswerFieldOpen, setIsAnswerFieldOpen] = useState(false);
+
+    const {showToast} = useShowToast();
 
     const {profile} = useAuth();
 
@@ -68,10 +71,15 @@ function QuestionPage() {
                                         </div>
                                         <div className="flex justify-center my-2">
                                             <ProtectedButton onClick={() => {
-                                                answerQuestion(question.id, yourAnswer, profile?.id).then(r => {
+                                                answerQuestion(question.id, yourAnswer).then(r => {
                                                     console.log("Answer:", r)
                                                     setRefresh(true);
-                                                });
+                                                }).catch(
+                                                    (error) => {
+                                                        console.error('Error:', error);
+                                                        showToast({status: 'error', message: error.message});
+                                                    }
+                                                );;
                                                 setYourAnswer("");
                                             }}>
                                                 Submit

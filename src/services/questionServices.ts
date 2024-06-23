@@ -2,11 +2,11 @@ import {endPoint} from "../config/constants.ts";
 import {useAuth} from "../context/authContext.tsx";
 
 
-export function createQuestion(title: string, body: string, tags: string[], author: string | undefined) {
+export function createQuestion(title: string, body: string, tags: string[]) {
 
     const query = `
-    mutation Mutation($title: String!, $body: String!, $tags: [String!], $author: String!) {
-      createQuestion(title: $title, body: $body, tags: $tags, author: $author) {
+    mutation Mutation($title: String!, $body: String!, $tags: [String!]) {
+      createQuestion(title: $title, body: $body, tags: $tags) {
         id
         title
         answer {
@@ -36,19 +36,16 @@ export function createQuestion(title: string, body: string, tags: string[], auth
         body: JSON.stringify({
             query,
             authRequired: true,
-            variables: { title, body, tags, author },
+            variables: { title, body, tags },
         }),
     })
         .then((response) => {
-            console.log("Response", response);
-            if (response.ok) {
-                return response.json();
-            } else {
-                console.log("RESPONSE:", response.json());
-                throw new Error('Network response was not ok.');
-            }
+            return response.json()
         })
         .then((response) => {
+            if(response.status && response.status === 'error'){
+                throw new Error(response.message);
+            }
             if (response.errors) {
                 throw new Error(response.errors[0].message);
             } else {
@@ -92,16 +89,16 @@ export function getQuestions() {
         body: JSON.stringify({ query , authRequired: false}),
     })
         .then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Network response was not ok.');
-            }
+           return response.json()
         })
         .then((response) => {
+            if(response.status && response.status === 'error'){
+                throw new Error(response.message);
+            }
             if (response.errors) {
                 throw new Error(response.errors[0].message);
             } else {
+                console.log(response.data.getQuestions);
                 return response.data.getQuestions;
             }
         });
@@ -146,27 +143,25 @@ export function getQuestion(getQuestionId: string) {
         }),
     })
         .then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                console.log("response:", response);
-                throw new Error('Network response was not ok.');
-            }
+            return response.json()
         })
         .then((response) => {
+            if(response.status && response.status === 'error'){
+                throw new Error(response.message);
+            }
             if (response.errors) {
-                console.log("response:", response);
                 throw new Error(response.errors[0].message);
             } else {
+                console.log(response.data.getQuestion);
                 return response.data.getQuestion;
             }
         });
 }
 
-export function answerQuestion(id: string, answer: string, author?: string) {
+export function answerQuestion(id: string, answer: string) {
     const query = `
-    mutation Mutation($id: ID!, $answer: String, $author: String) {
-      answerQuestion(id: $id, answer: $answer, author: $author) {
+    mutation Mutation($id: ID!, $answer: String) {
+      answerQuestion(id: $id, answer: $answer) {
         id
         title
         tags
@@ -196,18 +191,16 @@ export function answerQuestion(id: string, answer: string, author?: string) {
         body: JSON.stringify({
             query,
             authRequired: true,
-            variables: { id, answer, author },
+            variables: { id, answer },
         }),
     })
         .then((response) => {
-            console.log("Response", response);
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Network response was not ok.');
-            }
+            return response.json()
         })
         .then((response) => {
+            if(response.status && response.status === 'error'){
+                throw new Error(response.message);
+            }
             if (response.errors) {
                 throw new Error(response.errors[0].message);
             } else {

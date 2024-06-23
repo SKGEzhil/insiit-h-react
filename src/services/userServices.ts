@@ -26,14 +26,12 @@ export function createUser() {
         }),
     })
         .then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                console.log(response.json());
-                throw new Error('Network response was not ok.');
-            }
+            return response.json()
         })
         .then((response) => {
+            if(response.status && response.status === 'error'){
+                throw new Error(response.message);
+            }
             if (response.errors) {
                 throw new Error(response.errors[0].message);
             } else {
@@ -70,16 +68,12 @@ export function isUserExist(email: string) {
         }),
     })
         .then((response) => {
-            console.log("RESPONSE", response);
-            if (response.ok) {
-                return response.json();
-            } else {
-                console.log(response.json());
-                throw new Error('Network response was not ok.');
-            }
+            return response.json()
         })
         .then((response) => {
-            console.log("RESPONSE", response);
+            if(response.status && response.status === 'error'){
+                throw new Error(response.message);
+            }
             if (response.errors) {
                 return response.data.getUser;
             } else {

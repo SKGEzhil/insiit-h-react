@@ -1,4 +1,5 @@
 import React from "react";
+import {QuestionModel} from "../models/questionModel.ts";
 
 function AnswerComponent(props: { question: QuestionModel }) {
 
@@ -14,14 +15,12 @@ function AnswerComponent(props: { question: QuestionModel }) {
                         </div>
                         <hr className="solid my-2"/>
                         <div>
-                            <p className="text-xl">{
-
-                                answers.length === 0 ? <p>No answers yet</p> :
-
-                                answers.map((answer) => {
+                            {
+                                answers.length === 0 ? 'No answers yet' :
+                                answers.map((answer, index) => {
                                     return (
-                                        <div className="p-2 border rounded-md my-1">
-                                            <p className="text-left" style={{whiteSpace: 'pre-wrap'}}>{answer.answer}</p>
+                                        <div className="p-2 border rounded-md my-1" key={index} >
+                                            <p className="text-left text-md" style={{whiteSpace: 'pre-wrap'}}>{answer.answer}</p>
                                             <div>
                                                 <p className="text-right text-gray-400 text-sm">answered
                                                     by {answer.author.name}</p>
@@ -29,7 +28,7 @@ function AnswerComponent(props: { question: QuestionModel }) {
                                         </div>
                                     )
                                 })
-                            }</p>
+                            }
                         </div>
                     </div>
                 </div>

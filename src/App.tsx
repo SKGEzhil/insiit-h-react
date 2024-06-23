@@ -7,6 +7,8 @@ import {RouterProvider} from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google"
 import {AuthProvider} from "./context/authContext.tsx";
 import QuestionPage from "./pages/QuestionPage.tsx";
+import {ToastContainer} from "react-toastify";
+import {ToastProvider} from "./context/toastContext.tsx";
 
 
 
@@ -36,9 +38,12 @@ function App() {
   return (
     <>
         <GoogleOAuthProvider clientId={"443325784274-so7rpegs6mnn820jag6f1hdja048r3gf.apps.googleusercontent.com"}>
-            <AuthProvider>
-                <RouterProvider router={router} />
-            </AuthProvider>
+            <ToastProvider>
+                <AuthProvider>
+                    <RouterProvider router={router} />
+                    <ToastContainer />
+                </AuthProvider>
+            </ToastProvider>
         </GoogleOAuthProvider>
     </>)
 }

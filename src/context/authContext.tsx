@@ -3,6 +3,8 @@ import {createContext, useContext, useState, useEffect} from 'react';
 import {googleLogout, useGoogleLogin} from '@react-oauth/google';
 import {createUser, isUserExist} from '../services/userServices';
 import { jwtDecode } from "jwt-decode";
+import {toast} from "react-toastify";
+import {useShowToast} from "./toastContext.tsx";
 
 
 type authContextType = {
@@ -44,8 +46,8 @@ export const AuthProvider = ({children}) => {
         = useState<UserModel | null>(localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null);
     const [message, setMessage] = useState<{ status: string, message: string } | null>(null);
 
-    const [postLoginAction, setPostLoginAction] = useState<(() => void)>(() => {
-    });
+    const [postLoginAction, setPostLoginAction] = useState<(() => void)>(() => () => {});
+    const {showToast} = useShowToast();
 
     type tokenType = {
         name: string;
@@ -84,6 +86,7 @@ export const AuthProvider = ({children}) => {
                                 console.log("USER EXIST");
                                 setProfile(response);
                                 localStorage.setItem('userData', JSON.stringify(response));
+                                console.log(typeof postLoginAction);
                                 postLoginAction();
                             } else {
                                 console.log("USER NOT EXIST");
@@ -92,9 +95,19 @@ export const AuthProvider = ({children}) => {
                                     setProfile(response);
                                     localStorage.setItem('userData', JSON.stringify(response));
                                     postLoginAction();
-                                });
+                                }).catch(
+                                    (error) => {
+                                        console.error('Error:', error);
+                                        showToast({status: 'error', message: error.message});
+                                    }
+                                );
                             }
-                        });
+                        }).catch(
+                            (error) => {
+                                console.error('Error:', error);
+                                showToast({status: 'error', message: error.message});
+                            }
+                        );
 
                     }
                 });
@@ -104,17 +117,6 @@ export const AuthProvider = ({children}) => {
         flow: 'auth-code',
         onError: (error) => console.log('Login Failed:', error)
     });
-
-
-    // useEffect(
-    //     () => {
-    //         if (user) {
-    //
-    //
-    //         }
-    //     },
-    //     [user]
-    // );
 
     const logout = () => {
         googleLogout();

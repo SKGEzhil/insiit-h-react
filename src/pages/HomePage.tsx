@@ -6,6 +6,11 @@ import {useNavigate} from "react-router-dom";
 import QuestionListItem from "../components/questionListItem.tsx";
 import ProtectedButton from "../components/protectedButton.tsx";
 import {useAuth} from "../context/authContext.tsx";
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {useShowToast} from "../context/toastContext.tsx";
+
+
 const HomePage = () => {
 
     // const [searchText, setSearchText] = useState('');
@@ -13,6 +18,8 @@ const HomePage = () => {
     const navigate = useNavigate();
 
     const {questionList} = useQuestionFetch();
+
+    const {showToast} = useShowToast();
 
     const {login, logout} = useAuth();
 
@@ -40,6 +47,17 @@ const HomePage = () => {
                             login();
                         }}>
                             login
+                        </button>
+
+                        <button onClick={() => {
+                            // toast.success("Added to cart !", {
+                            //     position: "top-right",
+                            // });
+
+                            showToast({status: "success", message: "Success message"});
+
+                        }}>
+                            toast
                         </button>
 
                         <button className="mx-4" onClick={() => {
