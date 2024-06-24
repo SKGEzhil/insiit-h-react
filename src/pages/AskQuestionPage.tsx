@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import {createQuestion} from "../services/questionServices.ts";
-import {useDispatch} from "react-redux";
-import {addQuestion} from "../actions";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../context/authContext.tsx";
 import {useShowToast} from "../context/toastContext.tsx";
+import {createQuestionThunk} from "../store/actions/questionActions.ts";
+import {AppDispatch} from "../main.tsx";
 
 const AskQuestionPage = () => {
     const [title, setTitle] = useState('');
@@ -12,26 +13,32 @@ const AskQuestionPage = () => {
     const [tags, setTags] = useState([]);
     const [tagInput, setTagInput] = useState('');
 
-    const dispatch = useDispatch();
-
+    const dispatch = useDispatch<any>();
     const navigate = useNavigate();
 
     const {profile} = useAuth();
 
     const {showToast} = useShowToast();
 
+    const questionSliceError = useSelector((state) => state.questionSlice.error);
+
+    // useEffect(() => {
+    //     if (questionSliceError) {
+    //         console.error('Error creating question:@', questionSliceError);
+    //         showToast({status: 'error', message: 'questionSliceError'});
+    //     }
+    // }, [questionSliceError]);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         // Handle form submission logic here
         console.log({title, body, tags});
-        const question = await createQuestion(title, body, tags).catch(
-            (error) => {
-                console.error('Error:', error);
-                showToast({status: 'error', message: error.message});
+
+        dispatch(createQuestionThunk({title, body, tags})).then(
+            (result) => {
+                result.error ? showToast({status: 'error', message: result.error.message}) : navigate('/');
             }
         );
-        dispatch(addQuestion(question));
-        navigate('/');
     };
 
     const handleTagInputChange = (e) => {

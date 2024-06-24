@@ -19,7 +19,7 @@ export function useGetQuestion(id: string) {
                         console.error('Error:', error);
                         showToast({status: 'error', message: error.message});
                     }
-                );;
+                );
                 setQuestion(fetchedQuestion);
             } catch (error) {
                 console.error(error);

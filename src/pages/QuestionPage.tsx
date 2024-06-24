@@ -3,10 +3,11 @@ import {useParams} from "react-router";
 import QuestionComponent from "../components/questionComponent.tsx";
 import AnswerComponent from "../components/answerComponent.tsx";
 import ProtectedButton from "../components/protectedButton.tsx";
-import {answerQuestion} from "../services/questionServices.ts";
 import React, {useState} from "react";
 import {useAuth} from "../context/authContext.tsx";
 import {useShowToast} from "../context/toastContext.tsx";
+import {useDispatch} from "react-redux";
+import {answerQuestionThunk} from "../store/actions/questionActions.ts";
 
 function QuestionPage() {
 
@@ -20,6 +21,7 @@ function QuestionPage() {
 
     const {profile} = useAuth();
 
+    const dispatch = useDispatch<any>();
 
 
     return (
@@ -71,15 +73,13 @@ function QuestionPage() {
                                         </div>
                                         <div className="flex justify-center my-2">
                                             <ProtectedButton onClick={() => {
-                                                answerQuestion(question.id, yourAnswer).then(r => {
-                                                    console.log("Answer:", r)
-                                                    setRefresh(true);
-                                                }).catch(
-                                                    (error) => {
-                                                        console.error('Error:', error);
-                                                        showToast({status: 'error', message: error.message});
+
+                                                dispatch(answerQuestionThunk({questionId: question.id, answer: yourAnswer})).then(
+                                                    (result) => {
+                                                        result.error ? showToast({status: 'error', message: result.error.message}) : setRefresh(true);
                                                     }
-                                                );;
+                                                );
+
                                                 setYourAnswer("");
                                             }}>
                                                 Submit

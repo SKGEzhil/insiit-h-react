@@ -44,6 +44,7 @@ export function createQuestion(title: string, body: string, tags: string[]) {
         })
         .then((response) => {
             if(response.status && response.status === 'error'){
+                console.log('ERROR OCCURED');
                 throw new Error(response.message);
             }
             if (response.errors) {
