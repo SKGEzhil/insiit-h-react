@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {answerQuestion, createQuestion} from "../../services/questionServices.ts";
+import {answerQuestion, createComment, createQuestion} from "../../services/questionServices.ts";
 
 export const createQuestionThunk
     = createAsyncThunk('questionSlice/createQuestionThunk',
@@ -36,3 +36,20 @@ export const answerQuestionThunk
         }
 
     });
+
+export const createCommentThunk = createAsyncThunk('questionSlice/createCommentThunk',
+    async ({
+                questionId,
+                answerId,
+                comment
+              }) => {
+          try {
+                return await createComment(questionId, answerId, comment).catch((error) => {
+                 console.error("Error creating comment: ", error.message);
+                 throw error.message;
+                });
+          } catch (e) {
+                console.error("Error creating comment: ", e);
+                throw e;
+          }
+    })

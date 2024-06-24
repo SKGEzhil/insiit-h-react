@@ -13,6 +13,7 @@ export function useGetQuestion(id: string) {
 
     useEffect(() => {
         const fetchQuestion = async () => {
+            console.log("Fetching question")
             try {
                 const fetchedQuestion = await getQuestion(id).catch(
                     (error) => {

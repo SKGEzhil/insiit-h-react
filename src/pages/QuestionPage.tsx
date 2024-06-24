@@ -23,7 +23,6 @@ function QuestionPage() {
 
     const dispatch = useDispatch<any>();
 
-
     return (
         question ?
             <div>

@@ -1,6 +1,4 @@
 import {endPoint} from "../config/constants.ts";
-import {useAuth} from "../context/authContext.tsx";
-
 
 export function createQuestion(title: string, body: string, tags: string[]) {
 
@@ -10,11 +8,18 @@ export function createQuestion(title: string, body: string, tags: string[]) {
         id
         title
         answer {
+          id
           answer
           author {
             name
           }
-            date
+          comments {
+            comment
+            author {
+              name
+            }
+          }
+          date
         }
         body
         tags
@@ -66,9 +71,16 @@ export function getQuestions() {
           name
         }
         answer {
+          id
           answer
           author {
             name
+          }
+          comments {
+            comment
+            author {
+              name
+            }
           }
           date
         }
@@ -120,9 +132,16 @@ export function getQuestion(getQuestionId: string) {
         tags
         title
         answer {
+          id
           answer
           author {
             name
+          }
+          comments {
+            comment
+            author {
+              name
+            }
           }
           date
         }
@@ -147,6 +166,7 @@ export function getQuestion(getQuestionId: string) {
             return response.json()
         })
         .then((response) => {
+            console.log(response);
             if(response.status && response.status === 'error'){
                 throw new Error(response.message);
             }
@@ -171,9 +191,16 @@ export function answerQuestion(id: string, answer: string) {
           name
         }
         answer {
+          id
           answer
           author {
             name
+          }
+          comments {
+            comment
+            author {
+              name
+            }
           }
           date
         }
@@ -211,4 +238,62 @@ export function answerQuestion(id: string, answer: string) {
         });
 }
 
+export function createComment(questionId: string, answerId: string, comment: string) {
+    const query = `
+    mutation Mutation($questionId: ID!, $answerId: ID!, $comment: String) {
+      addComment(questionId: $questionId, answerId: $answerId, comment: $comment) {
+        id
+        title
+        tags
+        body
+        author {
+          name
+        }
+        answer {
+          id
+          answer
+          author {
+            name
+          }
+          comments {
+            comment
+            author {
+              name
+            }
+          }
+          date
+        }
+        date
+      }
+    }
+  `;
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            authRequired: true,
+            variables: { questionId, answerId, comment },
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if(response.status && response.status === 'error'){
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                console.log(response.data.answerQuestion);
+                return response.data.answerQuestion;
+            }
+        });
+}
 
