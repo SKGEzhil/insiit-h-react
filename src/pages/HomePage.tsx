@@ -11,7 +11,6 @@ import {useShowToast} from "../context/toastContext.tsx";
 
 const HomePage = () => {
 
-
     const navigate = useNavigate();
     const {questionList} = useQuestionFetch();
     const {showToast} = useShowToast();
@@ -19,10 +18,6 @@ const HomePage = () => {
 
     return (
         <div className="flex flex-col h-screen">
-            <div className="bg-bg-2 text-center p-5 m-2 rounded-xl">
-                <h1 className="text-4xl font-bold">InsIIT</h1>
-                <p className="text-xl">All the Insights you need!</p>
-            </div>
 
             <div className="flex flex-1">
 

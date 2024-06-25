@@ -2,16 +2,17 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
-import {createStore} from "redux";
 import {Provider} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
 import questionSlice from "./store/slices/questionSlice.ts";
+import navigationSlice from "./store/slices/navigationSlice.ts";
 
 // const store = createStore(reducers);
 
 const store = configureStore({
     reducer: {
-        questionSlice: questionSlice
+        questionSlice: questionSlice,
+        navigationSlice: navigationSlice
     }
 })
 

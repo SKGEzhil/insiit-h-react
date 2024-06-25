@@ -9,39 +9,40 @@ import {AuthProvider} from "./context/authContext.tsx";
 import QuestionPage from "./pages/QuestionPage.tsx";
 import {ToastContainer} from "react-toastify";
 import {ToastProvider} from "./context/toastContext.tsx";
-
-
+import MainLayout from "./layouts/mainLayout.tsx";
+import ForumLayout from "./layouts/forumLayout.tsx";
 
 function App() {
   // const [count, setCount] = useState(0)
 
     const base_route = "";
 
-    const router = createBrowserRouter([
+    const routes = createBrowserRouter([
 
-            {
-                path: `${base_route}/`,
-                element: <HomePage />,
-            },
-            {
-                path: `${base_route}/question/:id`,
-                element: <QuestionPage />,
-            },
-            {
-                path: `${base_route}/ask`,
-                element: <AskQuestionPage />,
-            }
-
+        {
+            element: <MainLayout />,
+            children: [
+                { path: `${base_route}/ask`, element: <AskQuestionPage /> },
+            ],
+        },
+        {
+            element: <ForumLayout />,
+            children: [
+                { path: `${base_route}/`, element: <HomePage /> },
+                { path: `${base_route}/question/:id`, element: <QuestionPage /> },
+            ],
+        },
         ]
     );
+
 
   return (
     <>
         <GoogleOAuthProvider clientId={"443325784274-so7rpegs6mnn820jag6f1hdja048r3gf.apps.googleusercontent.com"}>
             <ToastProvider>
                 <AuthProvider>
-                    <RouterProvider router={router} />
-                    <ToastContainer />
+                    <RouterProvider router={routes} />
+                    <ToastContainer/>
                 </AuthProvider>
             </ToastProvider>
         </GoogleOAuthProvider>

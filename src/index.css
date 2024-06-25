@@ -84,6 +84,7 @@
 
     p, label, a, button, input, textarea {
         @apply text-white;
+        /*@apply text-black*/
     }
     h1{
         @apply text-primary;
@@ -96,8 +97,8 @@
         @apply max-w-full;
     }
     button{
-        @apply bg-primary;
-        @apply rounded-md;
+        /*@apply bg-primary;*/
+        /*@apply rounded-md;*/
         @apply text-white;
         @apply p-2;
         @apply m-1;
