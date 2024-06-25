@@ -13,7 +13,7 @@ const AskQuestionPage = () => {
     const [tags, setTags] = useState([]);
     const [tagInput, setTagInput] = useState('');
 
-    const dispatch = useDispatch<any>();
+    const dispatch = useDispatch<never>();
     const navigate = useNavigate();
 
     const {profile} = useAuth();
@@ -57,12 +57,12 @@ const AskQuestionPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-            <div className="bg-white p-8 rounded shadow-md w-full max-w-3xl">
+        <div className="min-h-screen flex items-center justify-center p-4">
+            <div className="bg-bg-3 p-8 rounded-xl shadow-lg w-full max-w-3xl">
                 <h1 className="text-2xl font-bold mb-6">Ask a public question</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-gray-700 font-semibold mb-2 text-left">
+                        <label className="block font-semibold mb-2 text-left">
                             Title*
                         </label>
                         <input
@@ -71,11 +71,11 @@ const AskQuestionPage = () => {
                             onChange={(e) => setTitle(e.target.value)}
                             placeholder="Be specific and imagine you’re asking a question to another person"
                             required
-                            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                            className="w-full bg-bg-2 px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700 font-semibold mb-2 text-left">
+                        <label className="block font-semibold mb-2 text-left">
                             Body*
                         </label>
                         <textarea
@@ -83,22 +83,22 @@ const AskQuestionPage = () => {
                             onChange={(e) => setBody(e.target.value)}
                             placeholder="Include all the information someone would need to answer your question"
                             required
-                            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300 h-48"
+                            className="w-full px-3 py-2 bg-bg-2 focus:outline-none focus:ring focus:border-blue-300 h-48"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700 font-semibold mb-2 text-left">
+                        <label className="block font-semibold mb-2 text-left">
                             Tags*
                         </label>
 
-                        <div className="flex justify-center items-center border rounded px-2 py-1">
+                        <div className="flex justify-center items-center bg-bg-2 rounded-md px-2 py-1">
                                     {tags.map((tag, index) => (
-                                        <div key={index} className="flex items-center justify-center bg-gray-200 rounded-md px-3 py-1 mr-2">
+                                        <div key={index} className="flex items-center text-gray-300 justify-center bg-bg-5 rounded-md px-3 py-1 mr-2">
                                             <span>{tag}</span>
                                             <button
                                                 type="button"
                                                 onClick={() => removeTag(index)}
-                                                className="ml-2 text-gray-600 hover:text-gray-800 focus:outline-none"
+                                                className="ml-2 text-gray-300 bg-bg-5 hover:text-gray-800 p-0 m-0  focus:outline-none"
                                             >
                                                 &times;
                                             </button>
@@ -110,14 +110,14 @@ const AskQuestionPage = () => {
                                     onChange={handleTagInputChange}
                                     onKeyDown={handleTagInputKeyDown}
                                     placeholder="Add up to 5 tags to describe what your question is about"
-                                    className="flex-grow px-3 py-2 focus:outline-none"
+                                    className="flex-grow px-3 py-2 bg-bg-2 focus:outline-none"
                                 />
                         </div>
 
                     </div>
                     <button
                         type="submit"
-                        className="w-full py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700"
+                        className="w-full py-2 text-white font-semibold hover:bg-blue-700"
                     >
                         Review your question
                     </button>

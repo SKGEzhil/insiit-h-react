@@ -19,21 +19,15 @@ const HomePage = () => {
 
     return (
         <div className="flex flex-col h-screen">
-            <div className="bg-yellow-200 text-center p-5">
+            <div className="bg-bg-2 text-center p-5 m-2 rounded-xl">
                 <h1 className="text-4xl font-bold">InsIIT</h1>
                 <p className="text-xl">All the Insights you need!</p>
             </div>
 
             <div className="flex flex-1">
-                <div className="bg-red-300 w-48 flex flex-col">
-                    <button className="p-4 text-left hover:bg-red-400">Public Forum</button>
-                    <button className="p-4 text-left hover:bg-red-400">Courses</button>
-                    <button className="p-4 text-left hover:bg-red-400">Campus Life</button>
-                    <button className="p-4 text-left hover:bg-red-400">Extras</button>
-                    <button className="p-4 text-left hover:bg-red-400">Predictor</button>
-                </div>
+
                 <div className="flex-1 p-5">
-                    <h2 className="bg-gray-300 p-4 ">Public Forum</h2>
+                    <h1 className=" bg-bg-2 rounded-md p-4 ">Public Forum</h1>
 
                     <div className="flex justify-end">
 

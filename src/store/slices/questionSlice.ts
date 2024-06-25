@@ -1,5 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {answerQuestionThunk, createCommentThunk, createQuestionThunk} from "../actions/questionActions.ts";
+import {
+    answerQuestionThunk,
+    createCommentThunk,
+    createQuestionThunk,
+    upvoteQuestionThunk
+} from "../actions/questionActions.ts";
 import {QuestionModel} from "../../models/questionModel.ts";
 
 const initialState = {
@@ -68,6 +73,19 @@ const questionSlice = createSlice({
             .addCase(createCommentThunk.rejected, (state: QuestionState, action) => {
                 state.loading = false;
                 console.error("Error creating comment: ", action.error.message);
+                state.error = action.error.message;
+            })
+            .addCase(upvoteQuestionThunk.pending, (state: QuestionState) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(upvoteQuestionThunk.fulfilled, (state: QuestionState, action) => {
+                state.loading = false;
+                console.log("Question upvoted: ", action.payload);
+            })
+            .addCase(upvoteQuestionThunk.rejected, (state: QuestionState, action) => {
+                state.loading = false;
+                console.error("Error upvoting question: ", action.error.message);
                 state.error = action.error.message;
             })
     }

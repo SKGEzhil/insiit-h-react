@@ -27,6 +27,9 @@ export function createQuestion(title: string, body: string, tags: string[]) {
             name
        }
        date
+       votes {
+          votes
+        }
       }
     }
   `;
@@ -86,6 +89,9 @@ export function getQuestions() {
         }
         tags
         date
+        votes {
+          votes
+        }
       }
     }
   `;
@@ -146,6 +152,9 @@ export function getQuestion(getQuestionId: string) {
           date
         }
         date
+        votes {
+          votes
+        }
       }
     }
   `;
@@ -205,6 +214,9 @@ export function answerQuestion(id: string, answer: string) {
           date
         }
         date
+        votes {
+          votes
+        }
       }
     }
   `;
@@ -241,7 +253,7 @@ export function answerQuestion(id: string, answer: string) {
 export function createComment(questionId: string, answerId: string, comment: string) {
     const query = `
     mutation Mutation($questionId: ID!, $answerId: ID!, $comment: String) {
-      addComment(questionId: $questionId, answerId: $answerId, comment: $comment) {
+      createComments(questionId: $questionId, answerId: $answerId, comment: $comment) {
         id
         title
         tags
@@ -264,6 +276,9 @@ export function createComment(questionId: string, answerId: string, comment: str
           date
         }
         date
+        votes {
+          votes
+        }
       }
     }
   `;
@@ -291,9 +306,72 @@ export function createComment(questionId: string, answerId: string, comment: str
             if (response.errors) {
                 throw new Error(response.errors[0].message);
             } else {
-                console.log(response.data.answerQuestion);
-                return response.data.answerQuestion;
+                console.log(response.data.createComments);
+                return response.data.createComments;
             }
         });
 }
+
+export function upvoteQuestion(id: string) {
+    const query = `
+    mutation Mutation($id: ID!) {
+      upvoteQuestion(id: $id) {
+        id
+        title
+        tags
+        body
+        author {
+          name
+        }
+        answer {
+          id
+          answer
+          author {
+            name
+          }
+          comments {
+            comment
+            author {
+              name
+            }
+          }
+          date
+        }
+        date
+        votes {
+          votes
+        }
+      }
+    }
+  `;
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            authRequired: true,
+            variables: { id },
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if(response.status && response.status === 'error'){
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                console.log(response.data.upvoteQuestion);
+                return response.data.upvoteQuestion;
+            }
+        });
+}
+
 

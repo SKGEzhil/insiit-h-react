@@ -21,11 +21,11 @@ function QuestionPage() {
 
     const {profile} = useAuth();
 
-    const dispatch = useDispatch<any>();
+    const dispatch = useDispatch<never>();
 
     return (
         question ?
-            <div>
+            <div className="flex-grow flex-col justify-center">
                 <div className="my-1">
                     <QuestionComponent question={question}/>
                 </div>

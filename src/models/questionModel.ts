@@ -16,6 +16,7 @@ export class QuestionModel {
     }[];
     author: { name: string; };
     date: string;
+    votes: { votes: number; };
 
     constructor(id: string, title: string, body: string, tags: string[], answer: {
         id: string,
@@ -24,9 +25,9 @@ export class QuestionModel {
         comments: {
             comment: string,
             author: { name: string }
-        },
+        }[],
         date: string,
-    }[], author: { name: string }, date: string) {
+    }[], author: { name: string }, date: string, votes: { votes: number}) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -34,7 +35,7 @@ export class QuestionModel {
         this.answer = answer;
         this.author = author;
         this.date = date;
-
+        this.votes = votes;
     }
 
 }

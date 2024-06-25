@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {answerQuestion, createComment, createQuestion} from "../../services/questionServices.ts";
+import {answerQuestion, createComment, createQuestion, upvoteQuestion} from "../../services/questionServices.ts";
 
 export const createQuestionThunk
     = createAsyncThunk('questionSlice/createQuestionThunk',
@@ -53,3 +53,18 @@ export const createCommentThunk = createAsyncThunk('questionSlice/createCommentT
                 throw e;
           }
     })
+
+export const upvoteQuestionThunk = createAsyncThunk('questionSlice/upvoteQuestionThunk',
+    async ({questionId}) => {
+        try {
+            return await upvoteQuestion(questionId).catch((error) => {
+                console.error("Error upvoting question: ", error.message);
+                throw error.message;
+            });
+        } catch (e) {
+            console.error("Error upvoting question: ", e);
+            throw e;
+        }
+    });
+
+
