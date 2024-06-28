@@ -63,10 +63,10 @@ export function createQuestion(title: string, body: string, tags: string[]) {
             }
         });
 }
-export function getQuestions() {
+export function getQuestions(page: number, limit: number) {
     const query = `
-    query Query {
-      getQuestions {
+    query Query ($page: Int!, $limit: Int!) {
+      getQuestions(page: $page, limit: $limit) {
         id
         title
         body
@@ -92,6 +92,7 @@ export function getQuestions() {
         votes {
           votes
         }
+        totalQues
       }
     }
   `;
@@ -105,7 +106,11 @@ export function getQuestions() {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
-        body: JSON.stringify({ query , authRequired: false}),
+        body: JSON.stringify({
+            query ,
+            variables: { page, limit },
+            authRequired: false}
+        ),
     })
         .then((response) => {
            return response.json()
@@ -155,6 +160,7 @@ export function getQuestion(getQuestionId: string) {
         votes {
           votes
         }
+        totalQues
       }
     }
   `;
@@ -375,3 +381,64 @@ export function upvoteQuestion(id: string) {
 }
 
 
+export function searchQuestion(search: string) {
+    const query = `
+    mutation Mutation($search: String!) {
+      searchFunction(search: $search) {
+        id
+        title
+        tags
+        body
+        author {
+          name
+        }
+        answer {
+          id
+          answer
+          author {
+            name
+          }
+          comments {
+            comment
+            author {
+              name
+            }
+          }
+          date
+        }
+        date
+        votes {
+          votes
+        }
+      }
+    }
+  `;
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            authRequired: true,
+            variables: { search },
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if(response.status && response.status === 'error'){
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                console.log(response.data.searchFunction);
+                return response.data.searchFunction;
+            }
+        });
+}

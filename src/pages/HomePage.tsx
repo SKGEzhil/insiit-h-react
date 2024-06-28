@@ -7,6 +7,8 @@ import ProtectedButton from "../components/protectedButton.tsx";
 import {useAuth} from "../context/authContext.tsx";
 import "react-toastify/dist/ReactToastify.css";
 import {useShowToast} from "../context/toastContext.tsx";
+import PaginatorComponent from "../components/paginatorComponent.tsx";
+import SearchBar from "../components/searchBar.tsx";
 
 
 const HomePage = () => {
@@ -23,6 +25,8 @@ const HomePage = () => {
 
                 <div className="flex-1 p-5">
                     <h1 className=" bg-bg-2 rounded-md p-4 ">Public Forum</h1>
+
+                    <SearchBar/>
 
                     <div className="flex justify-end">
 
@@ -53,11 +57,17 @@ const HomePage = () => {
 
                     {
                         questionList.map((question) => {
+                            // console.log(question.totalQues);
                             return (
                                 <QuestionListItem question={question} key={question.id}/>
                             )
                         })
                     }
+
+                    <div>
+                        <PaginatorComponent question={questionList[0]} page='home'/>
+                    </div>
+
 
                 </div>
 

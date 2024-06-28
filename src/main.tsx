@@ -6,13 +6,15 @@ import {Provider} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
 import questionSlice from "./store/slices/questionSlice.ts";
 import navigationSlice from "./store/slices/navigationSlice.ts";
+import paginatorSlice from "./store/slices/paginatorSlice.ts";
 
 // const store = createStore(reducers);
 
 const store = configureStore({
     reducer: {
         questionSlice: questionSlice,
-        navigationSlice: navigationSlice
+        navigationSlice: navigationSlice,
+        paginatorSlice: paginatorSlice,
     }
 })
 

@@ -1,5 +1,11 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {answerQuestion, createComment, createQuestion, upvoteQuestion} from "../../services/questionServices.ts";
+import {
+    answerQuestion,
+    createComment,
+    createQuestion,
+    searchQuestion,
+    upvoteQuestion
+} from "../../services/questionServices.ts";
 
 export const createQuestionThunk
     = createAsyncThunk('questionSlice/createQuestionThunk',
@@ -67,4 +73,16 @@ export const upvoteQuestionThunk = createAsyncThunk('questionSlice/upvoteQuestio
         }
     });
 
+export const searchQuestionThunk = createAsyncThunk('questionSlice/searchQuestionsThunk',
+    async ({searchTerm}) => {
+        try {
+            return await searchQuestion(searchTerm).catch((error) => {
+                console.error("Error searching questions: ", error.message);
+                throw error.message;
+            });
+        } catch (e) {
+            console.error("Error searching questions: ", e);
+            throw e;
+        }
+    });
 

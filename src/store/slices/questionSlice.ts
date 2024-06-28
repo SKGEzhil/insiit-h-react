@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {
     answerQuestionThunk,
     createCommentThunk,
-    createQuestionThunk,
+    createQuestionThunk, searchQuestionThunk,
     upvoteQuestionThunk
 } from "../actions/questionActions.ts";
 import {QuestionModel} from "../../models/questionModel.ts";
@@ -86,6 +86,20 @@ const questionSlice = createSlice({
             .addCase(upvoteQuestionThunk.rejected, (state: QuestionState, action) => {
                 state.loading = false;
                 console.error("Error upvoting question: ", action.error.message);
+                state.error = action.error.message;
+            })
+            .addCase(searchQuestionThunk.pending, (state: QuestionState) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(searchQuestionThunk.fulfilled, (state: QuestionState, action) => {
+                state.loading = false;
+                console.log("Questions found: ", action.payload);
+                state.questions = action.payload as QuestionModel[];
+            })
+            .addCase(searchQuestionThunk.rejected, (state: QuestionState, action) => {
+                state.loading = false;
+                console.error("Error searching questions: ", action.error.message);
                 state.error = action.error.message;
             })
     }
