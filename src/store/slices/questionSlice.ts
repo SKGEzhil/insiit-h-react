@@ -6,6 +6,7 @@ import {
     upvoteQuestionThunk
 } from "../actions/questionActions.ts";
 import {QuestionModel} from "../../models/questionModel.ts";
+import {startProgress} from "./progressSlice.ts";
 
 const initialState = {
     questions: [],

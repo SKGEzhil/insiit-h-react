@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {getQuestions} from "../services/questionServices.ts";
 import {useDispatch, useSelector} from "react-redux";
 import {updateQuestionList} from "../store/slices/questionSlice.ts";
+import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
 
 export function useQuestionFetch(currentPage) {
 
@@ -13,9 +14,15 @@ export function useQuestionFetch(currentPage) {
 
     useEffect(() => {
         console.log('Fetching questions');
+        dispatch(startProgress())
         const fetchQuestions = async () => {
             try {
-                dispatch(updateQuestionList(await getQuestions(parseInt(currentPage), 3)));
+                dispatch(updateQuestionList(await getQuestions(parseInt(currentPage), 3).then(
+                    (response) => {
+                        dispatch(endProgress());
+                        return response;
+                    }
+                )));
                 setRefresh(false);
             } catch (error) {
                 console.error(error);

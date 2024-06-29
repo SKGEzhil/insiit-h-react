@@ -3,19 +3,30 @@ import { useState, useEffect } from 'react';
 import { getQuestion } from '../services/questionServices.ts';
 import {QuestionModel} from "../models/questionModel.ts";
 import {useShowToast} from "../context/toastContext.tsx";
+import {useDispatch} from "react-redux";
+import {endProgress, resetProgress, startProgress} from "../store/slices/progressSlice.ts";
 
 export function useGetQuestion(id: string) {
 
     const [question, setQuestion] = useState<QuestionModel>(null);
     const [refresh, setRefresh] = useState(false);
 
+    const dispatch = useDispatch<never>();
+
     const {showToast} = useShowToast();
 
     useEffect(() => {
         const fetchQuestion = async () => {
             console.log("Fetching question")
+            dispatch(startProgress());
             try {
-                const fetchedQuestion = await getQuestion(id).catch(
+                const fetchedQuestion = await getQuestion(id).then(
+                    (response) => {
+                        dispatch(endProgress());
+                        return response;
+                    }
+                )
+                    .catch(
                     (error) => {
                         console.error('Error:', error);
                         showToast({status: 'error', message: error.message});

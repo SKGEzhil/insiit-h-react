@@ -12,6 +12,7 @@ import SearchBar from "../components/searchBar.tsx";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {setPage} from "../store/slices/paginatorSlice.ts";
+import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
 
 
 const ForumPage = () => {
@@ -39,8 +40,10 @@ const ForumPage = () => {
         setRefresh(true)
     }, [page]);
 
+
     return (
         <div className="flex flex-col h-screen">
+
 
             <div className="flex flex-1">
 
@@ -57,6 +60,14 @@ const ForumPage = () => {
                         </button>
 
                         <button onClick={() => {
+                            dispatch(startProgress());
+                            showToast({status: "success", message: "Success message"});
+                        }}>
+                            toast
+                        </button>
+
+                        <button onClick={() => {
+                            dispatch(endProgress());
                             showToast({status: "success", message: "Success message"});
                         }}>
                             toast

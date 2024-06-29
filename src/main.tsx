@@ -7,6 +7,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import questionSlice from "./store/slices/questionSlice.ts";
 import navigationSlice from "./store/slices/navigationSlice.ts";
 import paginatorSlice from "./store/slices/paginatorSlice.ts";
+import progressSlice from "./store/slices/progressSlice.ts";
 
 // const store = createStore(reducers);
 
@@ -15,6 +16,7 @@ const store = configureStore({
         questionSlice: questionSlice,
         navigationSlice: navigationSlice,
         paginatorSlice: paginatorSlice,
+        progressSlice: progressSlice,
     }
 })
 
