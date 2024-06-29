@@ -1,7 +1,7 @@
 
 
 import {useQuestionFetch} from "../hooks/useQuestionFetch.ts";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import QuestionListItem from "../components/questionListItem.tsx";
 import ProtectedButton from "../components/protectedButton.tsx";
 import {useAuth} from "../context/authContext.tsx";
@@ -9,14 +9,35 @@ import "react-toastify/dist/ReactToastify.css";
 import {useShowToast} from "../context/toastContext.tsx";
 import PaginatorComponent from "../components/paginatorComponent.tsx";
 import SearchBar from "../components/searchBar.tsx";
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {setPage} from "../store/slices/paginatorSlice.ts";
 
 
-const HomePage = () => {
+const ForumPage = () => {
+
+    const location = useLocation();
+
+    // Function to extract query parameters
+    const getQueryParams = () => {
+        return new URLSearchParams(location.search);
+    };
+
+    // Extracting query and page parameters
+    const page = parseInt(getQueryParams().get('page')) || 1;
+
 
     const navigate = useNavigate();
-    const {questionList} = useQuestionFetch();
+    const {questionList, setRefresh} = useQuestionFetch(page);
+    const dispatch = useDispatch<never>();
     const {showToast} = useShowToast();
     const {login, logout} = useAuth();
+
+    useEffect(() => {
+        console.log('page', page);
+        dispatch(setPage(page));
+        setRefresh(true)
+    }, [page]);
 
     return (
         <div className="flex flex-col h-screen">
@@ -24,11 +45,10 @@ const HomePage = () => {
             <div className="flex flex-1">
 
                 <div className="flex-1 p-5">
-                    <h1 className=" bg-bg-2 rounded-md p-4 ">Public Forum</h1>
-
-                    <SearchBar/>
 
                     <div className="flex justify-end">
+
+                        <SearchBar/>
 
                         <button onClick={() => {
                             login();
@@ -57,7 +77,6 @@ const HomePage = () => {
 
                     {
                         questionList.map((question) => {
-                            // console.log(question.totalQues);
                             return (
                                 <QuestionListItem question={question} key={question.id}/>
                             )
@@ -65,7 +84,7 @@ const HomePage = () => {
                     }
 
                     <div>
-                        <PaginatorComponent question={questionList[0]} page='home'/>
+                        <PaginatorComponent/>
                     </div>
 
 
@@ -79,4 +98,4 @@ const HomePage = () => {
     );
 }
 
-export default HomePage;
+export default ForumPage;

@@ -74,9 +74,9 @@ export const upvoteQuestionThunk = createAsyncThunk('questionSlice/upvoteQuestio
     });
 
 export const searchQuestionThunk = createAsyncThunk('questionSlice/searchQuestionsThunk',
-    async ({searchTerm}) => {
+    async ({searchTerm, page}) => {
         try {
-            return await searchQuestion(searchTerm).catch((error) => {
+            return await searchQuestion(searchTerm, page, 3).catch((error) => {
                 console.error("Error searching questions: ", error.message);
                 throw error.message;
             });

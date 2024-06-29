@@ -381,10 +381,10 @@ export function upvoteQuestion(id: string) {
 }
 
 
-export function searchQuestion(search: string) {
+export function searchQuestion(search: string, page: number, limit: number) {
     const query = `
-    mutation Mutation($search: String!) {
-      searchFunction(search: $search) {
+    query Query($search: String!, $page: Int!, $limit: Int!) {
+      searchFunction(search: $search, page: $page, limit: $limit) {
         id
         title
         tags
@@ -424,7 +424,7 @@ export function searchQuestion(search: string) {
         body: JSON.stringify({
             query,
             authRequired: true,
-            variables: { search },
+            variables: { search, page, limit },
         }),
     })
         .then((response) => {

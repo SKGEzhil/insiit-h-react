@@ -1,67 +1,43 @@
-import {QuestionModel} from "../models/questionModel.ts";
-import {useDispatch, useSelector} from "react-redux";
-import {setPage} from "../store/slices/paginatorSlice.ts";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
-function PaginatorComponent(props: {question: QuestionModel, page: string}) {
+function PaginatorComponent() {
 
-    const limit = 5;
 
     const currentPage = useSelector((state) => state.paginatorSlice.page);
-    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+
+    // Function to update only the page query parameter
+    const updatePageParam = (newPage: number) => {
+        const queryParams = new URLSearchParams(location.search);
+        queryParams.set('page', newPage.toString());
+
+        // Construct the new path
+        const newPath = `${location.pathname}?${queryParams.toString()}`;
+
+        // Navigate to the new path
+        navigate(newPath);
+    };
 
   return (
-      props.question ?
-          props.question.totalQues ?
     <div className="flex justify-center items-center">
       <button
           className={currentPage === 1 ? 'hidden' : ''}
           onClick={() => {
-              props.page === 'home' ?
-                  dispatch(setPage(currentPage-1)) : null;
+              updatePageParam(currentPage-1);
           }}
       >
           Previous</button>
-        {
-                           props.question.totalQues/limit > 5 ?
-                [...Array(5).keys()].map((i) => {
-                    return <button
-                        onClick={() => {
-                            props.page === 'home' ?
-                                dispatch(setPage(i+1)) : null;
-                        }}
-                        key={i}>{i+1}</button>
-                }) :
 
-            [...Array(Math.ceil(props.question.totalQues/limit)).keys()].map((i) => {
-                return <button
-                    onClick={() => {
-                        props.page === 'home' ?
-                            dispatch(setPage(i+1)) : null;
-                    }}
-                    key={i}>{i+1}</button>
-            })
-        }
-        <p>...</p>
-        {
-                props.question.totalQues/limit > 5 ?
-                    <button
-                        onClick={() => {
-                            props.page === 'home' ?
-                                dispatch(setPage(Math.ceil(props.question.totalQues/limit))) : null;
-                        }}
-                    >{Math.ceil(props.question.totalQues/limit)}
-                    </button>
-            : ''
-        }
       <button
-          className={currentPage === Math.ceil(props.question.totalQues/limit) ? 'hidden' : ''}
             onClick={() => {
-                props.page === 'home' ?
-                    dispatch(setPage(currentPage+1)) : null;
+                updatePageParam(currentPage+1);
             }}
       >Next
       </button>
-    </div> : '' : ''
+    </div>
   );
 }
 

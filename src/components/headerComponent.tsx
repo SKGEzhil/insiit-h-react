@@ -29,7 +29,7 @@ function HeaderComponent() {
               <button
                   onClick={() => {
                      dispatch(navigateTo("home"));
-                     navigate("/");
+                     navigate("/forum");
                      console.log('CURRENT PAGE', currentPage)
                   }}
                   className={currentPage === 'home' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>

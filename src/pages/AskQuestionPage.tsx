@@ -1,44 +1,42 @@
-import {useEffect, useState} from 'react';
-import {createQuestion} from "../services/questionServices.ts";
-import {useDispatch, useSelector} from "react-redux";
+import {useState} from 'react';
+import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "../context/authContext.tsx";
 import {useShowToast} from "../context/toastContext.tsx";
 import {createQuestionThunk} from "../store/actions/questionActions.ts";
-import {AppDispatch} from "../main.tsx";
 
 const AskQuestionPage = () => {
-    const [title, setTitle] = useState('');
-    const [body, setBody] = useState('');
-    const [tags, setTags] = useState([]);
-    const [tagInput, setTagInput] = useState('');
+    const [title, setTitle] =
+        useState<string>(localStorage.getItem('ask') ? JSON.parse(localStorage.getItem('ask')).title : '');
+    const [body, setBody] =
+        useState<string>(localStorage.getItem('ask') ? JSON.parse(localStorage.getItem('ask')).body : '');
+    const [tags, setTags] =
+        useState<string[]>(localStorage.getItem('ask') ? JSON.parse(localStorage.getItem('ask')).tags : []);
+    const [tagInput, setTagInput] = useState<string>('');
 
     const dispatch = useDispatch<never>();
     const navigate = useNavigate();
 
-    const {profile} = useAuth();
-
     const {showToast} = useShowToast();
-
-    const questionSliceError = useSelector((state) => state.questionSlice.error);
-
-    // useEffect(() => {
-    //     if (questionSliceError) {
-    //         console.error('Error creating question:@', questionSliceError);
-    //         showToast({status: 'error', message: 'questionSliceError'});
-    //     }
-    // }, [questionSliceError]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         // Handle form submission logic here
         console.log({title, body, tags});
 
-        dispatch(createQuestionThunk({title, body, tags})).then(
-            (result) => {
-                result.error ? showToast({status: 'error', message: result.error.message}) : navigate('/');
-            }
-        );
+        if (localStorage.getItem('ask')) {
+            dispatch(createQuestionThunk({title, body, tags})).then(
+                (result) => {
+                    localStorage.removeItem('ask');
+                    result.error ? showToast({status: 'error', message: result.error.message}) : navigate('/forum');
+                }
+            );
+        }
+
+        localStorage.setItem('ask', JSON.stringify({title, body, tags}));
+
+        navigate(`/ask/related?query=${encodeURIComponent(title)}`);
+
+
     };
 
     const handleTagInputChange = (e) => {
@@ -92,26 +90,27 @@ const AskQuestionPage = () => {
                         </label>
 
                         <div className="flex justify-center items-center bg-bg-2 rounded-md px-2 py-1">
-                                    {tags.map((tag, index) => (
-                                        <div key={index} className="flex items-center text-gray-300 justify-center bg-bg-5 rounded-md px-3 py-1 mr-2">
-                                            <span>{tag}</span>
-                                            <button
-                                                type="button"
-                                                onClick={() => removeTag(index)}
-                                                className="ml-2 text-gray-300 bg-bg-5 hover:text-gray-800 p-0 m-0  focus:outline-none"
-                                            >
-                                                &times;
-                                            </button>
-                                        </div>
-                                    ))}
-                                <input
-                                    type="text"
-                                    value={tagInput}
-                                    onChange={handleTagInputChange}
-                                    onKeyDown={handleTagInputKeyDown}
-                                    placeholder="Add up to 5 tags to describe what your question is about"
-                                    className="flex-grow px-3 py-2 bg-bg-2 focus:outline-none"
-                                />
+                            {tags.map((tag, index) => (
+                                <div key={index}
+                                     className="flex items-center text-gray-300 justify-center bg-bg-5 rounded-md px-3 py-1 mr-2">
+                                    <span>{tag}</span>
+                                    <button
+                                        type="button"
+                                        onClick={() => removeTag(index)}
+                                        className="ml-2 text-gray-300 bg-bg-5 hover:text-gray-800 p-0 m-0  focus:outline-none"
+                                    >
+                                        &times;
+                                    </button>
+                                </div>
+                            ))}
+                            <input
+                                type="text"
+                                value={tagInput}
+                                onChange={handleTagInputChange}
+                                onKeyDown={handleTagInputKeyDown}
+                                placeholder="Add up to 5 tags to describe what your question is about"
+                                className="flex-grow px-3 py-2 bg-bg-2 focus:outline-none"
+                            />
                         </div>
 
                     </div>
