@@ -63,10 +63,10 @@ export function createQuestion(title: string, body: string, tags: string[]) {
             }
         });
 }
-export function getQuestions(page: number, limit: number) {
+export function getQuestions(tags: string[], page: number, limit: number) {
     const query = `
-    query Query ($page: Int!, $limit: Int!) {
-      getQuestions(page: $page, limit: $limit) {
+    query Query ($tags: [String!] $page: Int!, $limit: Int!) {
+      getQuestions(tags: $tags ,page: $page, limit: $limit) {
         id
         title
         body
@@ -108,7 +108,7 @@ export function getQuestions(page: number, limit: number) {
         },
         body: JSON.stringify({
             query ,
-            variables: { page, limit },
+            variables: { tags, page, limit },
             authRequired: false}
         ),
     })
@@ -381,10 +381,10 @@ export function upvoteQuestion(id: string) {
 }
 
 
-export function searchQuestion(search: string, page: number, limit: number) {
+export function searchQuestion(search: string, tags: string[], page: number, limit: number) {
     const query = `
-    query Query($search: String!, $page: Int!, $limit: Int!) {
-      searchFunction(search: $search, page: $page, limit: $limit) {
+    query Query($search: String!, $tags: [String!], $page: Int!, $limit: Int!) {
+      searchFunction(search: $search, tags: $tags, page: $page, limit: $limit) {
         id
         title
         tags
@@ -424,7 +424,7 @@ export function searchQuestion(search: string, page: number, limit: number) {
         body: JSON.stringify({
             query,
             authRequired: true,
-            variables: { search, page, limit },
+            variables: { search, tags, page, limit },
         }),
     })
         .then((response) => {

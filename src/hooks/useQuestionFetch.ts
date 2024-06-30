@@ -5,11 +5,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateQuestionList} from "../store/slices/questionSlice.ts";
 import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
 
-export function useQuestionFetch(currentPage) {
+export function useQuestionFetch(tags, currentPage) {
 
     const dispatch = useDispatch();
     const questionList = useSelector((state) => state.questionSlice.questions);
     const [refresh, setRefresh] = useState(false);
+
     // const currentPage = useSelector((state) => state.paginatorSlice.page);
 
     useEffect(() => {
@@ -17,7 +18,7 @@ export function useQuestionFetch(currentPage) {
         dispatch(startProgress())
         const fetchQuestions = async () => {
             try {
-                dispatch(updateQuestionList(await getQuestions(parseInt(currentPage), 3).then(
+                dispatch(updateQuestionList(await getQuestions(tags,parseInt(currentPage), 3).then(
                     (response) => {
                         dispatch(endProgress());
                         return response;

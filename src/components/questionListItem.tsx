@@ -1,6 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import {QuestionModel} from "../models/questionModel.ts";
+import TagComponent from "./tagComponent.tsx";
 
 const QuestionListItem = (props: { question: QuestionModel }) => {
 
@@ -19,12 +20,7 @@ const QuestionListItem = (props: { question: QuestionModel }) => {
                 <div className="mt-2 space-x-2">
                     {
                         tags.map((tag, index) => (
-                        <span
-                            key={index}
-                            className="inline-block bg-bg-5 text-gray-300 text-sm font-medium px-2 py-1 rounded"
-                        >
-              {tag}
-            </span>
+                            <TagComponent tag={tag} key={index}/>
                     ))}
                 </div>
                 <div className="mt-4 text-sm text-gray-400">

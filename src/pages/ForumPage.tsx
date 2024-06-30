@@ -26,16 +26,16 @@ const ForumPage = () => {
 
     // Extracting query and page parameters
     const page = parseInt(getQueryParams().get('page')) || 1;
-
+    const tags = getQueryParams().get('tags') ? getQueryParams().get('tags').split(',') : [];
 
     const navigate = useNavigate();
-    const {questionList, setRefresh} = useQuestionFetch(page);
+    const {questionList, setRefresh} = useQuestionFetch(tags, page);
     const dispatch = useDispatch<never>();
     const {showToast} = useShowToast();
     const {login, logout} = useAuth();
 
     useEffect(() => {
-        console.log('page', page);
+        console.log('page!!', page);
         dispatch(setPage(page));
         setRefresh(true)
     }, [page]);
