@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {useShowToast} from "../context/toastContext.tsx";
 import PaginatorComponent from "../components/paginatorComponent.tsx";
 import SearchBar from "../components/searchBar.tsx";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {searchQuestionThunk} from "../store/actions/questionActions.ts";
 import {setPage} from "../store/slices/paginatorSlice.ts";
@@ -43,7 +43,6 @@ const SearchPage = () => {
     // Call the search function whenever the component mounts or query/page changes
     useEffect(() => {
         dispatch(setPage(page));
-        // setTagList(tags.split(',') || []);
         console.log('tag!!', tagList);
         dispatch(searchQuestionThunk({searchTerm: query, tags: tagList, page: page}));
         console.log(`Performing search with query: ${query}, page: ${page}`);
@@ -91,7 +90,6 @@ const SearchPage = () => {
 
                     {
                         questionList.map((question) => {
-                            // console.log(question.totalQues);
                             return (
                                 <QuestionListItem question={question} key={question.id}/>
                             )
