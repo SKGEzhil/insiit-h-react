@@ -38,11 +38,14 @@ function TagComponent({tag}) {
     }
 
     return (
-        <span
-            onClick={handleClick}
-            className={`inline-block bg-bg-5 text-gray-300 text-sm font-medium px-2 py-1 rounded ${tags.includes(tag.toLowerCase()) ? 'border-2 border-primary' : ''}`}>
+        <>
+            <span
+                onClick={handleClick}
+                className={`inline-block bg-bg-5 text-gray-300 text-sm font-medium cursor-pointer px-2 py-1 rounded ${tags.includes(tag.toLowerCase()) ? 'border-2 border-primary' : ''}`}>
             {tag}
         </span>
+        </>
+
     );
 }
 

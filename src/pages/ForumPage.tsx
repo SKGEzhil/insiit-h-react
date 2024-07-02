@@ -25,7 +25,7 @@ const ForumPage = () => {
     };
 
     // Extracting query and page parameters
-    const page = parseInt(getQueryParams().get('page')) || 1;
+    const page = parseInt(getQueryParams().get('page') as string) || 1;
     const tags = getQueryParams().get('tags') ? getQueryParams().get('tags').split(',') : [];
 
     const navigate = useNavigate();
