@@ -40,3 +40,29 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/*Rich Text Editor Styles*/
+.wrapper-class {
+  padding: 1rem;
+  height: 200px;
+}
+.editor-class {
+  background-color:lightgray;
+  border: 1px solid #000000;
+}
+.toolbar-class {
+  border: 1px solid #ccc;
+}
+
+.ce-inline-tool{
+  color: black;
+}
+
+.ce-paragraph, .ce-header, .ce-list, .ce-block {
+  color: white;
+}
+
+ul, ol{
+  text-align: start;
+}

@@ -3,6 +3,7 @@ import questionSlice from "./slices/questionSlice.ts";
 import navigationSlice from "./slices/navigationSlice.ts";
 import paginatorSlice from "./slices/paginatorSlice.ts";
 import progressSlice from "./slices/progressSlice.ts";
+import academicPageSlice from "./slices/academicPageSlice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
         navigationSlice: navigationSlice,
         paginatorSlice: paginatorSlice,
         progressSlice: progressSlice,
+        academicPageSlice: academicPageSlice,
     }
 })
