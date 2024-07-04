@@ -20,7 +20,7 @@ const MainLayout = () => {
             <div className="relative z-20">
                 <HeaderComponent />
             </div>
-            <div className="top-36 z-10 relative">
+            <div className="top-24 z-10 relative">
                 <Outlet />
             </div>
         </div>

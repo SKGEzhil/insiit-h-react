@@ -1,10 +1,10 @@
 // src/context/AuthContext.js
-import {createContext, useContext, useState, useEffect} from 'react';
+import {createContext, useContext, useState} from 'react';
 import {googleLogout, useGoogleLogin} from '@react-oauth/google';
 import {createUser, isUserExist} from '../services/userServices';
 import { jwtDecode } from "jwt-decode";
-import {toast} from "react-toastify";
 import {useShowToast} from "./toastContext.tsx";
+import {UserModel} from "../models/userModel.ts";
 
 
 type authContextType = {

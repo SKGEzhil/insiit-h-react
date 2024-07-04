@@ -417,13 +417,12 @@ export function searchQuestion(search: string, tags: string[], page: number, lim
     return fetch(endPoint, {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
         body: JSON.stringify({
             query,
-            authRequired: true,
+            authRequired: false,
             variables: { search, tags, page, limit },
         }),
     })

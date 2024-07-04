@@ -14,16 +14,16 @@ function HeaderComponent() {
   return (
       <div className="bg-bg-2 text-center z-20 my-0 p-3 fixed w-full">
           <div className="flex w-full justify-between items-center">
-              <div className="mx-4">
-                  <h1 className="text-3xl text-left font-bold">InsIIT</h1>
-                  <p className="text-xl text-left">All the Insights you need!</p>
-              </div>
-              <div>
-                  <ProtectedButton onClick={() => {
-                  }}>
-                      Login
-                  </ProtectedButton>
-              </div>
+              {/*<div className="mx-4">*/}
+              {/*    <h1 className="text-3xl text-left font-bold">InsIIT</h1>*/}
+              {/*    <p className="text-xl text-left">All the Insights you need!</p>*/}
+              {/*</div>*/}
+              {/*<div>*/}
+              {/*    <ProtectedButton onClick={() => {*/}
+              {/*    }}>*/}
+              {/*        Login*/}
+              {/*    </ProtectedButton>*/}
+              {/*</div>*/}
           </div>
           <div className="flex justify-center">
               <button

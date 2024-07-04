@@ -15,12 +15,13 @@ export function addSection(time: string, blocks: string, version: string) {
     return fetch(endPoint, {
         method: 'POST',
         headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
         body: JSON.stringify({
             query,
-            authRequired: false,
+            authRequired: true,
             variables: { time, blocks, version },
         }),
     })
@@ -75,6 +76,44 @@ export function getSections() {
             } else {
                 console.log(response.data.getAcademicsSections);
                 return response.data.getAcademicsSections;
+            }
+        });
+}
+
+export function deleteSection(id: string) {
+    const query = `
+        mutation DeleteAcademicsSection($id: ID!) {
+            deleteAcademicsSection(id: $id)
+        }
+  `;
+
+    console.log('ID', id)
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            authRequired: true,
+            variables: { id: id },
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if(response.status && response.status === 'error'){
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                console.log(response.data.deleteAcademicsSection);
+                return response.data.deleteAcademicsSection;
             }
         });
 }

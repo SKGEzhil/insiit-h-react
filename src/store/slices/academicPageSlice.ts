@@ -1,9 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {BlockModel} from "../../models/blockModel.ts";
-import {addSectionThunk, getSectionsThunk} from "../actions/academicPageActions.ts";
+import {addSectionThunk, deleteSectionThunk, getSectionsThunk} from "../actions/academicPageActions.ts";
 import {graphqlStringToJson} from "../../utils/graphqlStringConversion.ts";
 
-const initialState = {
+export const initialState = {
     sections: [],
     loading: false,
     error: null,
@@ -34,6 +34,7 @@ const academicPageSlice = createSlice({
                 state.loading = false;
                 const jsonData = graphqlStringToJson(action.payload.blocks);
                 state.sections.push(BlockModel.fromJson({
+                    id: action.payload.id,
                     time: action.payload.time,
                     blocks: jsonData,
                     version: action.payload.version
@@ -59,7 +60,18 @@ const academicPageSlice = createSlice({
             .addCase(getSectionsThunk.rejected, (state:AcademicPageState, action) => {
                 state.loading = false;
                 state.error = action.error.message;
-            });
+            })
+            .addCase(deleteSectionThunk.pending, (state:AcademicPageState, action) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteSectionThunk.fulfilled, (state:AcademicPageState, action) => {
+                state.loading = false;
+            })
+            .addCase(deleteSectionThunk.rejected, (state:AcademicPageState, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
 
     }
 });

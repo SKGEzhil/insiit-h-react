@@ -24,7 +24,7 @@ const ForumLayout = () => {
                 <HeaderComponent />
                 <SideComponent />
             </div>
-            <div className="top-36 ml-60 z-10 relative">
+            <div className="top-24 ml-60 z-10 relative">
                 <Outlet />
             </div>
         </div>
