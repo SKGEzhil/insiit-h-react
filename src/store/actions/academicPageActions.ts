@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {addSection, deleteSection, getSections} from "../../services/academicPageServices.ts";
+import {addSection, deleteSection, editSection, getSections} from "../../services/academicPageServices.ts";
 
 export const addSectionThunk = createAsyncThunk('academicPageSlice/addSectionThunk',
     async ({
@@ -40,6 +40,22 @@ export const getSectionsThunk = createAsyncThunk('academicPageSlice/getSectionsT
             });
         } catch (e) {
             console.error("Error getting sections: ", e);
+            throw e;
+        }
+    });
+
+export const editSectionThunk = createAsyncThunk('academicPageSlice/editSectionThunk',
+    async ({
+               id,
+               blocks,
+           }) => {
+        try {
+            return await editSection(id, blocks).catch((error) => {
+                console.error("Error editing section: ", error.message);
+                throw error.message;
+            });
+        } catch (e) {
+            console.error("Error editing section: ", e);
             throw e;
         }
     });

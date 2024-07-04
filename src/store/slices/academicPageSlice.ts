@@ -1,6 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {BlockModel} from "../../models/blockModel.ts";
-import {addSectionThunk, deleteSectionThunk, getSectionsThunk} from "../actions/academicPageActions.ts";
+import {
+    addSectionThunk,
+    deleteSectionThunk,
+    editSectionThunk,
+    getSectionsThunk
+} from "../actions/academicPageActions.ts";
 import {graphqlStringToJson} from "../../utils/graphqlStringConversion.ts";
 
 export const initialState = {
@@ -69,6 +74,17 @@ const academicPageSlice = createSlice({
                 state.loading = false;
             })
             .addCase(deleteSectionThunk.rejected, (state:AcademicPageState, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+            .addCase(editSectionThunk.pending, (state:AcademicPageState, action) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(editSectionThunk.fulfilled, (state:AcademicPageState, action) => {
+                state.loading = false;
+            })
+            .addCase(editSectionThunk.rejected, (state:AcademicPageState, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             })

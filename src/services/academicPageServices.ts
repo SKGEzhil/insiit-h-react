@@ -117,3 +117,44 @@ export function deleteSection(id: string) {
             }
         });
 }
+
+export function editSection(id: string, blocks: string) {
+    const query = `
+        mutation EditAcademicsSection($id: ID!, $blocks: String!) {
+            editAcademicsSection(id: $id, blocks: $blocks) {
+                id
+                blocks
+                time
+                version
+            }
+        }
+  `;
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            authRequired: true,
+            variables: { id, blocks },
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if(response.status && response.status === 'error'){
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                console.log(response.data.editAcademicsSection);
+                return response.data.editAcademicsSection;
+            }
+        });
+}

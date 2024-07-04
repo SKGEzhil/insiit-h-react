@@ -3,12 +3,18 @@ import {useEffect, useState} from "react";
 import EditorComponent from "../components/editorComponent.tsx";
 import ElementRenderer from "../components/elementRenderer.tsx";
 import {useDispatch, useSelector} from "react-redux";
-import {addSectionThunk, deleteSectionThunk, getSectionsThunk} from "../store/actions/academicPageActions.ts";
+import {
+    addSectionThunk,
+    deleteSectionThunk,
+    editSectionThunk,
+    getSectionsThunk
+} from "../store/actions/academicPageActions.ts";
 import {jsonToGraphqlString} from "../utils/graphqlStringConversion.ts";
 import {useAuth} from "../context/authContext.tsx";
 import ProtectedButton from "../components/protectedButton.tsx";
 import {useShowToast} from "../context/toastContext.tsx";
 import {FaTrash} from "react-icons/fa6";
+import {FaEdit} from "react-icons/fa";
 
 function AcademicsPage() {
 
@@ -26,6 +32,8 @@ function AcademicsPage() {
     const [isEditorVisible, setIsEditorVisible] = useState(false);
 
     const sections = useSelector((state) => state.academicPageSlice.sections)
+    const [isEditingMode, setIsEditingMode] = useState<boolean[]>(sections.map(() => false));
+
     const [count, setCount] = useState(0);
 
     const {showToast} = useShowToast();
@@ -85,13 +93,30 @@ function AcademicsPage() {
 
             {
                 sections ?
-                    sections.map((section) => {
+                    sections.map((section, index) => {
                         return (
                             <div>
 
                                 {
                                     profile?.role === 'admin' &&
                                     <div className="flex justify-end mx-56">
+                                        <button
+                                            onClick={() => {
+
+                                                setData({
+                                                    time: section.time,
+                                                    blocks: section.blocks,
+                                                    version: section.version
+                                                })
+
+                                                const newIsEditingMode = [...isEditingMode];
+                                                newIsEditingMode[index] = true;
+                                                setIsEditingMode(newIsEditingMode);
+
+                                            }}
+                                        >
+                                            <FaEdit/>
+                                        </button>
                                         <button
                                             onClick={() => {
                                                 if (confirm('Are you sure you want to delete this section?')) {
@@ -112,7 +137,54 @@ function AcademicsPage() {
                                         </button>
                                     </div>
                                 }
-                                <ElementRenderer data={section}/>
+
+                                {
+
+                                    isEditingMode[index] &&
+                                    <>
+                                        <button onClick={() => {
+                                            const newIsEditingMode = [...isEditingMode];
+                                            newIsEditingMode[index] = false;
+                                            setIsEditingMode(newIsEditingMode);
+                                        }}>
+                                            Cancel
+                                        </button>
+                                        <div className="flex justify-center ">
+                                            <div className='bg-bg-3 rounded-2xl min-h-64 w-full mx-56'>
+                                                <EditorComponent data={data} onChange={setData}
+                                                                 editorblock="editorjs-container"/>
+                                            </div>
+                                        </div>
+                                        <button onClick={() => {
+                                            console.log('DATA', data)
+                                            dispatch(editSectionThunk({
+                                                id: section.id,
+                                                blocks: jsonToGraphqlString(data.blocks),
+                                            })).then((result) => {
+                                                result.error ? showToast({
+                                                    status: 'error',
+                                                    message: result.error.message
+                                                }) : showToast({
+                                                    status: 'success',
+                                                    message: 'Section updated successfully'
+                                                })
+                                                dispatch(getSectionsThunk());
+                                            })
+                                            const newIsEditingMode = [...isEditingMode];
+                                            newIsEditingMode[index] = false;
+                                            setIsEditingMode(newIsEditingMode);
+                                        }}>
+                                            Update Changes
+                                        </button>
+                                    </>
+
+                                }
+
+                                {
+
+                                    !isEditingMode[index] &&
+                                    <ElementRenderer data={section}/>
+                                }
                             </div>
                         )
                     }) : null
