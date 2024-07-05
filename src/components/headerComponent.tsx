@@ -28,17 +28,26 @@ function HeaderComponent() {
           <div className="flex justify-center">
               <button
                   onClick={() => {
-                     dispatch(navigateTo("home"));
-                     navigate("/forum");
-                     console.log('CURRENT PAGE', currentPage)
+                      dispatch(navigateTo("home"));
+                      navigate("/");
+                      console.log('CURRENT PAGE', currentPage)
                   }}
                   className={currentPage === 'home' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>
+                  Home
+              </button>
+              <button
+                  onClick={() => {
+                      dispatch(navigateTo("forum"));
+                      navigate("/forum");
+                      console.log('CURRENT PAGE', currentPage)
+                  }}
+                  className={currentPage === 'forum' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>
                   Public Forum
               </button>
               <button
                   onClick={() => {
                       dispatch(navigateTo("ask"));
-                      navigate("/");
+                      navigate("/forum");
                       console.log('CURRENT PAGE', currentPage)
                   }}
                   className={currentPage === 'ask' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>
@@ -47,7 +56,7 @@ function HeaderComponent() {
               <button
                   onClick={() => {
                       dispatch(navigateTo("insights"));
-                      navigate("/");
+                      navigate("/academics");
                       console.log('CURRENT PAGE', currentPage)
                   }}
                   className={currentPage === 'insights' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>
@@ -56,7 +65,7 @@ function HeaderComponent() {
               <button
                   onClick={() => {
                       dispatch(navigateTo("josaa"));
-                      navigate("/");
+                      navigate("/forum");
                       console.log('CURRENT PAGE', currentPage)
                   }}
                   className={currentPage === 'josaa' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>
@@ -65,7 +74,7 @@ function HeaderComponent() {
               <button
                   onClick={() => {
                       dispatch(navigateTo("about"));
-                      navigate("/");
+                      navigate("/forum");
                       console.log('CURRENT PAGE', currentPage)
                   }}
                   className={currentPage === 'about' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>

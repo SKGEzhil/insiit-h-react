@@ -8,6 +8,7 @@ import SearchPage from "./pages/SearchPage.tsx";
 import ForumPage from "./pages/ForumPage.tsx";
 import QuestionPage from "./pages/QuestionPage.tsx";
 import ElementRenderer from "./components/elementRenderer.tsx";
+import HomePage from "./pages/HomePage.tsx";
 
 export const base_route = "";
 
@@ -17,6 +18,7 @@ export const routes = createBrowserRouter([
     {
             element: <MainLayout />,
             children: [
+                { path: `${base_route}/`, element: <HomePage />},
                 { path: `${base_route}/ask`, element: <AskQuestionPage /> },
                 { path: `${base_route}/ask/related`, element: <RelatedQnsLayout /> },
                 { path: `${base_route}/academics`, element: <AcademicsPage />},

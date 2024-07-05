@@ -60,7 +60,7 @@ export const AuthProvider = ({children}) => {
             console.log('Login Success:', codeResponse);
             // setUser(codeResponse)
 
-            fetch('http://localhost:4000/auth/google', {
+            fetch('http://65.0.8.179:4000/auth/google', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
