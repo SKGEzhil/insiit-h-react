@@ -31,7 +31,7 @@ const ForumLayout = () => {
                         </MediaQuery>
 
                     </div>
-                    <div className="top-16 tablet:top-24 tablet:ml-72 z-10 relative">
+                    <div className="top-16 tablet:ml-72 z-10 relative">
                         <Outlet/>
                     </div>
                 </div>

@@ -1,5 +1,3 @@
-
-
 import {useLocation, useNavigate} from "react-router-dom";
 import QuestionListItem from "../components/questionListItem.tsx";
 import ProtectedButton from "../components/protectedButton.tsx";
@@ -54,32 +52,11 @@ const SearchPage = () => {
                 <div className="flex-1 p-5">
                     {
                         location.pathname === '/search' ?
-                        <div className="tablet:flex hidden justify-end">
-                        <SearchBar/>
-                        <button onClick={() => {
-                            login();
-                        }}>
-                            login
-                        </button>
-
-                        <button onClick={() => {
-                            showToast({status: "success", message: "Success message"});
-                        }}>
-                            toast
-                        </button>
-
-                        <button className="mx-4" onClick={() => {
-                            logout();
-                        }}>
-                            logout
-                        </button>
-                        <ProtectedButton onClick={() => {
-                            navigate('/ask')
-                        }}>
-                            Ask a Question
-                        </ProtectedButton>
-
-                    </div> : null
+                            <div className="tablet:flex hidden justify-end">
+                                <div className="w-1/2">
+                                    <SearchBar/>
+                                </div>
+                            </div> : null
                     }
 
                     {

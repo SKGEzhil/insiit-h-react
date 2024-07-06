@@ -9,12 +9,14 @@ import React, {useState} from "react";
 import SearchBar from "./searchBar.tsx";
 import {tagDict} from "../config/constants.ts";
 import TagComponent from "./tagComponent.tsx";
+import {useAuth} from "../context/authContext.tsx";
 
 function HeaderComponent() {
 
     const currentPage = useSelector((state) => state.navigationSlice.current);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {profile, login, logout} = useAuth();
 
     const [mobileMenu, setMobileMenu] = useState(false);
 
@@ -32,11 +34,18 @@ function HeaderComponent() {
                     </button>
                     <h1 className="text-3xl text-left font-bold">InsIIT-H</h1>
                 </div>
-                <div>
-                    <ProtectedButton onClick={() => {
+                <div className="flex">
+
+                    {/* For larger screens */}
+                    <MediaQuery minWidth={640}>
+                        <NavContainer setMobileMenu={setMobileMenu}/>
+                    </MediaQuery>
+
+                    <button onClick={() => {
+                        profile ? logout() : login();
                     }}>
-                        Login
-                    </ProtectedButton>
+                        {profile ? 'Logout' : 'Login'}
+                    </button>
                 </div>
             </div>
 
@@ -78,69 +87,8 @@ function HeaderComponent() {
                         }
                     </div>
 
-
-
                 </div>
             }
-
-            <MediaQuery minWidth={640}>
-                <div className="flex justify-center">
-                    <button
-                        onClick={() => {
-                            dispatch(navigateTo("home"));
-                            navigate("/");
-                            console.log('CURRENT PAGE', currentPage)
-                        }}
-                        className={currentPage === 'home' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>
-                        Home
-                    </button>
-                    <button
-                        onClick={() => {
-                            dispatch(navigateTo("forum"));
-                            navigate("/forum");
-                            console.log('CURRENT PAGE', currentPage)
-                        }}
-                        className={currentPage === 'forum' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>
-                        Public Forum
-                    </button>
-                    <button
-                        onClick={() => {
-                            dispatch(navigateTo("ask"));
-                            navigate("/forum");
-                            console.log('CURRENT PAGE', currentPage)
-                        }}
-                        className={currentPage === 'ask' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>
-                        FAQs
-                    </button>
-                    <button
-                        onClick={() => {
-                            dispatch(navigateTo("insights"));
-                            navigate("/academics");
-                            console.log('CURRENT PAGE', currentPage)
-                        }}
-                        className={currentPage === 'insights' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>
-                        Insights
-                    </button>
-                    <button
-                        onClick={() => {
-                            dispatch(navigateTo("josaa"));
-                            navigate("/forum");
-                            console.log('CURRENT PAGE', currentPage)
-                        }}
-                        className={currentPage === 'josaa' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>
-                        JoSAA
-                    </button>
-                    <button
-                        onClick={() => {
-                            dispatch(navigateTo("about"));
-                            navigate("/forum");
-                            console.log('CURRENT PAGE', currentPage)
-                        }}
-                        className={currentPage === 'about' ? 'bg-primary w-full min-w-20 max-w-64' : 'bg-bg-3 w-full min-w-20 max-w-64'}>
-                        About Us
-                    </button>
-                </div>
-            </MediaQuery>
 
         </div>
     );
@@ -229,11 +177,19 @@ export const NavButton = (props: {page: string, onClick: () => void, children: R
     const currentPage = useSelector((state) => state.navigationSlice.current);
 
     return (
-        <button
-            onClick={props.onClick}
-            className={currentPage === props.page ? 'text-primary font-bold text-left flex py-0' : 'text-left flex py-0'}>
-            {props.children}
-        </button>
+        <div className="flex flex-col items-start tablet:items-center justify-center">
+            <button
+                onClick={props.onClick}
+                className={currentPage === props.page ? 'text-primary font-bold text-nowrap text-left ' +
+                    'flex py-0 items-center' : 'text-left text-nowrap items-center flex py-0'}>
+                {props.children}
+            </button>
+            <MediaQuery minWidth={640}>
+                <div className={`w-10 h-1 rounded-xl bg-primary ${currentPage !== props.page && 'hidden'}`}>
+                </div>
+            </MediaQuery>
+        </div>
+
     )
 }
 

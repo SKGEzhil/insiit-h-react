@@ -1,6 +1,4 @@
 import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {searchQuestionThunk} from "../store/actions/questionActions.ts";
 import {useNavigate} from "react-router-dom";
 
 function SearchBar(props: {setMobileMenu?: (bool) => void}) {
@@ -12,26 +10,28 @@ function SearchBar(props: {setMobileMenu?: (bool) => void}) {
     setSearchTerm(event.target.value);
   };
 
+  const search = (searchTerm) => {
+      console.log(searchTerm);
+      if(searchTerm) {
+          navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+          props.setMobileMenu && props.setMobileMenu(false);
+      } else {
+          console.log('empty search');
+      }
+  }
 
   return (
     <div className="flex w-full min-w-64 p-4">
       <input
-          className="w-full p-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+          className="w-full p-2 bg-bg-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
         type="text"
         placeholder="Search"
         value={searchTerm}
         onChange={handleChange}
+          onKeyDown={() => {search(searchTerm)}}
       />
         <button
-            onClick={() => {
-                console.log(searchTerm);
-                if(searchTerm) {
-                    navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
-                    props.setMobileMenu && props.setMobileMenu(false);
-                } else {
-                    console.log('empty search');
-                }
-            }}
+            onClick={() => search(searchTerm)}
         >Search</button>
     </div>
   );

@@ -1,8 +1,10 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useShowToast} from "../context/toastContext.tsx";
 import {createQuestionThunk} from "../store/actions/questionActions.ts";
+import Fuse from "fuse.js";
+import {tagDict} from "../config/constants.ts";
 
 const AskQuestionPage = () => {
     const [title, setTitle] =
@@ -12,6 +14,35 @@ const AskQuestionPage = () => {
     const [tags, setTags] =
         useState<string[]>(localStorage.getItem('ask') ? JSON.parse(localStorage.getItem('ask')).tags : []);
     const [tagInput, setTagInput] = useState<string>('');
+
+    const [tagSuggestions, setTagSuggestions] = useState<string[]>([])
+
+    const options = {
+        includeScore: true,
+        threshold: 0.4, // Adjust to change sensitivity (0.0 to 1.0)
+        keys: []
+    };
+
+    // Create a Fuse instance
+    const fuse = new Fuse(tagDict, options);
+
+
+    useEffect(() => {
+        if (tagInput.trim()) {
+            const result = fuse.search(tagInput);
+            const fetchedTagSuggestions = result.map((tag) => tag.item);
+            setTagSuggestions(fetchedTagSuggestions);
+        } else {
+            setTagSuggestions([]);
+        }
+    }, [tagInput]);
+
+    const addTag = (tag: string) => {
+        setTags([...tags, tag]);
+        setTagInput('');
+        setTagSuggestions([]);
+    };
+
 
     const dispatch = useDispatch<never>();
     const navigate = useNavigate();
@@ -90,10 +121,11 @@ const AskQuestionPage = () => {
                         </label>
 
                         {/* For larger screens */}
-                        <div className="tablet:flex hidden justify-center items-center bg-bg-2 rounded-md px-2 py-1">
+                        <div
+                            className="tablet:flex hidden justify-start gap-2 flex-wrap items-center bg-bg-2 rounded-md px-2 py-1">
                             {tags.map((tag, index) => (
                                 <div key={index}
-                                     className="flex items-center text-gray-300 justify-center bg-bg-5 rounded-md px-3 py-1 mr-2">
+                                     className="flex items-center text-gray-300 justify-center bg-bg-5 rounded-md px-3 py-1">
                                     <span>{tag}</span>
                                     <button
                                         type="button"
@@ -115,7 +147,7 @@ const AskQuestionPage = () => {
                         </div>
 
                         {/* For mobile screens */}
-                        <div>
+                        <div className="tablet:hidden">
                             <div className="flex flex-wrap justify-start gap-2 items-center rounded-md px-2 py-1">
                                 {tags.map((tag, index) => (
                                     <div key={index}
@@ -141,8 +173,27 @@ const AskQuestionPage = () => {
                                     className="flex-grow px-3 py-2 bg-bg-2 focus:outline-none"
                                 />
                             </div>
-
                         </div>
+
+                        {
+                            tagSuggestions.length > 0 &&
+                            <div className="bg-bg-2 p-2 rounded-xl mt-2">
+                                <p className="text-left font-bold text-xl my-2">Suggestions</p>
+                                <div className="flex flex-wrap gap-2 ">
+                                    {tagSuggestions.map((suggestion, index) => (
+                                        <div
+                                            key={index}
+                                            onClick={() => addTag(suggestion)}>
+                                            <div key={index}
+                                                 className="flex items-center text-gray-300 justify-center bg-bg-5 rounded-md px-3 py-1">
+                                                <span>{suggestion}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        }
+
 
                     </div>
                     <button

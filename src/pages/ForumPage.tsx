@@ -46,12 +46,9 @@ const ForumPage = () => {
             <div className="flex flex-1">
                 <div className="flex-1 p-5">
                     <div className="tablet:flex hidden justify-end">
-                        <SearchBar/>
-                        <button onClick={() => {
-                            login();
-                        }}>
-                            login
-                        </button>
+                        <div className="w-1/2">
+                            <SearchBar/>
+                        </div>
 
                         <button onClick={() => {
                             dispatch(startProgress());
@@ -66,17 +63,6 @@ const ForumPage = () => {
                         }}>
                             toast
                         </button>
-
-                        <button className="mx-4" onClick={() => {
-                            logout();
-                        }}>
-                            logout
-                        </button>
-                        <ProtectedButton onClick={() => {
-                            navigate('/ask')
-                        }}>
-                            Ask a Question
-                        </ProtectedButton>
 
                     </div>
 

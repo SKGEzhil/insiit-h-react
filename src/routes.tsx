@@ -1,35 +1,35 @@
 import {createBrowserRouter} from "react-router-dom";
-import MainLayout from "./layouts/mainLayout.tsx";
-import AskQuestionPage from "./pages/AskQuestionPage.tsx";
-import RelatedQnsLayout from "./layouts/relatedQnsLayout.tsx";
-import AcademicsPage from "./pages/AcademicsPage.tsx";
-import ForumLayout from "./layouts/forumLayout.tsx";
-import SearchPage from "./pages/SearchPage.tsx";
-import ForumPage from "./pages/ForumPage.tsx";
-import QuestionPage from "./pages/QuestionPage.tsx";
-import ElementRenderer from "./components/elementRenderer.tsx";
-import HomePage from "./pages/HomePage.tsx";
+import { lazy, Suspense } from 'react';
+
+const MainLayout = lazy(() => import("./layouts/mainLayout.tsx"));
+const AskQuestionPage = lazy(() => import("./pages/AskQuestionPage.tsx"));
+const RelatedQnsLayout = lazy(() => import("./layouts/relatedQnsLayout.tsx"));
+const AcademicsPage = lazy(() => import("./pages/AcademicsPage.tsx"));
+const ForumLayout = lazy(() => import("./layouts/forumLayout.tsx"));
+const SearchPage = lazy(() => import("./pages/SearchPage.tsx"));
+const ForumPage = lazy(() => import("./pages/ForumPage.tsx"));
+const QuestionPage = lazy(() => import("./pages/QuestionPage.tsx"));
+const HomePage = lazy(() => import("./pages/HomePage.tsx"));
 
 export const base_route = "";
 
 export const routes = createBrowserRouter([
 
-    { path: `${base_route}/temp`, element: <ElementRenderer />},
     {
-            element: <MainLayout />,
+        element: <Suspense><MainLayout /></Suspense>,
             children: [
-                { path: `${base_route}/`, element: <HomePage />},
-                { path: `${base_route}/ask`, element: <AskQuestionPage /> },
-                { path: `${base_route}/ask/related`, element: <RelatedQnsLayout /> },
-                { path: `${base_route}/academics`, element: <AcademicsPage />},
+                { path: `${base_route}/`, element: <Suspense><HomePage /></Suspense>},
+                { path: `${base_route}/ask`, element: <Suspense><AskQuestionPage /></Suspense> },
+                { path: `${base_route}/ask/related`, element: <Suspense><RelatedQnsLayout /></Suspense> },
+                { path: `${base_route}/academics`, element: <Suspense><AcademicsPage /></Suspense>},
             ],
         },
         {
-            element: <ForumLayout />,
+            element: <Suspense><ForumLayout /></Suspense>,
             children: [
-                {path: `${base_route}/search`, element: <SearchPage />},
-                { path: `${base_route}/forum`, element: <ForumPage /> },
-                { path: `${base_route}/question/:id`, element: <QuestionPage /> },
+                {path: `${base_route}/search`, element: <Suspense><SearchPage /></Suspense>},
+                { path: `${base_route}/forum`, element: <Suspense><ForumPage /></Suspense> },
+                { path: `${base_route}/question/:id`, element: <Suspense><QuestionPage /></Suspense> },
             ],
         },
     ]

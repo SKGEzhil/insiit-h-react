@@ -5,8 +5,8 @@ function SideComponent() {
 
 
   return (
-      <div className="fixed top-24 bottom-2 mb-6 m-4">
-          <div className="bg-bg-3 w-full max-w-64 overflow-auto rounded-xl" style={{height: "80vh"}}>
+      <div className="fixed top-16 bottom-2 mb-6 m-4">
+          <div className="bg-bg-3 w-full max-w-64 overflow-auto rounded-xl" style={{height: "85vh"}}>
               <div className="flex flex-col">
                   <div className="p-4">
                       <h2 className="text-xl font-bold text-left my-3">Tags</h2>
