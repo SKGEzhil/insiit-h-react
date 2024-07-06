@@ -2,7 +2,7 @@ function ElementRenderer(props: {data: any}) {
 
     return (
         <div className="flex justify-center">
-            <div className="w-full mx-56 my-2 bg-bg-3 px-8 rounded-xl">
+            <div className="w-full mx-2 tablet:mx-56 my-2 bg-bg-3 px-8 rounded-xl">
                 {
                     props.data.blocks.map((block, index) => {
                     switch (block.type) {

@@ -17,6 +17,7 @@ import SimpleImage from '@editorjs/simple-image'
 import FontSize from 'editorjs-inline-font-size-tool'
 import FontFamily from 'editorjs-inline-font-family-tool'
 import InlineList from "editorjs-inlinelist";
+import {endPointBase} from "./config/constants.ts";
 
 
 export const EDITOR_JS_TOOLS = {
@@ -35,7 +36,7 @@ export const EDITOR_JS_TOOLS = {
         class: Image,
         config: {
             endpoints: {
-                byFile: 'http://65.0.8.179:4000/upload', // Your backend file uploader endpoint
+                byFile: `${endPointBase}/upload`, // Your backend file uploader endpoint
                 // byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
             }
         }

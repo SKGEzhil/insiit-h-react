@@ -152,4 +152,37 @@
         @apply rounded-md;
     }
 
+    /*Scrollbar settings*/
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0);
+        border-radius: 5px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #5e5e5e;
+        border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #696969;
+    }
+
+    ::-webkit-scrollbar-track-piece:start {
+        background: rgba(255, 255, 255, 0);
+    }
+
+    ::-webkit-scrollbar-track-piece:end {
+        background: rgba(255, 255, 255, 0);
+    }
+
+    ::-webkit-scrollbar-button {
+        display: none;
+    }
 }

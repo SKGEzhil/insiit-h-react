@@ -26,11 +26,12 @@ function QuestionPage() {
     return (
         question ?
             <div>
-                <div className="flex-grow flex-col justify-center">
-                    <div className="my-1">
+                <div className="flex-grow flex-col justify-center mx-2">
+
+                    <div className="py-1">
                         <QuestionComponent question={question}/>
                     </div>
-                    <div className="my-1">
+                    <div className="py-1">
                         <AnswerComponent question={question}/>
                     </div>
 

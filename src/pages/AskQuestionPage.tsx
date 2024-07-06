@@ -89,7 +89,8 @@ const AskQuestionPage = () => {
                             Tags*
                         </label>
 
-                        <div className="flex justify-center items-center bg-bg-2 rounded-md px-2 py-1">
+                        {/* For larger screens */}
+                        <div className="tablet:flex hidden justify-center items-center bg-bg-2 rounded-md px-2 py-1">
                             {tags.map((tag, index) => (
                                 <div key={index}
                                      className="flex items-center text-gray-300 justify-center bg-bg-5 rounded-md px-3 py-1 mr-2">
@@ -111,6 +112,36 @@ const AskQuestionPage = () => {
                                 placeholder="Add up to 5 tags to describe what your question is about"
                                 className="flex-grow px-3 py-2 bg-bg-2 focus:outline-none"
                             />
+                        </div>
+
+                        {/* For mobile screens */}
+                        <div>
+                            <div className="flex flex-wrap justify-start gap-2 items-center rounded-md px-2 py-1">
+                                {tags.map((tag, index) => (
+                                    <div key={index}
+                                         className="flex items-center text-gray-300 justify-center bg-bg-5 rounded-md px-3 py-1">
+                                        <span>{tag}</span>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeTag(index)}
+                                            className="ml-2 text-gray-300 bg-bg-5 hover:text-gray-800 p-0 m-0  focus:outline-none"
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="flex mt-2 mx-2">
+                                <input
+                                    type="text"
+                                    value={tagInput}
+                                    onChange={handleTagInputChange}
+                                    onKeyDown={handleTagInputKeyDown}
+                                    placeholder="Add up to 5 tags to describe what your question is about"
+                                    className="flex-grow px-3 py-2 bg-bg-2 focus:outline-none"
+                                />
+                            </div>
+
                         </div>
 
                     </div>

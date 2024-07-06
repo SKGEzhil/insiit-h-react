@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import {searchQuestionThunk} from "../store/actions/questionActions.ts";
 import {useNavigate} from "react-router-dom";
 
-function SearchBar() {
+function SearchBar(props: {setMobileMenu?: (bool) => void}) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const navigate = useNavigate();
@@ -14,8 +14,9 @@ function SearchBar() {
 
 
   return (
-    <div>
+    <div className="flex w-full min-w-64 p-4">
       <input
+          className="w-full p-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
         type="text"
         placeholder="Search"
         value={searchTerm}
@@ -24,8 +25,12 @@ function SearchBar() {
         <button
             onClick={() => {
                 console.log(searchTerm);
-                searchTerm ?
-                    navigate(`/search?query=${encodeURIComponent(searchTerm)}`) : console.log('empty search');
+                if(searchTerm) {
+                    navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+                    props.setMobileMenu && props.setMobileMenu(false);
+                } else {
+                    console.log('empty search');
+                }
             }}
         >Search</button>
     </div>

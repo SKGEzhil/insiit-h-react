@@ -62,7 +62,7 @@ function AcademicsPage() {
                 isEditorVisible &&
                 <>
                     <div className="flex justify-center ">
-                        <div className='bg-bg-3 rounded-2xl min-h-64 w-full mx-56'>
+                        <div className='bg-bg-3 rounded-2xl min-h-64 w-full mx-2 tablet:mx-56'>
                             <EditorComponent data={data} onChange={setData} editorblock="editorjs-container"/>
                         </div>
                     </div>
@@ -99,7 +99,7 @@ function AcademicsPage() {
 
                                 {
                                     profile?.role === 'admin' &&
-                                    <div className="flex justify-end mx-56">
+                                    <div className="flex justify-end mx-2 tablet:mx-56">
                                         <button
                                             onClick={() => {
 
@@ -150,7 +150,7 @@ function AcademicsPage() {
                                             Cancel
                                         </button>
                                         <div className="flex justify-center ">
-                                            <div className='bg-bg-3 rounded-2xl min-h-64 w-full mx-56'>
+                                            <div className='bg-bg-3 rounded-2xl min-h-64 w-full mx-2 tablet:mx-56'>
                                                 <EditorComponent data={data} onChange={setData}
                                                                  editorblock="editorjs-container"/>
                                             </div>

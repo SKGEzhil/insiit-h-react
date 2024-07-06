@@ -5,6 +5,7 @@ import {createUser, isUserExist} from '../services/userServices';
 import { jwtDecode } from "jwt-decode";
 import {useShowToast} from "./toastContext.tsx";
 import {UserModel} from "../models/userModel.ts";
+import {endPointBase} from "../config/constants.ts";
 
 
 type authContextType = {
@@ -60,7 +61,7 @@ export const AuthProvider = ({children}) => {
             console.log('Login Success:', codeResponse);
             // setUser(codeResponse)
 
-            fetch('http://65.0.8.179:4000/auth/google', {
+            fetch(`${endPointBase}/auth/google`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

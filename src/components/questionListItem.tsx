@@ -14,7 +14,7 @@ const QuestionListItem = (props: { question: QuestionModel }) => {
             <div className="flex flex-col items-start justify-start">
                 <NavLink
                     to={`/question/${props.question.id}`}
-                    className="text-primary text-lg font-semibold hover:underline">
+                    className="text-primary text-left text-lg font-semibold hover:underline">
                     {title}
                 </NavLink>
                 <div className="mt-2 space-x-2">

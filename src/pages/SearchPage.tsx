@@ -50,18 +50,12 @@ const SearchPage = () => {
 
     return (
         <div className="flex flex-col h-screen">
-
             <div className="flex flex-1">
-
                 <div className="flex-1 p-5">
-
                     {
                         location.pathname === '/search' ?
-
-                        <div className="flex justify-end">
-
+                        <div className="tablet:flex hidden justify-end">
                         <SearchBar/>
-
                         <button onClick={() => {
                             login();
                         }}>
