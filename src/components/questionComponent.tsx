@@ -19,16 +19,16 @@ function QuestionComponent( props: {question: QuestionModel} ) {
     return (
         <>
             <div className="flex justify-center">
-                <div className="max-w-4xl w-full bg-bg-3 rounded-xl p-4">
+                <div className="max-w-4xl w-full bg-c8 rounded-2xl p-4">
                     <div className="flex">
-                        <h1 className="text-3xl font-bold text-left">{title}</h1>
+                        <h1 className="text-3xl font-bold text-c3 text-left">{title}</h1>
                     </div>
                     {/*<hr className="solid my-2"/>*/}
-                    <div className="flex text-left my-4">
-                        <p className="text-xl">{body}</p>
+                    <div className="flex text-left text-c1 my-4">
+                        <p className="text-m">{body}</p>
                     </div>
                     <div>
-                        <p className="text-right text-gray-500">Votes: {props.question.votes.votes} | {formatDate(props.question.date)} | asked by {author}</p>
+                        <p className="text-right text-c1/[.7]">Votes: {props.question.votes.votes} | {formatDate(props.question.date)} | asked by {author}</p>
                     </div>
 
                     <div className="flex justify-start">
@@ -46,7 +46,7 @@ function QuestionComponent( props: {question: QuestionModel} ) {
                                 );
                             }
                         }
-                            className="bg-primary text-white py-2 px-4 rounded-lg hover:bg-red-600">Upvote</button>
+                            className="bg-c5 text-white py-2 px-4 rounded-lg hover:bg-red-600">Upvote</button>
                     </div>
 
                 </div>

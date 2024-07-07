@@ -24,7 +24,7 @@ function PaginatorComponent() {
   return (
     <div className="flex justify-center items-center">
       <button
-          className={currentPage === 1 ? 'hidden' : ''}
+          className={currentPage === 1 ? 'hidden text-c8' : 'text-c8'}
           onClick={() => {
               updatePageParam(currentPage-1);
           }}
@@ -32,6 +32,7 @@ function PaginatorComponent() {
           Previous</button>
 
       <button
+            className="text-c8"
             onClick={() => {
                 updatePageParam(currentPage+1);
             }}

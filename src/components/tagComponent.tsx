@@ -41,7 +41,7 @@ function TagComponent({tag}) {
         <>
             <span
                 onClick={handleClick}
-                className={`inline-block bg-bg-5 text-gray-300 text-sm font-medium cursor-pointer px-2 py-1 rounded ${tags.includes(tag.toLowerCase()) ? 'border-2 border-primary' : ''}`}>
+                className={`inline-block bg-c2 text-c10 text-sm font-medium cursor-pointer px-2 py-1 rounded ${tags.includes(tag.toLowerCase()) ? 'border-2 border-primary' : ''}`}>
             {tag}
         </span>
         </>

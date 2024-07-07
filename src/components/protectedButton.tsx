@@ -18,7 +18,7 @@ function ProtectedButton(buttonProps: buttonProps) {
                     buttonProps.onClick();
                 }
             }}
-            className="font-bold py-2 px-4 text-nowrap"
+            className="font-bold py-2 px-4 text-c1 bg-primary rounded-xl text-nowrap"
         >
             {buttonProps.children}
         </button>

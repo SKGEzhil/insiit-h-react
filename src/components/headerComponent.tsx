@@ -21,7 +21,7 @@ function HeaderComponent() {
     const [mobileMenu, setMobileMenu] = useState(false);
 
     return (
-        <div className="bg-bg-2 text-center z-20 my-0 p-1 fixed w-full">
+        <div className="bg-white text-center z-20 my-0 p-1 fixed w-full">
             <div className="flex w-full justify-between items-center">
                 <div className="mx-4 flex items-center">
                     <button
@@ -30,7 +30,7 @@ function HeaderComponent() {
                         }}
                         className="tablet:hidden"
                     >
-                        <TiThMenu className="text-white mr-2"/>
+                        <TiThMenu className="text-black mr-2"/>
                     </button>
                     <h1 className="text-3xl text-left font-bold">InsIIT-H</h1>
                 </div>
@@ -41,7 +41,9 @@ function HeaderComponent() {
                         <NavContainer setMobileMenu={setMobileMenu}/>
                     </MediaQuery>
 
-                    <button onClick={() => {
+                    <button
+                        className="font-bold text-black rounded-lg px-4"
+                        onClick={() => {
                         profile ? logout() : login();
                     }}>
                         {profile ? 'Logout' : 'Login'}
@@ -52,7 +54,7 @@ function HeaderComponent() {
             {/* For mobile screens */}
             {
                 mobileMenu &&
-                <div className=" w-screen h-screen bg-bg-3 overflow-scroll ">
+                <div className=" w-screen h-screen bg-white overflow-scroll ">
                     <div className="mb-36">
                         <div className="flex justify-end">
                             <button
@@ -61,7 +63,7 @@ function HeaderComponent() {
                                 }}
                                 className="m-2"
                             >
-                                <FaWindowClose size={20} className="text-white mx-4"/>
+                                <FaWindowClose size={20} className="text-c9 mx-4"/>
                             </button>
                         </div>
                         <div className="flex justify-center">
@@ -102,13 +104,16 @@ export const NavContainer = (props: {setMobileMenu: (bool) => void}) => {
 
     return (
         <>
-            <button
-                className="bg-primary text-white w-full py-2 my-2 rounded-lg"
-                onClick={() => {
-                navigate('/ask')
-            }}>
-                Ask a question
-            </button>
+            <div className="flex justify-start">
+                <button
+                    className="bg-primary py-2 px-4 my-2 rounded-lg"
+                    onClick={() => {
+                        navigate('/ask')
+                    }}>
+                    Ask a question
+                </button>
+            </div>
+
             <NavButton
                 onClick={() => {
                     dispatch(navigateTo("home"));
@@ -181,7 +186,7 @@ export const NavButton = (props: {page: string, onClick: () => void, children: R
             <button
                 onClick={props.onClick}
                 className={currentPage === props.page ? 'text-primary font-bold text-nowrap text-left ' +
-                    'flex py-0 items-center' : 'text-left text-nowrap items-center flex py-0'}>
+                    'flex py-0 items-center' : 'text-black text-left text-nowrap items-center flex py-0'}>
                 {props.children}
             </button>
             <MediaQuery minWidth={640}>
