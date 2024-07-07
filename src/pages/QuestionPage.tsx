@@ -25,9 +25,8 @@ function QuestionPage() {
 
     return (
         question ?
-            <div>
+            <div className="py-4">
                 <div className="flex-grow flex-col justify-center mx-2">
-
                     <div className="py-1">
                         <QuestionComponent question={question}/>
                     </div>
@@ -52,7 +51,7 @@ function QuestionPage() {
                             {
                                 isAnswerFieldOpen ?
                                     <div className="my-2">
-                                        <div className="border rounded-md p-4">
+                                        <div className=" rounded-2xl bg-white p-4">
                                             <div className="flex justify-between">
                                                 <h1 className="text-2xl font-bold">Your Answer</h1>
                                                 <button
@@ -70,7 +69,7 @@ function QuestionPage() {
                                             onChange={(e) => setYourAnswer(e.target.value)}
                                             placeholder="Write something..."
                                             required
-                                            className="w-full p-2 border rounded-md" rows={5}/>
+                                            className="w-full p-2 border bg-c1 border-c8/[.2] rounded-2xl" rows={5}/>
                                             </div>
                                             <div className="flex justify-center my-2">
                                                 <ProtectedButton onClick={() => {

@@ -15,7 +15,6 @@
 @layer base {
 
     p, label, ul, ol, a, button, input, textarea {
-        @apply text-white;
         /*@apply mb-6;*/
         /*@apply text-black*/
     }
@@ -53,7 +52,7 @@
     }
 
     body{
-        @apply bg-bg-1;
+        @apply bg-c2;
     }
     #root {
         @apply m-0 p-0;
@@ -62,19 +61,15 @@
     button{
         /*@apply bg-primary;*/
         /*@apply rounded-md;*/
-        @apply text-white;
+        @apply text-c1;
         @apply p-2;
         @apply m-1;
     }
     textarea{
-        @apply bg-bg-3;
-        @apply text-white;
         @apply p-2;
         @apply rounded-md;
     }
     input{
-        @apply bg-bg-3;
-        @apply text-white;
         @apply p-2;
         @apply rounded-md;
     }

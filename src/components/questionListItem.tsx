@@ -10,7 +10,7 @@ const QuestionListItem = (props: { question: QuestionModel }) => {
     const author = props.question.author.name;
 
     return (
-        <div className="flex bg-bg-3 p-4 mb-4 rounded-lg shadow-sm">
+        <div className="flex bg-white p-4 mb-4 rounded-lg shadow-sm">
             <div className="flex flex-col items-start justify-start">
                 <NavLink
                     to={`/question/${props.question.id}`}

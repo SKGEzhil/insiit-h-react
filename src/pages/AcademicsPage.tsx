@@ -62,11 +62,11 @@ function AcademicsPage() {
                 isEditorVisible &&
                 <>
                     <div className="flex justify-center ">
-                        <div className='bg-bg-3 rounded-2xl min-h-64 w-full mx-2 tablet:mx-56'>
+                        <div className='bg-white rounded-2xl min-h-64 w-full mx-2 tablet:mx-56'>
                             <EditorComponent data={data} onChange={setData} editorblock="editorjs-container"/>
                         </div>
                     </div>
-                    <button onClick={() => {
+                    <ProtectedButton onClick={() => {
                         // dispatch(addSection(BlockModel.fromJson(data)))
                         console.log('DATA', data)
                         dispatch(addSectionThunk({
@@ -85,7 +85,7 @@ function AcademicsPage() {
                         setIsEditorVisible(false)
                     }}>
                         Save
-                    </button>
+                    </ProtectedButton>
                 </>
 
             }
@@ -115,7 +115,7 @@ function AcademicsPage() {
 
                                             }}
                                         >
-                                            <FaEdit/>
+                                            <FaEdit className="text-c8"/>
                                         </button>
                                         <button
                                             onClick={() => {
@@ -133,7 +133,7 @@ function AcademicsPage() {
                                                 }
                                             }}
                                         >
-                                            <FaTrash/>
+                                            <FaTrash className="text-c8"/>
                                         </button>
                                     </div>
                                 }
@@ -142,20 +142,20 @@ function AcademicsPage() {
 
                                     isEditingMode[index] &&
                                     <>
-                                        <button onClick={() => {
+                                        <ProtectedButton onClick={() => {
                                             const newIsEditingMode = [...isEditingMode];
                                             newIsEditingMode[index] = false;
                                             setIsEditingMode(newIsEditingMode);
                                         }}>
                                             Cancel
-                                        </button>
+                                        </ProtectedButton>
                                         <div className="flex justify-center ">
-                                            <div className='bg-bg-3 rounded-2xl min-h-64 w-full mx-2 tablet:mx-56'>
+                                            <div className='bg-white rounded-2xl min-h-64 w-full mx-2 tablet:mx-56'>
                                                 <EditorComponent data={data} onChange={setData}
                                                                  editorblock="editorjs-container"/>
                                             </div>
                                         </div>
-                                        <button onClick={() => {
+                                        <ProtectedButton onClick={() => {
                                             console.log('DATA', data)
                                             dispatch(editSectionThunk({
                                                 id: section.id,
@@ -175,7 +175,7 @@ function AcademicsPage() {
                                             setIsEditingMode(newIsEditingMode);
                                         }}>
                                             Update Changes
-                                        </button>
+                                        </ProtectedButton>
                                     </>
 
                                 }

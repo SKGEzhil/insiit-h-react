@@ -87,7 +87,7 @@ const AskQuestionPage = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4">
-            <div className="bg-bg-3 p-8 rounded-xl shadow-lg w-full max-w-3xl">
+            <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-3xl">
                 <h1 className="text-2xl font-bold mb-6">Ask a public question</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -100,7 +100,7 @@ const AskQuestionPage = () => {
                             onChange={(e) => setTitle(e.target.value)}
                             placeholder="Be specific and imagine you’re asking a question to another person"
                             required
-                            className="w-full bg-bg-2 px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+                            className="w-full bg-c1 border-2 border-c8/[.2] rounded-2xl px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
                         />
                     </div>
                     <div>
@@ -112,7 +112,7 @@ const AskQuestionPage = () => {
                             onChange={(e) => setBody(e.target.value)}
                             placeholder="Include all the information someone would need to answer your question"
                             required
-                            className="w-full px-3 py-2 bg-bg-2 focus:outline-none focus:ring focus:border-blue-300 h-48"
+                            className="w-full px-3 py-2 bg-c1 border-2 border-c8/[.2] rounded-2xl focus:outline-none focus:ring focus:border-blue-300 h-48"
                         />
                     </div>
                     <div>
@@ -122,15 +122,15 @@ const AskQuestionPage = () => {
 
                         {/* For larger screens */}
                         <div
-                            className="tablet:flex hidden justify-start gap-2 flex-wrap items-center bg-bg-2 rounded-md px-2 py-1">
+                            className="tablet:flex hidden justify-start gap-2 flex-wrap items-center bg-c1 border-2 border-c8/[.2] rounded-2xl px-2 py-1">
                             {tags.map((tag, index) => (
                                 <div key={index}
-                                     className="flex items-center text-gray-300 justify-center bg-bg-5 rounded-md px-3 py-1">
+                                     className="flex items-center text-c10 justify-center bg-c2 rounded-md px-3 py-1">
                                     <span>{tag}</span>
                                     <button
                                         type="button"
                                         onClick={() => removeTag(index)}
-                                        className="ml-2 text-gray-300 bg-bg-5 hover:text-gray-800 p-0 m-0  focus:outline-none"
+                                        className="ml-2 text-c10 bg-c2 hover:text-gray-800 p-0 m-0  focus:outline-none"
                                     >
                                         &times;
                                     </button>
@@ -142,7 +142,7 @@ const AskQuestionPage = () => {
                                 onChange={handleTagInputChange}
                                 onKeyDown={handleTagInputKeyDown}
                                 placeholder="Add up to 5 tags to describe what your question is about"
-                                className="flex-grow px-3 py-2 bg-bg-2 focus:outline-none"
+                                className="flex-grow px-3 py-2 bg-c1 focus:outline-none"
                             />
                         </div>
 
@@ -151,12 +151,12 @@ const AskQuestionPage = () => {
                             <div className="flex flex-wrap justify-start gap-2 items-center rounded-md px-2 py-1">
                                 {tags.map((tag, index) => (
                                     <div key={index}
-                                         className="flex items-center text-gray-300 justify-center bg-bg-5 rounded-md px-3 py-1">
+                                         className="flex items-center text-c10 justify-center bg-c2 rounded-md px-3 py-1">
                                         <span>{tag}</span>
                                         <button
                                             type="button"
                                             onClick={() => removeTag(index)}
-                                            className="ml-2 text-gray-300 bg-bg-5 hover:text-gray-800 p-0 m-0  focus:outline-none"
+                                            className="ml-2 text-c10 bg-c2 hover:text-gray-800 p-0 m-0  focus:outline-none"
                                         >
                                             &times;
                                         </button>
@@ -170,22 +170,22 @@ const AskQuestionPage = () => {
                                     onChange={handleTagInputChange}
                                     onKeyDown={handleTagInputKeyDown}
                                     placeholder="Add up to 5 tags to describe what your question is about"
-                                    className="flex-grow px-3 py-2 bg-bg-2 focus:outline-none"
+                                    className="flex-grow px-3 py-2 bg-c1 border-2 border-c8/[.2] rounded-2xl focus:outline-none"
                                 />
                             </div>
                         </div>
 
                         {
                             tagSuggestions.length > 0 &&
-                            <div className="bg-bg-2 p-2 rounded-xl mt-2">
-                                <p className="text-left font-bold text-xl my-2">Suggestions</p>
+                            <div className="bg-c1 border-c8/[.2] border-2 p-2 rounded-2xl mt-2">
+                                <p className="text-left font-bold text-c7 text-xl my-2">Suggestions</p>
                                 <div className="flex flex-wrap gap-2 ">
                                     {tagSuggestions.map((suggestion, index) => (
                                         <div
                                             key={index}
                                             onClick={() => addTag(suggestion)}>
                                             <div key={index}
-                                                 className="flex items-center text-gray-300 justify-center bg-bg-5 rounded-md px-3 py-1">
+                                                 className="flex items-center text-c10 justify-center bg-c2 rounded-md px-3 py-1">
                                                 <span>{suggestion}</span>
                                             </div>
                                         </div>
@@ -198,9 +198,9 @@ const AskQuestionPage = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full py-2 text-white font-semibold hover:bg-blue-700"
+                        className="py-2 text-c1 bg-primary rounded-xl font-semibold hover:bg-blue-700"
                     >
-                        Review your question
+                        Search for similar questions
                     </button>
                 </form>
             </div>
