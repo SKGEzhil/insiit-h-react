@@ -101,6 +101,8 @@ export const NavContainer = (props: {setMobileMenu: (bool) => void}) => {
     const currentPage = useSelector((state) => state.navigationSlice.current);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {profile, login, logout} = useAuth();
+
 
     return (
         <>
@@ -173,6 +175,18 @@ export const NavContainer = (props: {setMobileMenu: (bool) => void}) => {
                 }} page={"about"}>
                 About Us
             </NavButton>
+
+            {
+                profile?.role === 'admin' &&
+                <NavButton
+                onClick={() => {
+                    dispatch(navigateTo("admin"));
+                    navigate("/admin");
+                    console.log('CURRENT PAGE', currentPage)
+                    props.setMobileMenu(false);
+                }} page={"admin"}>
+                Admin
+            </NavButton>}
         </>
     );
 }

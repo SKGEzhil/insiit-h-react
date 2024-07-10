@@ -1,4 +1,4 @@
-import {endPoint} from "../config/constants.ts";
+import {endPoint, endPointBase} from "../config/constants.ts";
 
 export function createUser() {
     const query = `
@@ -50,6 +50,7 @@ export function isUserExist(email: string) {
         role
         email
         id
+        permissions
       }
     }
   `;
@@ -81,4 +82,27 @@ export function isUserExist(email: string) {
                 return response.data.getUser;
             }
         });
+}
+
+export function login(){
+    return fetch(`${endPointBase}/login`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') !== 'null' ? JSON.parse(<string>(localStorage.getItem('token'))) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            authRequired: true,
+        }),
+    }).then((response) => {
+        return response.json()
+    }).then((response) => {
+        if(response.status === 'error'){
+            throw new Error(response.data.message);
+        }
+        else {
+            return response.data.message;
+        }
+    });
 }

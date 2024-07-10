@@ -62,7 +62,7 @@ function AcademicsPage() {
                 isEditorVisible &&
                 <>
                     <div className="flex justify-center ">
-                        <div className='bg-white rounded-2xl min-h-64 w-full mx-2 tablet:mx-56'>
+                        <div className='bg-white rounded-2xl min-h-64 w-full mx-2 tablet:max-w-5xl'>
                             <EditorComponent data={data} onChange={setData} editorblock="editorjs-container"/>
                         </div>
                     </div>
@@ -79,7 +79,7 @@ function AcademicsPage() {
                                 message: result.error.message
                             }) : showToast({
                                 status: 'success',
-                                message: 'Section added successfully'
+                                message: 'Action sent for review'
                             })
                         })
                         setIsEditorVisible(false)
@@ -99,42 +99,44 @@ function AcademicsPage() {
 
                                 {
                                     profile?.role === 'admin' &&
-                                    <div className="flex justify-end mx-2 tablet:mx-56">
-                                        <button
-                                            onClick={() => {
+                                    <div className="flex justify-center mx-2">
+                                        <div className='tablet:max-w-5xl w-full flex justify-end'>
+                                            <button
+                                                onClick={() => {
 
-                                                setData({
-                                                    time: section.time,
-                                                    blocks: section.blocks,
-                                                    version: section.version
-                                                })
-
-                                                const newIsEditingMode = [...isEditingMode];
-                                                newIsEditingMode[index] = true;
-                                                setIsEditingMode(newIsEditingMode);
-
-                                            }}
-                                        >
-                                            <FaEdit className="text-c8"/>
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                if (confirm('Are you sure you want to delete this section?')) {
-                                                    dispatch(deleteSectionThunk({id: section.id})).then((result) => {
-                                                        result.error ? showToast({
-                                                            status: 'error',
-                                                            message: result.error.message
-                                                        }) : showToast({
-                                                            status: 'success',
-                                                            message: 'Section deleted successfully'
-                                                        })
-                                                        dispatch(getSectionsThunk());
+                                                    setData({
+                                                        time: section.time,
+                                                        blocks: section.blocks,
+                                                        version: section.version
                                                     })
-                                                }
-                                            }}
-                                        >
-                                            <FaTrash className="text-c8"/>
-                                        </button>
+
+                                                    const newIsEditingMode = [...isEditingMode];
+                                                    newIsEditingMode[index] = true;
+                                                    setIsEditingMode(newIsEditingMode);
+
+                                                }}
+                                            >
+                                                <FaEdit className="text-c8"/>
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    if (confirm('Are you sure you want to delete this section?')) {
+                                                        dispatch(deleteSectionThunk({id: section.id})).then((result) => {
+                                                            result.error ? showToast({
+                                                                status: 'error',
+                                                                message: result.error.message
+                                                            }) : showToast({
+                                                                status: 'success',
+                                                                message: 'Action sent for review'
+                                                            })
+                                                            dispatch(getSectionsThunk());
+                                                        })
+                                                    }
+                                                }}
+                                            >
+                                                <FaTrash className="text-c8"/>
+                                            </button>
+                                        </div>
                                     </div>
                                 }
 
@@ -150,7 +152,7 @@ function AcademicsPage() {
                                             Cancel
                                         </ProtectedButton>
                                         <div className="flex justify-center ">
-                                            <div className='bg-white rounded-2xl min-h-64 w-full mx-2 tablet:mx-56'>
+                                            <div className='bg-white rounded-2xl min-h-64 w-full mx-2 tablet:max-w-5xl'>
                                                 <EditorComponent data={data} onChange={setData}
                                                                  editorblock="editorjs-container"/>
                                             </div>
@@ -166,7 +168,7 @@ function AcademicsPage() {
                                                     message: result.error.message
                                                 }) : showToast({
                                                     status: 'success',
-                                                    message: 'Section updated successfully'
+                                                    message: 'Action sent for review'
                                                 })
                                                 dispatch(getSectionsThunk());
                                             })
@@ -183,7 +185,12 @@ function AcademicsPage() {
                                 {
 
                                     !isEditingMode[index] &&
-                                    <ElementRenderer data={section}/>
+                                    <div className='flex justify-center'>
+                                        <div className='tablet:max-w-5xl w-full'>
+                                            <ElementRenderer data={section}/>
+                                        </div>
+                                    </div>
+
                                 }
                             </div>
                         )

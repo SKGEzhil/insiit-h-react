@@ -5,6 +5,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google"
 import {AuthProvider} from "./context/authContext.tsx";
 import {ToastContainer} from "react-toastify";
 import {ToastProvider} from "./context/toastContext.tsx";
+import "react-toastify/dist/ReactToastify.css";
 import {routes} from "./routes.tsx";
 
 function App() {
@@ -15,10 +16,10 @@ function App() {
             <ToastProvider>
                 <AuthProvider>
                     <RouterProvider router={routes} />
-                    <ToastContainer/>
                 </AuthProvider>
             </ToastProvider>
         </GoogleOAuthProvider>
+        <ToastContainer/>
     </>)
 }
 

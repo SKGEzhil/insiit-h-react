@@ -10,6 +10,8 @@ const SearchPage = lazy(() => import("./pages/SearchPage.tsx"));
 const ForumPage = lazy(() => import("./pages/ForumPage.tsx"));
 const QuestionPage = lazy(() => import("./pages/QuestionPage.tsx"));
 const HomePage = lazy(() => import("./pages/HomePage.tsx"));
+const AdminPage = lazy(() => import("./pages/AdminPage.tsx"));
+const ProtectedRoute = lazy(() => import("./layouts/ProtectedRoute.tsx"));
 
 export const base_route = "";
 
@@ -18,6 +20,11 @@ export const routes = createBrowserRouter([
     {
         element: <Suspense><MainLayout /></Suspense>,
             children: [
+                { element: <Suspense><ProtectedRoute /></Suspense>,
+                    children: [
+                        { path: `${base_route}/admin`, element: <Suspense><AdminPage /></Suspense> },
+                    ]
+                },
                 { path: `${base_route}/`, element: <Suspense><HomePage /></Suspense>},
                 { path: `${base_route}/ask`, element: <Suspense><AskQuestionPage /></Suspense> },
                 { path: `${base_route}/ask/related`, element: <Suspense><RelatedQnsLayout /></Suspense> },
