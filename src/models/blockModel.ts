@@ -27,17 +27,19 @@ export class BlockModel implements Model {
     time: number;
     blocks: Block[];
     version: string;
+    page: string;
 
-    constructor(id: string, time: number, blocks: Block[], version: string) {
+    constructor(id: string, time: number, blocks: Block[], version: string, page: string) {
         this.id = id;
         this.time = time;
         this.blocks = blocks;
         this.version = version;
+        this.page = page;
     }
 
     static fromJson(json: any): BlockModel {
-        const {id, time, blocks, version } = json;
-        return new BlockModel(id, time, blocks, version);
+        const {id, time, blocks, version, page } = json;
+        return new BlockModel(id, time, blocks, version, page);
     }
 
     toJson(): object {

@@ -5,7 +5,7 @@ import {
     deleteSectionThunk,
     editSectionThunk,
     getSectionsThunk
-} from "../actions/academicPageActions.ts";
+} from "../actions/blogActions.ts";
 import {graphqlStringToJson} from "../../utils/graphqlStringConversion.ts";
 
 export const initialState = {
@@ -14,15 +14,15 @@ export const initialState = {
     error: null,
 };
 
-type AcademicPageState = {
+type BlogState = {
     sections: BlockModel[];
     loading: boolean;
     error: any;
 
 };
 
-const academicPageSlice = createSlice({
-    name: 'academicPage',
+const blogSlice = createSlice({
+    name: 'blogSlice',
     initialState: initialState,
     reducers: {
         addSection(state, action) {
@@ -31,30 +31,31 @@ const academicPageSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(addSectionThunk.pending, (state:AcademicPageState, action) => {
+            .addCase(addSectionThunk.pending, (state:BlogState, action) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(addSectionThunk.fulfilled, (state:AcademicPageState, action) => {
+            .addCase(addSectionThunk.fulfilled, (state:BlogState, action) => {
                 state.loading = false;
                 const jsonData = graphqlStringToJson(action.payload.blocks);
                 state.sections.push(BlockModel.fromJson({
                     id: action.payload.id,
                     time: action.payload.time,
                     blocks: jsonData,
-                    version: action.payload.version
+                    version: action.payload.version,
+                    page: action.payload.page
                 }))
 
             })
-            .addCase(addSectionThunk.rejected, (state:AcademicPageState, action) => {
+            .addCase(addSectionThunk.rejected, (state:BlogState, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             })
-            .addCase(getSectionsThunk.pending, (state:AcademicPageState, action) => {
+            .addCase(getSectionsThunk.pending, (state:BlogState, action) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(getSectionsThunk.fulfilled, (state:AcademicPageState, action) => {
+            .addCase(getSectionsThunk.fulfilled, (state:BlogState, action) => {
                 state.loading = false;
                 console.log('BLOCKS', action.payload)
 
@@ -62,29 +63,29 @@ const academicPageSlice = createSlice({
 
 
             })
-            .addCase(getSectionsThunk.rejected, (state:AcademicPageState, action) => {
+            .addCase(getSectionsThunk.rejected, (state:BlogState, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             })
-            .addCase(deleteSectionThunk.pending, (state:AcademicPageState, action) => {
+            .addCase(deleteSectionThunk.pending, (state:BlogState, action) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(deleteSectionThunk.fulfilled, (state:AcademicPageState, action) => {
+            .addCase(deleteSectionThunk.fulfilled, (state:BlogState, action) => {
                 state.loading = false;
             })
-            .addCase(deleteSectionThunk.rejected, (state:AcademicPageState, action) => {
+            .addCase(deleteSectionThunk.rejected, (state:BlogState, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             })
-            .addCase(editSectionThunk.pending, (state:AcademicPageState, action) => {
+            .addCase(editSectionThunk.pending, (state:BlogState, action) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(editSectionThunk.fulfilled, (state:AcademicPageState, action) => {
+            .addCase(editSectionThunk.fulfilled, (state:BlogState, action) => {
                 state.loading = false;
             })
-            .addCase(editSectionThunk.rejected, (state:AcademicPageState, action) => {
+            .addCase(editSectionThunk.rejected, (state:BlogState, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             })
@@ -92,6 +93,6 @@ const academicPageSlice = createSlice({
     }
 });
 
-export const { addSection } = academicPageSlice.actions;
+export const { addSection } = blogSlice.actions;
 
-export default academicPageSlice.reducer;
+export default blogSlice.reducer;

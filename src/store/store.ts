@@ -3,7 +3,7 @@ import questionSlice from "./slices/questionSlice.ts";
 import navigationSlice from "./slices/navigationSlice.ts";
 import paginatorSlice from "./slices/paginatorSlice.ts";
 import progressSlice from "./slices/progressSlice.ts";
-import academicPageSlice from "./slices/academicPageSlice.ts";
+import blogSlice from "./slices/blogSlice.ts";
 import approvalQueueSlice from "./slices/approvalQueueSlice.ts";
 
 export const store = configureStore({
@@ -12,7 +12,7 @@ export const store = configureStore({
         navigationSlice: navigationSlice,
         paginatorSlice: paginatorSlice,
         progressSlice: progressSlice,
-        academicPageSlice: academicPageSlice,
+        blogSlice: blogSlice,
         approvalQueueSlice: approvalQueueSlice
     }
 })

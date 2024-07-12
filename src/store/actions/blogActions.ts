@@ -1,14 +1,15 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {addSection, deleteSection, editSection, getSections} from "../../services/academicPageServices.ts";
+import {addSection, deleteSection, editSection, getSections} from "../../services/blogServices.ts";
 
 export const addSectionThunk = createAsyncThunk('academicPageSlice/addSectionThunk',
     async ({
                time,
                blocks,
-                version
+                version,
+                page
            }) => {
         try {
-            return await addSection(time, blocks, version).catch((error) => {
+            return await addSection(time, blocks, version, page).catch((error) => {
                 console.error("Error adding section: ", error.message);
                 throw error.message;
             });
@@ -32,9 +33,11 @@ export const deleteSectionThunk = createAsyncThunk('academicPageSlice/deleteSect
     });
 
 export const getSectionsThunk = createAsyncThunk('academicPageSlice/getSectionsThunk',
-    async () => {
+    async ({
+                page,
+           }) => {
         try {
-            return await getSections().catch((error) => {
+            return await getSections(page).catch((error) => {
                 console.error("Error getting sections: ", error.message);
                 throw error.message;
             });

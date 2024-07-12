@@ -33,14 +33,15 @@ function AnswerComponent(props: { question: QuestionModel }) {
                     <div className="my-2 mt-3">
                         <h2 className="font-bold text-c7 text-left">Answers</h2>
                     </div>
-                    <div className="bg-white rounded-2xl p-2">
                         {/*<hr className="solid my-2"/>*/}
                         <div>
                             {
                                 answers.length === 0 ? 'No answers yet' :
                                 answers.map((answer, index) => {
                                     return (
-                                        <div className="p-3 rounded-2xl my-1" key={index} >
+                                        <div className="bg-white rounded-2xl p-2 my-2">
+
+                                        <div className="p-3 rounded-2xl " key={index} >
 
                                             <div className="flex items-center">
                                                 <div className="flex flex-col mr-5">
@@ -123,10 +124,11 @@ function AnswerComponent(props: { question: QuestionModel }) {
                                             }
 
                                         </div>
+                                        </div>
+
                                     )
                                 })
                             }
-                        </div>
                     </div>
                 </div>
 
