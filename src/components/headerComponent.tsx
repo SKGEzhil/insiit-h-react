@@ -1,4 +1,3 @@
-import ProtectedButton from "./protectedButton.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {navigateTo} from "../store/slices/navigationSlice.ts";
 import {useNavigate} from "react-router-dom";
@@ -10,15 +9,15 @@ import SearchBar from "./searchBar.tsx";
 import {tagDict} from "../config/constants.ts";
 import TagComponent from "./tagComponent.tsx";
 import {useAuth} from "../context/authContext.tsx";
+import {IoMdArrowDropright} from "react-icons/io";
 
 function HeaderComponent() {
 
     const currentPage = useSelector((state) => state.navigationSlice.current);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const {profile, login, logout} = useAuth();
 
     const [mobileMenu, setMobileMenu] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <div className="bg-white text-center z-20 my-0 p-1 fixed w-full">
@@ -32,11 +31,18 @@ function HeaderComponent() {
                     >
                         <TiThMenu className="text-black mr-2"/>
                     </button>
-                    <h1 className="text-3xl text-left font-bold">InsIIT-H</h1>
+                    <div
+                        className="cursor-pointer"
+                        onClick={() => {
+                            navigate('/')
+                        }}
+                    >
+                        <h1 className="text-3xl text-left font-bold">InsIIT-H</h1>
+                    </div>
                 </div>
                 <div className="flex">
 
-                    {/* For larger screens */}
+                {/* For larger screens */}
                     <MediaQuery minWidth={640}>
                         <NavContainer setMobileMenu={setMobileMenu}/>
                     </MediaQuery>
@@ -101,7 +107,7 @@ export const NavContainer = (props: {setMobileMenu: (bool) => void}) => {
     const currentPage = useSelector((state) => state.navigationSlice.current);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {profile, login, logout} = useAuth();
+    const {profile} = useAuth();
 
 
     return (
@@ -147,13 +153,30 @@ export const NavContainer = (props: {setMobileMenu: (bool) => void}) => {
                 FAQs
             </NavButton>
             <NavButton
-                onClick={() => {
-                    dispatch(navigateTo("academics"));
-                    navigate("/academics");
+                dropdownItems={['Academics', 'Courses', 'Campus Life', 'Clubs']}
+                onClick={(index) => {
+                    dispatch(navigateTo("insights"));
+
+                    switch (index) {
+                        case 0:
+                            navigate("/academics");
+                            break;
+                        case 1:
+                            navigate("/others");
+                            break;
+                        case 2:
+                            navigate("/others");
+                            break;
+                        case 3:
+                            navigate("/others");
+                            break;
+                        default:
+                            navigate("/others");
+                    }
+
                     console.log('CURRENT PAGE', currentPage)
                     props.setMobileMenu(false);
-
-                }} page={"academics"}>
+                }} page={"insights"}>
                 Insights
             </NavButton>
             <NavButton
@@ -191,24 +214,52 @@ export const NavContainer = (props: {setMobileMenu: (bool) => void}) => {
     );
 }
 
-export const NavButton = (props: {page: string, onClick: () => void, children: React.ReactNode}) => {
+export const NavButton = (props: {page: string, onClick: (index?: number) => void, children: React.ReactNode, dropdownItems?: string[]}) => {
 
     const currentPage = useSelector((state) => state.navigationSlice.current);
+    const [isDropdownVisible, setDropdownVisible] = useState(false);
 
     return (
-        <div className="flex flex-col items-start tablet:items-center justify-center">
-            <button
-                onClick={props.onClick}
-                className={currentPage === props.page ? 'text-primary font-bold text-nowrap text-left ' +
-                    'flex py-0 items-center' : 'text-black text-left text-nowrap items-center flex py-0'}>
-                {props.children}
-            </button>
+        <div className="relative flex flex-col items-start tablet:items-center justify-center"
+             onMouseEnter={() => setDropdownVisible(true)}
+             onMouseLeave={() => setDropdownVisible(false)}
+        >
+            <div className='flex justify-start items-center'>
+                <button
+                    onClick={() => {
+                        !props.dropdownItems ? props.onClick() : setDropdownVisible(!isDropdownVisible)
+                    }}
+                    className={currentPage === props.page ? 'text-primary font-bold text-nowrap text-left ' +
+                        'flex py-0 items-center' : `${(props.dropdownItems && isDropdownVisible) ? 'text-primary font-bold tablet:text-black' : ''} text-black text-left text-nowrap items-center flex py-0`}>
+                    {props.children}
+                </button>
+                {
+                    props.dropdownItems &&
+                    <MediaQuery maxWidth={640}>
+                        <IoMdArrowDropright onClick={() => !props.dropdownItems ? props.onClick() : setDropdownVisible(!isDropdownVisible)}/>
+                    </MediaQuery>
+
+                }
+            </div>
+            {isDropdownVisible && props.dropdownItems && (
+                <div className="tablet:absolute mx-4 tablet:mx-0 top-full bg-white tablet:shadow-lg tablet:rounded-lg z-10">
+                    {props.dropdownItems.map((item, index) => (
+                        <div
+                            onClick={() => {
+                                props.onClick(index)
+                                setDropdownVisible(false)
+                            }}
+                            key={index} className="dropdown-item p-2 w-full cursor-pointer tablet:hover:bg-gray-200">
+                            <p className='text-left whitespace-nowrap'>{item}</p>
+                        </div>
+                    ))}
+                </div>
+            )}
             <MediaQuery minWidth={640}>
                 <div className={`w-10 h-1 rounded-xl bg-primary ${currentPage !== props.page && 'hidden'}`}>
                 </div>
             </MediaQuery>
         </div>
-
     )
 }
 
