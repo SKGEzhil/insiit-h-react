@@ -44,9 +44,9 @@ const approvalQueueSlice = createSlice(
                     state.loading = false;
                     state.queueList = action.payload as ApprovalQueue[];
                 })
-                .addCase(getApprovalQueueThunk.rejected, (state: ApprovalQueueState, action) => {
+                .addCase(getApprovalQueueThunk.rejected, (state: ApprovalQueueState, ) => {
                     state.loading = false;
-                    state.error = action.error.message;
+                    // state.error = action.error.message;
                 })
                 .addCase(takeActionThunk.pending, (state: ApprovalQueueState) => {
                     state.loading = true;
@@ -56,10 +56,10 @@ const approvalQueueSlice = createSlice(
                     state.loading = false;
                     console.log("Action taken: ", action.payload);
                 })
-                .addCase(takeActionThunk.rejected, (state: ApprovalQueueState, action) => {
+                .addCase(takeActionThunk.rejected, (state: ApprovalQueueState, ) => {
                     state.loading = false;
-                    console.error("Error taking action: ", action.error.message);
-                    state.error = action.error.message;
+                    // console.error("Error taking action: ", action.error.message);
+                    // state.error = action.error.message;
                 })
         }
     }

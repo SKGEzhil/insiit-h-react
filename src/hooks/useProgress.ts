@@ -3,10 +3,20 @@ import {useEffect} from "react";
 import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
 
 export function useProgress(){
-    const dispatch = useDispatch();
-    const progress = useSelector((state) => state.progressSlice.value);
 
-    const loading = useSelector((state) => state.questionSlice.loading);
+    type RootState = {
+        progressSlice: {
+            value: number;
+        };
+        questionSlice: {
+            loading: boolean;
+        };
+    }
+
+    const dispatch = useDispatch();
+    const progress = useSelector((state: RootState) => state.progressSlice.value);
+
+    const loading = useSelector((state: RootState) => state.questionSlice.loading);
 
     useEffect(() => {
         if (loading) {

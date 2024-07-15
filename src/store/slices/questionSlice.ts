@@ -1,8 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-    answerQuestionThunk,
-    createCommentThunk,
-    createQuestionThunk, searchQuestionThunk,
+    answerActionsThunk,
+    commentActionsThunk,
+    questionActionsThunk, searchQuestionThunk,
     upvoteQuestionThunk
 } from "../actions/questionActions.ts";
 import {QuestionModel} from "../../models/questionModel.ts";
@@ -24,8 +24,8 @@ const questionSlice = createSlice({
     name: 'question',
     initialState,
     reducers: {
-        addQuestion(state, action) {
-            state.questions.push(action.payload);
+        addQuestion(state: QuestionState, action) {
+            state.questions.push(action.payload as QuestionModel);
         },
         updateQuestionList(state, action) {
             console.log("Updating question list")
@@ -35,45 +35,45 @@ const questionSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(createQuestionThunk.pending, (state: QuestionState) => {
+            .addCase(questionActionsThunk.pending, (state: QuestionState) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(createQuestionThunk.fulfilled, (state: QuestionState, action) => {
+            .addCase(questionActionsThunk.fulfilled, (state: QuestionState, ) => {
                 state.loading = false;
-                console.log("Question created: ", action.payload);
-                state.questions.push(action.payload as QuestionModel);
+                // console.log("Question created: ", action.payload);
+                // state.questions.push(action.payload as QuestionModel);
             })
-            .addCase(createQuestionThunk.rejected, (state: QuestionState, action) => {
+            .addCase(questionActionsThunk.rejected, (state: QuestionState) => {
                 state.loading = false;
-                console.error("Error creating question: ", action.error.message);
-                state.error = action.error.message;
+                // console.error("Error creating question: ", action.error.message);
+                // state.error = action.error.message;
             })
-            .addCase(answerQuestionThunk.pending, (state: QuestionState) => {
+            .addCase(answerActionsThunk.pending, (state: QuestionState) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(answerQuestionThunk.fulfilled, (state: QuestionState, action) => {
+            .addCase(answerActionsThunk.fulfilled, (state: QuestionState, action) => {
                 state.loading = false;
                 console.log("Question answered: ", action.payload);
             })
-            .addCase(answerQuestionThunk.rejected, (state: QuestionState, action) => {
+            .addCase(answerActionsThunk.rejected, (state: QuestionState, ) => {
                 state.loading = false;
-                console.error("Error answering question: ", action.error.message);
-                state.error = action.error.message;
+                // console.error("Error answering question: ", action.error.message);
+                // state.error = action.error.message;
             })
-            .addCase(createCommentThunk.pending, (state: QuestionState) => {
+            .addCase(commentActionsThunk.pending, (state: QuestionState) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(createCommentThunk.fulfilled, (state: QuestionState, action) => {
+            .addCase(commentActionsThunk.fulfilled, (state: QuestionState, action) => {
                 state.loading = false;
                 console.log("Comment created: ", action.payload);
             })
-            .addCase(createCommentThunk.rejected, (state: QuestionState, action) => {
+            .addCase(commentActionsThunk.rejected, (state: QuestionState, ) => {
                 state.loading = false;
-                console.error("Error creating comment: ", action.error.message);
-                state.error = action.error.message;
+                // console.error("Error creating comment: ", action.error.message);
+                // state.error = action.error.message;
             })
             .addCase(upvoteQuestionThunk.pending, (state: QuestionState) => {
                 state.loading = true;
@@ -83,10 +83,10 @@ const questionSlice = createSlice({
                 state.loading = false;
                 console.log("Question upvoted: ", action.payload);
             })
-            .addCase(upvoteQuestionThunk.rejected, (state: QuestionState, action) => {
+            .addCase(upvoteQuestionThunk.rejected, (state: QuestionState, ) => {
                 state.loading = false;
-                console.error("Error upvoting question: ", action.error.message);
-                state.error = action.error.message;
+                // console.error("Error upvoting question: ", action.error.message);
+                // state.error = action.error.message;
             })
             .addCase(searchQuestionThunk.pending, (state: QuestionState) => {
                 state.loading = true;
@@ -97,10 +97,10 @@ const questionSlice = createSlice({
                 console.log("Questions found: ", action.payload);
                 state.questions = action.payload as QuestionModel[];
             })
-            .addCase(searchQuestionThunk.rejected, (state: QuestionState, action) => {
+            .addCase(searchQuestionThunk.rejected, (state: QuestionState, ) => {
                 state.loading = false;
-                console.error("Error searching questions: ", action.error.message);
-                state.error = action.error.message;
+                // console.error("Error searching questions: ", action.error.message);
+                // state.error = action.error.message;
             })
     }
 });

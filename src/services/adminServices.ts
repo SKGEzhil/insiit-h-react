@@ -21,7 +21,7 @@ export function getApprovalQueue(action: string) {
     return fetch(endPoint, {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
@@ -62,7 +62,7 @@ export function takeAction(id: string, status: string) {
     return fetch(endPoint, {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },

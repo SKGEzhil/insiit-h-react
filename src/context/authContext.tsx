@@ -12,7 +12,7 @@ type authContextType = {
     profile: UserModel | null;
     login: () => void;
     logout: () => void;
-    message: { status: string, message: string } | null;
+    // message: { status: string, message: string } | null;
     setPostLoginAction: (action: () => void) => void;
     // token: string | null;
 };
@@ -25,14 +25,14 @@ const AuthContext = createContext<authContextType>(
         },
         logout: () => {
         },
-        message: null,
+        // message: null,
         setPostLoginAction: () => {
         },
         // token: null
     }
 );
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({children}: {children: React.ReactNode}) => {
 
     type TokenResponse = googleUserInterface & {
         error: string;
@@ -44,8 +44,8 @@ export const AuthProvider = ({children}) => {
 
 
     const [profile, setProfile]
-        = useState<UserModel | null>(localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null);
-    const [message, setMessage] = useState<{ status: string, message: string } | null>(null);
+        = useState<UserModel | null>(localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData') as string) : null);
+    // const [message, setMessage] = useState<{ status: string, message: string } | null>(null);
 
     const [postLoginAction, setPostLoginAction] = useState<(() => void)>(() => () => {});
     const {showToast} = useShowToast();
@@ -128,7 +128,7 @@ export const AuthProvider = ({children}) => {
 
 
     return (
-        <AuthContext.Provider value={{profile, login, logout, message, setPostLoginAction}}>
+        <AuthContext.Provider value={{profile, login, logout, setPostLoginAction}}>
             {children}
         </AuthContext.Provider>
     );

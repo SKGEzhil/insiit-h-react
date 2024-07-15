@@ -2,7 +2,12 @@ import {createContext, useContext, useEffect, useState} from "react";
 import {toast} from "react-toastify";
 
 type toastContextType = {
-    showToast: ({status, message}) => void | null;
+    showToast: ({status, message}: toastArgsType) => void | null;
+};
+
+type toastArgsType = {
+    status: string;
+    message: string;
 };
 
 const ToastContext = createContext<toastContextType>(
@@ -12,7 +17,7 @@ const ToastContext = createContext<toastContextType>(
     }
 );
 
-export function ToastProvider({children}) {
+export function ToastProvider({children}: { children: React.ReactNode}) {
 
     const [toastMessage, showToast] = useState<{ status: string, message: string } | null>(null);
 

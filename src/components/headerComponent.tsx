@@ -11,9 +11,17 @@ import TagComponent from "./tagComponent.tsx";
 import {useAuth} from "../context/authContext.tsx";
 import {IoMdArrowDropright} from "react-icons/io";
 
+type NavigationStateType = {
+    navigationSlice: {
+        current: string;
+    };
+}
+
 function HeaderComponent() {
 
-    const currentPage = useSelector((state) => state.navigationSlice.current);
+
+
+    const currentPage = useSelector((state:NavigationStateType) => state.navigationSlice.current);
     const {profile, login, logout} = useAuth();
 
     const [mobileMenu, setMobileMenu] = useState(false);
@@ -102,9 +110,9 @@ function HeaderComponent() {
     );
 }
 
-export const NavContainer = (props: {setMobileMenu: (bool) => void}) => {
+export const NavContainer = (props: {setMobileMenu: (bool: boolean) => void}) => {
 
-    const currentPage = useSelector((state) => state.navigationSlice.current);
+    const currentPage = useSelector((state: NavigationStateType) => state.navigationSlice.current);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {profile} = useAuth();
@@ -216,7 +224,7 @@ export const NavContainer = (props: {setMobileMenu: (bool) => void}) => {
 
 export const NavButton = (props: {page: string, onClick: (index?: number) => void, children: React.ReactNode, dropdownItems?: string[]}) => {
 
-    const currentPage = useSelector((state) => state.navigationSlice.current);
+    const currentPage = useSelector((state: NavigationStateType) => state.navigationSlice.current);
     const [isDropdownVisible, setDropdownVisible] = useState(false);
 
     return (

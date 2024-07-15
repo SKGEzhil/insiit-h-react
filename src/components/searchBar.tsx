@@ -1,16 +1,16 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-function SearchBar(props: { setMobileMenu?: (bool) => void }) {
+function SearchBar(props: { setMobileMenu?: (bool: boolean) => void }) {
     const [searchTerm, setSearchTerm] = useState('');
 
     const navigate = useNavigate();
 
-    const handleChange = (event) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
 
-    const search = (searchTerm) => {
+    const search = (searchTerm: string) => {
         console.log(searchTerm);
         if (searchTerm) {
             navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
@@ -29,7 +29,7 @@ function SearchBar(props: { setMobileMenu?: (bool) => void }) {
                     placeholder="Search"
                     value={searchTerm}
                     onChange={handleChange}
-                    onKeyDown={() => {
+                    onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
                         event.key === 'Enter' &&
                         search(searchTerm)
                     }}

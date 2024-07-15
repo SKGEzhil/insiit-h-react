@@ -2,17 +2,18 @@ import {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useShowToast} from "../context/toastContext.tsx";
-import {createQuestionThunk} from "../store/actions/questionActions.ts";
+import {questionActionsThunk} from "../store/actions/questionActions.ts";
 import Fuse from "fuse.js";
 import {tagDict} from "../config/constants.ts";
+import {AppDispatch} from "../store/store.ts";
 
 const AskQuestionPage = () => {
     const [title, setTitle] =
-        useState<string>(localStorage.getItem('ask') ? JSON.parse(localStorage.getItem('ask')).title : '');
+        useState<string>(localStorage.getItem('ask') ? JSON.parse(localStorage.getItem('ask') as string).title : '');
     const [body, setBody] =
-        useState<string>(localStorage.getItem('ask') ? JSON.parse(localStorage.getItem('ask')).body : '');
+        useState<string>(localStorage.getItem('ask') ? JSON.parse(localStorage.getItem('ask') as string).body : '');
     const [tags, setTags] =
-        useState<string[]>(localStorage.getItem('ask') ? JSON.parse(localStorage.getItem('ask')).tags : []);
+        useState<string[]>(localStorage.getItem('ask') ? JSON.parse(localStorage.getItem('ask') as string).tags : []);
     const [tagInput, setTagInput] = useState<string>('');
 
     const [tagSuggestions, setTagSuggestions] = useState<string[]>([])
@@ -25,6 +26,7 @@ const AskQuestionPage = () => {
 
     // Create a Fuse instance
     const fuse = new Fuse(tagDict, options);
+
 
 
     useEffect(() => {
@@ -49,13 +51,13 @@ const AskQuestionPage = () => {
 
     const {showToast} = useShowToast();
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // Handle form submission logic here
         console.log({title, body, tags});
 
         if (localStorage.getItem('ask')) {
-            dispatch(createQuestionThunk({title, body, tags})).then(
+            dispatch(questionActionsThunk({action: 'CREATE', data: {title, body, tags}})).then(
                 (result) => {
                     localStorage.removeItem('ask');
                     result.error ? showToast({status: 'error', message: result.error.message}) : navigate('/forum');
@@ -70,18 +72,18 @@ const AskQuestionPage = () => {
 
     };
 
-    const handleTagInputChange = (e) => {
+    const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTagInput(e.target.value);
     };
 
-    const handleTagInputKeyDown = (e) => {
+    const handleTagInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === ' ' && tagInput.trim()) {
             setTags([...tags, tagInput.trim()]);
             setTagInput('');
         }
     };
 
-    const removeTag = (indexToRemove) => {
+    const removeTag = (indexToRemove: number) => {
         setTags(tags.filter((_, index) => index !== indexToRemove));
     };
 

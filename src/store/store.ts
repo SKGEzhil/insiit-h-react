@@ -16,3 +16,5 @@ export const store = configureStore({
         approvalQueueSlice: approvalQueueSlice
     }
 })
+
+export type AppDispatch = typeof store.dispatch;

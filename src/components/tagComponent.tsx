@@ -1,15 +1,14 @@
-import React from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 
 
-function TagComponent({tag}) {
+function TagComponent({tag} : {tag: string}) {
 
     const navigate = useNavigate();
 
     const location = useLocation();
 
     const getQueryParams = () => {
-        console.log(location)
+        // console.log(location)
         return new URLSearchParams(location.search);
     };
 

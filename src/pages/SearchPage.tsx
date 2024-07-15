@@ -27,7 +27,7 @@ const SearchPage = () => {
 
     // Function to extract query parameters
     const getQueryParams = () => {
-        console.log(location)
+        // console.log(location)
         return new URLSearchParams(location.search);
     };
 

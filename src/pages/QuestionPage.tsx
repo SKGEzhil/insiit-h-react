@@ -7,7 +7,7 @@ import React, {useState} from "react";
 import {useAuth} from "../context/authContext.tsx";
 import {useShowToast} from "../context/toastContext.tsx";
 import {useDispatch} from "react-redux";
-import {answerQuestionThunk} from "../store/actions/questionActions.ts";
+import {answerActionsThunk, answerQuestionThunk} from "../store/actions/questionActions.ts";
 
 function QuestionPage() {
 
@@ -23,6 +23,15 @@ function QuestionPage() {
 
     const dispatch = useDispatch<never>();
 
+    const createAnswer = () => {
+        dispatch(answerActionsThunk({action: 'CREATE', data: {questionId: id as string, answer: yourAnswer}})).then(
+            (result) => {
+                result.error ? showToast({status: 'error', message: result.error.message}) : setRefresh(true);
+            }
+        );
+        setYourAnswer("");
+    }
+
     return (
         question ?
             <div className="py-4">
@@ -36,7 +45,7 @@ function QuestionPage() {
 
                     {
                         !isAnswerFieldOpen ?
-                            profile?.role === "moderator" ?
+                            profile?.role === "moderator" || profile?.role === 'admin' ?
                                 <div className="flex justify-center my-2">
                                     <ProtectedButton onClick={() => {
                                         setIsAnswerFieldOpen(true);
@@ -74,19 +83,21 @@ function QuestionPage() {
                                             <div className="flex justify-center my-2">
                                                 <ProtectedButton onClick={() => {
 
-                                                    dispatch(answerQuestionThunk({
-                                                        questionId: question.id,
-                                                        answer: yourAnswer
-                                                    })).then(
-                                                        (result) => {
-                                                            result.error ? showToast({
-                                                                status: 'error',
-                                                                message: result.error.message
-                                                            }) : setRefresh(true);
-                                                        }
-                                                    );
+                                                    createAnswer();
 
-                                                    setYourAnswer("");
+                                                    // dispatch(answerQuestionThunk({
+                                                    //     questionId: question.id,
+                                                    //     answer: yourAnswer
+                                                    // })).then(
+                                                    //     (result) => {
+                                                    //         result.error ? showToast({
+                                                    //             status: 'error',
+                                                    //             message: result.error.message
+                                                    //         }) : setRefresh(true);
+                                                    //     }
+                                                    // );
+                                                    //
+                                                    // setYourAnswer("");
                                                 }}>
                                                     Submit
                                                 </ProtectedButton>

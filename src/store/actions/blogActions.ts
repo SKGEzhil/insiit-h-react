@@ -1,7 +1,28 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {addSection, deleteSection, editSection, getSections} from "../../services/blogServices.ts";
 
-export const addSectionThunk = createAsyncThunk('academicPageSlice/addSectionThunk',
+interface addSectionInterface {
+    time: string;
+    blocks: string;
+    version: string;
+    page: string;
+}
+
+interface deleteSectionInterface {
+    id: string;
+}
+
+interface editSectionInterface {
+    id: string;
+    blocks: string;
+}
+
+export interface getSectionsInterface {
+    page: string;
+}
+
+export const addSectionThunk =
+    createAsyncThunk<unknown, addSectionInterface>('academicPageSlice/addSectionThunk',
     async ({
                time,
                blocks,
@@ -19,7 +40,8 @@ export const addSectionThunk = createAsyncThunk('academicPageSlice/addSectionThu
         }
     });
 
-export const deleteSectionThunk = createAsyncThunk('academicPageSlice/deleteSectionThunk',
+export const deleteSectionThunk =
+    createAsyncThunk<unknown, deleteSectionInterface>('academicPageSlice/deleteSectionThunk',
     async ({id}) => {
         try {
             return await deleteSection(id).catch((error) => {
@@ -32,7 +54,8 @@ export const deleteSectionThunk = createAsyncThunk('academicPageSlice/deleteSect
         }
     });
 
-export const getSectionsThunk = createAsyncThunk('academicPageSlice/getSectionsThunk',
+export const getSectionsThunk =
+    createAsyncThunk<unknown, getSectionsInterface>('academicPageSlice/getSectionsThunk',
     async ({
                 page,
            }) => {
@@ -47,7 +70,8 @@ export const getSectionsThunk = createAsyncThunk('academicPageSlice/getSectionsT
         }
     });
 
-export const editSectionThunk = createAsyncThunk('academicPageSlice/editSectionThunk',
+export const editSectionThunk =
+    createAsyncThunk<unknown, editSectionInterface>('academicPageSlice/editSectionThunk',
     async ({
                id,
                blocks,

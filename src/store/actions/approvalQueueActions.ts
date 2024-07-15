@@ -1,8 +1,17 @@
 import {getApprovalQueue, takeAction} from "../../services/adminServices.ts";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
+interface getApprovalQueueInterface {
+    action: string;
+}
+
+interface takeActionInterface {
+    id: string;
+    status: string;
+}
+
 export const getApprovalQueueThunk =
-    createAsyncThunk('approvalQueueSlice/getApprovalQueueThunk',
+    createAsyncThunk<unknown, getApprovalQueueInterface>('approvalQueueSlice/getApprovalQueueThunk',
         async ({
                      action
                }) => {
@@ -18,7 +27,7 @@ export const getApprovalQueueThunk =
         });
 
 export const takeActionThunk =
-    createAsyncThunk('approvalQueueSlice/takeActionThunk',
+    createAsyncThunk<unknown, takeActionInterface>('approvalQueueSlice/takeActionThunk',
         async ({
                      id,
                      status

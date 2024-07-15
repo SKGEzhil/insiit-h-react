@@ -15,7 +15,7 @@ const MainLayout = () => {
             <LoadingBar
                 color='#0077B2'
                 progress={progress}
-                onLoaderFinished={() => {dispatch(resetProgress)}}
+                onLoaderFinished={() => {dispatch(resetProgress())}}
                 height={3}/>
             <div className="relative z-20">
                 <HeaderComponent />
