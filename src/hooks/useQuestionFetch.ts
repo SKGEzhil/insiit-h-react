@@ -5,6 +5,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateQuestionList} from "../store/slices/questionSlice.ts";
 import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
 
+/**
+ * This hook is used to fetch questions
+ * @param {string[]} tags
+ * @param {number} currentPage
+ */
 export function useQuestionFetch(tags, currentPage) {
 
     const dispatch = useDispatch();

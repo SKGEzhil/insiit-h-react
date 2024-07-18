@@ -10,7 +10,11 @@ import {store} from "./store/store.ts";
 
 // export type AppDispatch = typeof store.dispatch;
 
-
+/**
+ * Renders the App component to the root element in the DOM
+ * @function Main
+ * @param {HTMLElement} root - The root element in the DOM
+ */
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
       <Provider store={store}>

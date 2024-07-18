@@ -8,6 +8,12 @@ import {ToastProvider} from "./context/toastContext.tsx";
 import "react-toastify/dist/ReactToastify.css";
 import {routes} from "./routes.tsx";
 
+/**
+ * App component\
+ * This is the root component of the application\
+ * It wraps the entire application with the necessary ***context providers***
+ * @return {JSX.Element}
+ */
 function App() {
 
   return (

@@ -6,6 +6,15 @@ import progressSlice from "./slices/progressSlice.ts";
 import blogSlice from "./slices/blogSlice.ts";
 import approvalQueueSlice from "./slices/approvalQueueSlice.ts";
 
+/**
+ * Represents a Redux store.\
+ * Contains all the slices.\
+ * [questionSlice, navigationSlice, paginatorSlice, progressSlice, blogSlice, approvalQueueSlice]
+ * @type {Store}
+ * @name store
+ * @property {Object} reducer - The reducer object. Contains all the slices.\
+ * [questionSlice, navigationSlice, paginatorSlice, progressSlice, blogSlice, approvalQueueSlice]
+ */
 export const store = configureStore({
     reducer: {
         questionSlice: questionSlice,

@@ -1,6 +1,18 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {addSection, deleteSection, editSection, getSections} from "../../services/blogServices.ts";
 
+/**
+ * @namespace BlogSlice
+ */
+
+/**
+ * Interface for adding blog section
+ * @typedef addSectionInterface
+ * @property {string} time
+ * @property {string} blocks
+ * @property {string} version
+ * @property {string} page
+ */
 interface addSectionInterface {
     time: string;
     blocks: string;
@@ -8,19 +20,45 @@ interface addSectionInterface {
     page: string;
 }
 
+/**
+ * Interface for deleting blog section
+ * @typedef deleteSectionInterface
+ * @property {string} id
+ */
 interface deleteSectionInterface {
     id: string;
 }
 
+/**
+ * Interface for editing blog section
+ * @typedef editSectionInterface
+ * @property {string} id
+ * @property {string} blocks
+ */
 interface editSectionInterface {
     id: string;
     blocks: string;
 }
 
+/**
+ * Interface for getting blog sections
+ * @typedef getSectionsInterface
+ * @property {string} page
+ */
 export interface getSectionsInterface {
     page: string;
 }
 
+/**
+ * Async Thunk to add a blog section
+ * @function addSectionThunk
+ * @memberof BlogSlice
+ * @type {AsyncThunk<unknown, addSectionInterface, {}>}
+ * @param {string} time
+ * @param {string} blocks
+ * @param {string} version
+ * @param {string} page
+ */
 export const addSectionThunk =
     createAsyncThunk<unknown, addSectionInterface>('academicPageSlice/addSectionThunk',
     async ({
@@ -40,6 +78,14 @@ export const addSectionThunk =
         }
     });
 
+/**
+ * Async Thunk to delete a blog section
+ *
+ * @function deleteSectionThunk
+ * @memberof BlogSlice
+ * @type {AsyncThunk<unknown, deleteSectionInterface, {}>}
+ * @param {string} id
+ */
 export const deleteSectionThunk =
     createAsyncThunk<unknown, deleteSectionInterface>('academicPageSlice/deleteSectionThunk',
     async ({id}) => {
@@ -54,6 +100,13 @@ export const deleteSectionThunk =
         }
     });
 
+/**
+ * Async Thunk to get blog sections
+ * @function getSectionsThunk
+ * @memberof BlogSlice
+ * @type {AsyncThunk<unknown, getSectionsInterface, {}>}
+ * @param {string} page
+ */
 export const getSectionsThunk =
     createAsyncThunk<unknown, getSectionsInterface>('academicPageSlice/getSectionsThunk',
     async ({
@@ -70,6 +123,15 @@ export const getSectionsThunk =
         }
     });
 
+
+/**
+ * Async Thunk to edit a blog section
+ * @function editSectionThunk
+ * @memberof BlogSlice
+ * @type {AsyncThunk<unknown, editSectionInterface, {}>}
+ * @param {string} id
+ * @param {string} blocks
+ */
 export const editSectionThunk =
     createAsyncThunk<unknown, editSectionInterface>('academicPageSlice/editSectionThunk',
     async ({

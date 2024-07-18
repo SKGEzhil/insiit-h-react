@@ -3,26 +3,36 @@ import {useParams} from "react-router";
 import QuestionComponent from "../components/questionComponent.tsx";
 import AnswerComponent from "../components/answerComponent.tsx";
 import ProtectedButton from "../components/protectedButton.tsx";
-import React, {useState} from "react";
+import {useState} from "react";
 import {useAuth} from "../context/authContext.tsx";
 import {useShowToast} from "../context/toastContext.tsx";
 import {useDispatch} from "react-redux";
-import {answerActionsThunk, answerQuestionThunk} from "../store/actions/questionActions.ts";
+import {answerActionsThunk} from "../store/actions/questionActions.ts";
+import {AppDispatch} from "../store/store.ts";
 
+/**
+ * QuestionPage component\
+ * Renders a single question with its answers and comments
+ * - Takes ***question id*** as a parameter from url
+ * - Example: `app/question/questionId`
+ * @method QuestionPage
+ * @return JSX.Element
+ */
 function QuestionPage() {
 
     const {id} = useParams<{ id: string }>();
     const {question, setRefresh} = useGetQuestion(id!);
 
+    /*** State to store user's answer ***/
     const [yourAnswer, setYourAnswer] = useState("");
     const [isAnswerFieldOpen, setIsAnswerFieldOpen] = useState(false);
 
     const {showToast} = useShowToast();
-
     const {profile} = useAuth();
 
-    const dispatch = useDispatch<never>();
+    const dispatch = useDispatch<AppDispatch>();
 
+    /*** Dispatches an action to create an answer ***/
     const createAnswer = () => {
         dispatch(answerActionsThunk({action: 'CREATE', data: {questionId: id as string, answer: yourAnswer}})).then(
             (result) => {
@@ -82,22 +92,7 @@ function QuestionPage() {
                                             </div>
                                             <div className="flex justify-center my-2">
                                                 <ProtectedButton onClick={() => {
-
                                                     createAnswer();
-
-                                                    // dispatch(answerQuestionThunk({
-                                                    //     questionId: question.id,
-                                                    //     answer: yourAnswer
-                                                    // })).then(
-                                                    //     (result) => {
-                                                    //         result.error ? showToast({
-                                                    //             status: 'error',
-                                                    //             message: result.error.message
-                                                    //         }) : setRefresh(true);
-                                                    //     }
-                                                    // );
-                                                    //
-                                                    // setYourAnswer("");
                                                 }}>
                                                     Submit
                                                 </ProtectedButton>

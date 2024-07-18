@@ -1,6 +1,12 @@
 import {useSelector} from "react-redux";
 import ApprovalQueue from "../components/approvalQueue.tsx";
 
+/**
+ * Admin Page
+ * - All admin related actions can be viewed here
+ *
+ * @returns {JSX.Element} Admin Page
+ */
 function AdminPage() {
 
     const queue = useSelector((state) => state.approvalQueueSlice.queueList);

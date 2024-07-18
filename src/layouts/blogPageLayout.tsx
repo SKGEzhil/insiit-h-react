@@ -16,6 +16,24 @@ import {FaTrash} from "react-icons/fa6";
 import {FaEdit} from "react-icons/fa";
 import {Outlet} from "react-router-dom";
 
+
+/**
+ *
+ * Default blog page layout. Renders different sections based on `page` context from outlet.\
+ * **Pages**
+ * - `Academics page`
+ * - `Courses page`
+ * - `Campus Life page`
+ * - `Clubs page`
+ *
+ * @example
+ * return
+ *      <BlogPageLayout>
+ *          <AcademicsPage>
+ *      </BlogPageLayout>
+ *
+ * @return {Outlet} Returns outlet with context `page` and `setPage`
+ */
 function BlogPageLayout() {
 
     const [page, setPage] = useState<string>('');

@@ -1,5 +1,14 @@
 import {endPoint} from "../config/constants.ts";
 
+/**
+ * @namespace AdminServices
+ */
+
+/**
+ * Fetches all the pending requests from server
+ * @memberof AdminServices
+ * @param {string} action
+ */
 export function getApprovalQueue(action: string) {
     const query = `
         query GetApprovalQueue($action: String!) {
@@ -47,7 +56,12 @@ export function getApprovalQueue(action: string) {
         });
 }
 
-
+/**
+ * Takes action on approval request
+ * @memberof AdminServices
+ * @param {string} id Queue ID
+ * @param {string} status {'approved', 'rejected'}
+ */
 export function takeAction(id: string, status: string) {
     const query = `
         mutation TakeAction($id: ID!, $status: String!) {

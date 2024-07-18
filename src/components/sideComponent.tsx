@@ -1,8 +1,13 @@
 import TagComponent from "./tagComponent.tsx";
 import {tagDict} from "../config/constants.ts";
 
-function SideComponent() {
 
+/**
+ * `SideComponent` is a React component that renders a side component with tags and categories.
+ *
+ * @returns {JSX.Element} The side component element.
+ */
+function SideComponent() {
 
     return (
         <div className="fixed top-16 bottom-2 mb-6 m-4">

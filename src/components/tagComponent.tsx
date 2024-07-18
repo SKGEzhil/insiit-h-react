@@ -1,6 +1,11 @@
 import {useLocation, useNavigate} from "react-router-dom";
 
-
+/**
+ * TagComponent is a React component that renders a tag.
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.tag - The tag to be rendered.
+ * @returns {JSX.Element} The rendered tag component.
+ */
 function TagComponent({tag} : {tag: string}) {
 
     const navigate = useNavigate();
@@ -14,7 +19,12 @@ function TagComponent({tag} : {tag: string}) {
 
     const tags = getQueryParams().get('tags')?.split(',') || []
 
-    const updatePageParam = (newTag: string) => {
+    /**
+     * Function to update only the tags query parameter.
+     * @method updateTagParam
+     * @param {string} newTag - The new tag to be added to the parameters.
+     */
+    const updateTagParam = (newTag: string) => {
         const queryParams = new URLSearchParams(location.search);
         const currentTags = queryParams.get('tags') || '';
         const tagList = currentTags ? currentTags.split(',') : [];
@@ -33,7 +43,7 @@ function TagComponent({tag} : {tag: string}) {
 
     const handleClick = () => {
         console.log(tag);
-        updatePageParam(tag)
+        updateTagParam(tag)
     }
 
     return (

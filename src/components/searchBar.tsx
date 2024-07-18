@@ -1,6 +1,14 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
+/**
+ * `SearchBar` is a React component that renders a search bar.
+ *
+ * @param {Object} props - The properties for the search bar.
+ * @param {function} props.setMobileMenu - The function to show and hide menu while using mobile screen.
+ *
+ * @returns {JSX.Element} The search bar element.
+ */
 function SearchBar(props: { setMobileMenu?: (bool: boolean) => void }) {
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -10,6 +18,13 @@ function SearchBar(props: { setMobileMenu?: (bool: boolean) => void }) {
         setSearchTerm(event.target.value);
     };
 
+    /**
+     * Navigates to the search page with the given search term.
+     * - Navigates to `/search?query=${searchTerm}`
+     *
+     * @method search
+     * @param {string} searchTerm - The search term.
+     */
     const search = (searchTerm: string) => {
         console.log(searchTerm);
         if (searchTerm) {

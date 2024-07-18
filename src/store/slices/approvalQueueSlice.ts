@@ -1,8 +1,18 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {UserModel} from "../../models/userModel.ts";
 import {getApprovalQueueThunk, takeActionThunk} from "../actions/approvalQueueActions.ts";
+import '../actions/approvalQueueActions.ts';
 
-type ApprovalQueue = {
+/**
+ * @typedef ApprovalQueueType
+ * @property {string} id
+ * @property {string} action
+ * @property {UserModel} user
+ * @property {string} date
+ * @property {string} status
+ * @property {never} data
+ */
+type ApprovalQueueType = {
     id: string;
     action: string;
     user: UserModel;
@@ -17,14 +27,29 @@ const initialState = {
     error: null,
 };
 
+/**
+ * @typedef ApprovalQueueState
+ * @property {ApprovalQueueType[]} queueList
+ * @property {boolean} loading
+ * @property {string} error
+ */
 type ApprovalQueueState = {
-    queueList: ApprovalQueue[];
+    queueList: ApprovalQueueType[];
     loading: boolean;
     error: string | null;
 };
 
 
-
+/**
+ * Approval Queue Slice
+ * @memberof ApprovalQueueSlice
+ * @type {Slice<ApprovalQueueState>}
+ * @name approvalQueueSlice
+ * @property {string} name - The name of the slice ('approvalQueue').
+ * @property {ApprovalQueueState} initialState - The initial state of the slice.
+ * @property {Function} reducers.getQueue - A reducer function that gets the approval queue.
+ * @property {Function} extraReducers - A function that handles all async thunk actions.
+ */
 const approvalQueueSlice = createSlice(
     {
         name: 'approvalQueue',
@@ -42,7 +67,7 @@ const approvalQueueSlice = createSlice(
                 })
                 .addCase(getApprovalQueueThunk.fulfilled, (state: ApprovalQueueState, action) => {
                     state.loading = false;
-                    state.queueList = action.payload as ApprovalQueue[];
+                    state.queueList = action.payload as ApprovalQueueType[];
                 })
                 .addCase(getApprovalQueueThunk.rejected, (state: ApprovalQueueState, ) => {
                     state.loading = false;

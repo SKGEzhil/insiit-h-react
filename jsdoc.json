@@ -1,0 +1,32 @@
+
+
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "source": {
+    "include": ["src/"],
+    "includePattern": ".+\\.(tsx|ts)$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": ["plugins/markdown", "node_modules/jsdoc-babel"],
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false
+  },
+  "babel": {
+    "extensions": ["tsx", "ts"],
+    "ignore": ["**/*.(test|spec).ts"],
+    "babelrc": false,
+    "presets": [["@babel/preset-env", { "targets": { "node": true } }], "@babel/preset-typescript"],
+    "plugins": ["@babel/proposal-class-properties", "@babel/proposal-object-rest-spread"]
+  },
+  "opts": {
+    "encoding": "utf8",
+    "destination": "./public/docs/",
+    "template": "node_modules/minami",
+    "recurse": true,
+    "verbose": true
+  }
+}

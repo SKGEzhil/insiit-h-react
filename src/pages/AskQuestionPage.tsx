@@ -5,8 +5,11 @@ import {useShowToast} from "../context/toastContext.tsx";
 import {questionActionsThunk} from "../store/actions/questionActions.ts";
 import Fuse from "fuse.js";
 import {tagDict} from "../config/constants.ts";
-import {AppDispatch} from "../store/store.ts";
 
+/**
+ * Renders the AskQuestionPage
+ * @returns {JSX.Element} AskQuestionPage
+ */
 const AskQuestionPage = () => {
     const [title, setTitle] =
         useState<string>(localStorage.getItem('ask') ? JSON.parse(localStorage.getItem('ask') as string).title : '');

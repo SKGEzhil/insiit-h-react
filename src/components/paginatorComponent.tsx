@@ -1,6 +1,10 @@
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
+/**
+ * PaginatorComponent is a functional component that renders a paginator.
+ * @returns {React.Element} The rendered paginator.
+ */
 function PaginatorComponent() {
 
 
@@ -9,8 +13,13 @@ function PaginatorComponent() {
     const navigate = useNavigate();
 
 
-    // Function to update only the page query parameter
+    /**
+     * Function to update only the page query parameter.
+     * @method updatePageParam
+     * @param {number} newPage - The new page number.
+     */
     const updatePageParam = (newPage: number) => {
+        /** @type {URLSearchParams} The current query parameters. */
         const queryParams = new URLSearchParams(location.search);
         queryParams.set('page', newPage.toString());
 

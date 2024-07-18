@@ -3,6 +3,11 @@ import ProtectedButton from "../components/protectedButton.tsx";
 import {useNavigate} from "react-router-dom";
 import MediaQuery from "react-responsive";
 
+/**
+ * This layout is used to display related questions while user is asking a new question
+ *
+ * @returns {JSX.Element}
+ */
 function RelatedQnsLayout() {
 
     const navigate = useNavigate();

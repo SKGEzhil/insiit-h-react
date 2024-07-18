@@ -3,6 +3,21 @@ import {NavLink} from "react-router-dom";
 import {QuestionModel} from "../models/questionModel.ts";
 import TagComponent from "./tagComponent.tsx";
 
+/**
+ * `QuestionListItem` is a React component that renders a single question item.
+ *
+ * @param {Object} props - The properties for the question list item.
+ * @param {QuestionModel} props.question - The question model.
+ *
+ * @returns {JSX.Element} The question list item element.
+ *
+ * @example
+ * questionList.map((question, index) => (
+ *    <QuestionListItem question={question} key={index}/>
+ *  ))
+ *
+ */
+
 const QuestionListItem = (props: { question: QuestionModel }) => {
 
     const title = props.question.title;

@@ -14,12 +14,19 @@ export const initialState = {
     error: null,
 };
 
+/**
+ * @typedef BlogState
+ * @property {BlockModel[]} sections
+ * @property {boolean} loading
+ * @property {string} error
+ */
 type BlogState = {
     sections: BlockModel[];
     loading: boolean;
     error: string | null;
 
 };
+
 
 type ActionPayload = [{
     id: string;
@@ -29,6 +36,16 @@ type ActionPayload = [{
     page: string;
 }]
 
+/**
+ * Blog Slice
+ * @memberof BlogSlice
+ * @type {Slice<BlogState>}
+ * @name blogSlice
+ * @property {string} name - The name of the slice ('blogSlice').
+ * @property {BlogState} initialState - The initial state of the slice.
+ * @property {Function} reducers.addSection - A reducer function that adds a section to the list of sections.
+ * @property {Function} extraReducers - A function that handles all async thunk actions.
+ */
 const blogSlice = createSlice({
     name: 'blogSlice',
     initialState: initialState,
@@ -45,14 +62,6 @@ const blogSlice = createSlice({
             })
             .addCase(addSectionThunk.fulfilled, (state:BlogState, ) => {
                 state.loading = false;
-                // const jsonData = graphqlStringToJson(action.payload.blocks);
-                // state.sections.push(BlockModel.fromJson({
-                //     id: action.payload.id,
-                //     time: action.payload.time,
-                //     blocks: jsonData,
-                //     version: action.payload.version,
-                //     page: action.payload.page
-                // }))
 
             })
             .addCase(addSectionThunk.rejected, (state:BlogState, ) => {
@@ -68,7 +77,7 @@ const blogSlice = createSlice({
                 console.log('BLOCKS2', action.payload)
 
                 // state.sections = action.payload.map((section) => {section.blocks = graphqlStringToJson(section.blocks); return section}) as BlockModel[]
-
+                state.sections = [];
                 action.payload.forEach((section) => {
                     section.blocks = graphqlStringToJson(section.blocks as string);
                     state.sections.push(BlockModel.fromJson(section))

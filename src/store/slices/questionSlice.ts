@@ -13,13 +13,31 @@ export const initialState = {
     error: null,
 };
 
+/**
+ * @typedef QuestionState
+ * @property {QuestionModel[]} questions
+ * @property {boolean} loading
+ * @property {string} error
+ */
 type QuestionState = {
     questions: QuestionModel[];
     loading: boolean;
     error: string | null;
 };
 
-
+/**
+ * questionSlice represents the Redux slice for managing question-related state.
+ * @memberof QuestionSlice
+ *
+ * @type {Slice<QuestionState>}
+ * @name questionSlice
+ * @property {string} name - The name of the slice ('question').
+ * @property {QuestionState} initialState - The initial state of the slice.
+ * @property {Function} reducers.addQuestion - A reducer function that adds a question to the list of questions.
+ * @property {Function} reducers.updateQuestionList - A reducer function that updates the list of questions.
+ * @property {Function} extraReducers - A function that handles all async thunk actions.
+ *
+ */
 const questionSlice = createSlice({
     name: 'question',
     initialState,

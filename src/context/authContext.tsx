@@ -8,6 +8,13 @@ import {UserModel} from "../models/userModel.ts";
 import {endPointBase} from "../config/constants.ts";
 
 
+/**
+ * @typedef {Object} authContextType
+ * @property {UserModel | null} profile
+ * @property {Function} login
+ * @property {Function} logout
+ * @property {Function} setPostLoginAction
+ */
 type authContextType = {
     profile: UserModel | null;
     login: () => void;
@@ -32,6 +39,12 @@ const AuthContext = createContext<authContextType>(
     }
 );
 
+/**
+ * AuthProvider is a React component that provides authentication context to its children.
+ * @method AuthProvider
+ * @param {Object} props
+ * @param {React.ReactNode} props.children
+ */
 export const AuthProvider = ({children}: {children: React.ReactNode}) => {
 
     type TokenResponse = googleUserInterface & {

@@ -5,6 +5,24 @@ import {useProgress} from "../hooks/useProgress.ts";
 import {resetProgress} from "../store/slices/progressSlice.ts";
 import LoadingBar from "react-top-loading-bar";
 
+/**
+ * Main Layout has only a header component\
+ *
+ * **Pages**
+ * - AskQuestionPage
+ * - BlogPageLayout
+ * - HomePage
+ * - AdminPage
+ *
+ * @returns {Outlet}
+ *
+ * @example
+ * return
+ *      <MainLayout>
+ *          <HomePage/>
+ *      </MainLayout>
+ *
+ */
 const MainLayout = () => {
 
     const dispatch = useDispatch();

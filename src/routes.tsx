@@ -17,8 +17,40 @@ const BlogPageLayout = lazy(() => import("./layouts/blogPageLayout.tsx"));
 const AcademicsPage = lazy(() => import("./pages/AcademicsPage.tsx"));
 const OthersPage = lazy(() => import("./pages/OthersPage.tsx"));
 
+/**
+ * Base route of the application
+ * Every route in the application is prefixed with this route
+ * @example
+ * // If base_route is "/app"
+ * // The route "/app/home" will be the home route
+ * @type {string}
+ * @name base_route
+ */
 export const base_route = "";
 
+/**
+ * The routes of the application
+ * This is a tree of routes that define the structure of the application
+ * @type {BrowserRouter}
+ * @name routes
+ * @returns {BrowserRouter}
+ * @example
+ * /
+ * ├── /ProtectedRoute (requires authentication)
+ *      └── /admin
+ * ├── /MainLayout
+ *      ├── /home
+ *      ├── /ask
+ *      ├── /ask/related
+ *      └── /BlogPageLayout
+ *           ├── /academics
+ *           └── /others
+ * ├── /ForumLayout
+ *     ├── /search
+ *     ├── /forum
+ *     └── /question/:id
+ *
+ */
 export const routes = createBrowserRouter([
 
         {
@@ -53,5 +85,9 @@ export const routes = createBrowserRouter([
                 {path: `${base_route}/question/:id`, element: <Suspense><QuestionPage/></Suspense>},
             ],
         },
+        {
+            path: `*`,
+            element: <Suspense><ErrorPage/></Suspense>,
+        }
     ]
 );

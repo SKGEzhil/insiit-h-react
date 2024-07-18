@@ -7,6 +7,24 @@ import {resetProgress} from "../store/slices/progressSlice.ts";
 import {useProgress} from "../hooks/useProgress.ts";
 import MediaQuery from "react-responsive";
 
+
+/**
+ * Forum Layout has a header component and a side component\
+ *
+ * **Pages**
+ * - ForumPage
+ * - QuestionPage
+ * - SearchPage
+ *
+ * @returns {Outlet}
+ *
+ * @example
+ * return
+ *      <ForumLayout>
+ *          <ForumPage/>
+ *      </ForumLayout>
+ *
+ */
 const ForumLayout = () => {
 
     // const progress = useSelector((state) => state.progressSlice.value);

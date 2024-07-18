@@ -1,6 +1,38 @@
 import {endPoint} from "../config/constants.ts";
 
+/**
+ * @namespace QuestionServices
+ */
 
+/**
+ * @typedef QuestionInput
+ * @property {string} id - The id of the question.
+ * @property {string} title - The title of the question.
+ * @property {string} body - The body of the question.
+ * @property {string[]} tags - The tags of the question.
+ */
+
+/**
+ * @typedef AnswerInput
+ * @property {string} questionId - The id of the question on which the particular answer exists.
+ * @property {string} answerId - The id of the answer.
+ * @property {string} answer - The answer content.
+ */
+
+/**
+ * @typedef CommentInput
+ * @property {string} questionId - The id of the question on which the particular comment exists.
+ * @property {string} answerId - The id of the answer on which the particular comment exists.
+ * @property {string} commentId - The id of the comment.
+ * @property {string} comment - The comment content.
+ */
+
+/**
+ * Handles all the actions related to questions
+ * @memberof QuestionServices
+ * @param {string} action {"CREATE", "EDIT", "DELETE"}
+ * @param {QuestionInput} data
+ */
 export function questionActions(action, data) {
 
     const query = `
@@ -45,6 +77,12 @@ export function questionActions(action, data) {
         });
 }
 
+/**
+ * Handles all the actions related to answers
+ * @memberof QuestionServices
+ * @param {string} action {"CREATE", "EDIT", "DELETE"}
+ * @param {AnswerInput} data
+ */
 export function answerActions(action, data) {
 
     const query = `
@@ -89,6 +127,12 @@ export function answerActions(action, data) {
         });
 }
 
+/**
+ * Handles all the actions related to comments
+ * @memberof QuestionServices
+ * @param {string} action {"CREATE", "EDIT", "DELETE"}
+ * @param {CommentInput} data
+ */
 export function commentActions(action, data) {
 
     const query = `
@@ -133,6 +177,12 @@ export function commentActions(action, data) {
         });
 }
 
+/**
+ * Fetches all questions from server based page and page limit provided
+ * @memberof QuestionServices
+ * @param {number} page
+ * @param {number} limit
+ */
 export function getQuestions(tags: string[], page: number, limit: number) {
     const query = `
     query Query ($tags: [String!] $page: Int!, $limit: Int!) {
@@ -199,6 +249,11 @@ export function getQuestions(tags: string[], page: number, limit: number) {
         });
 }
 
+/**
+ * Fetches a single question from the server based on the question id provided
+ * @memberof QuestionServices
+ * @param {string} getQuestionId
+ */
 export function getQuestion(getQuestionId: string) {
 
     // const {token} = useAuth();
@@ -269,6 +324,11 @@ export function getQuestion(getQuestionId: string) {
         });
 }
 
+/**
+ * Upvotes a question based on the question id provided
+ * @memberof QuestionServices
+ * @param {string} id
+ */
 export function upvoteQuestion(id: string) {
     const query = `
     mutation Mutation($id: ID!) {
@@ -331,6 +391,14 @@ export function upvoteQuestion(id: string) {
         });
 }
 
+/**
+ * Searches for questions based on the search query and tags provided
+ * @memberof QuestionServices
+ * @param search
+ * @param tags
+ * @param page
+ * @param limit
+ */
 export function searchQuestion(search: string, tags: string[], page: number, limit: number) {
     const query = `
     query Query($search: String!, $tags: [String!], $page: Int!, $limit: Int!) {

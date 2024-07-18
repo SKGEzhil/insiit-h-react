@@ -6,6 +6,16 @@ import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {UserModel} from "../models/userModel.ts";
 
+/**
+ * @typedef {Object} QueueItemType
+ * @property {string} id
+ * @property {string} action
+ * @property {UserModel} user
+ * @property {string} date
+ * @property {string} status
+ * @property {never} data
+ *
+ */
 type QueueItemType = {
     id: string;
     action: string;
@@ -15,15 +25,24 @@ type QueueItemType = {
     data: never;
 }
 
+/**
+ * ApprovalQueue component
+ * @param {Object} props
+ * @param {QueueItemType[]} props.queue List of items in the approval queue
+ *
+ * @returns {React.Element} The ApprovalQueue component
+ */
 function ApprovalQueue(props: {queue: QueueItemType[]}) {
 
-    const dispatch = useDispatch<never>();
 
+    // States
     const [refreshCounter, setRefreshCounter] = useState(0);
-
     const [isDataVisible, setIsDataVisible] = useState<boolean[]>(props.queue.map(() => false));
     const [isShowMore, setIsShowMore] = useState<boolean>(false);
+
     const {showToast} = useShowToast();
+    const dispatch = useDispatch<never>();
+
 
     useEffect(() => {
         dispatch(getApprovalQueueThunk({action: 'CREATE_ACADEMICS'}));
@@ -37,6 +56,9 @@ function ApprovalQueue(props: {queue: QueueItemType[]}) {
                 <div className='max-w-4xl w-full'>
                     <div className='flex justify-between'>
                         <h2 className='text-left'>Pending Approvals</h2>
+
+                        {/*Returns show more button when queue length exceeds 5 items*/}
+
                         {
                             props.queue.length > 4 &&
                             <button
@@ -48,6 +70,7 @@ function ApprovalQueue(props: {queue: QueueItemType[]}) {
                         {
                             props.queue.map((item, index) => {
                                 {
+                                    // Returns only first 4 items when show more is false
                                     if (!isShowMore && index >= 4) {
                                         return null;
                                     }
@@ -89,6 +112,8 @@ function ApprovalQueue(props: {queue: QueueItemType[]}) {
                                                                         status: 'success',
                                                                         message: 'Action approved successfully'
                                                                     });
+
+                                                                    // Refresh the page after dispatch
                                                                     setRefreshCounter(refreshCounter + 1)
                                                                 }
                                                             })
@@ -111,6 +136,8 @@ function ApprovalQueue(props: {queue: QueueItemType[]}) {
                                                                         status: 'success',
                                                                         message: 'Action rejected successfully'
                                                                     });
+
+                                                                    // Refresh the page after dispatch
                                                                     setRefreshCounter(refreshCounter + 1)
                                                                 }
                                                             })
@@ -126,8 +153,6 @@ function ApprovalQueue(props: {queue: QueueItemType[]}) {
                                                     <ElementRenderer data={
                                                         {
                                                             "blocks": graphqlStringToJson(item.data.blocks),
-                                                            "time": item.data.time,
-                                                            "version": item.data.version
                                                         }
                                                     }/>
                                                 </div>

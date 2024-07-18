@@ -2,7 +2,24 @@ import {Outlet} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {login} from "../services/userServices.ts";
 
-
+/**
+ * This layout is used to protect routes
+ * - It checks if the user is ***authorized*** when the component is mounted
+ * - If the user is authorized, it renders the ***outlet***
+ * - If not authorized, it renders an ***error*** message
+ *
+ * **Pages**
+ * - AdminPage
+ *
+ * @returns {Outlet|JSX.Element}
+ *
+ * @example
+ * return
+ *      <ProtectedRoute>
+ *          <AdminPage/>
+ *      </ProtectedRoute>
+ *
+ */
 const ProtectedRoute = () => {
 
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false);

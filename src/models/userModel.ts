@@ -1,3 +1,14 @@
+/**
+ * User model
+ * @class
+ * @property {string} id - User id
+ * @property {string} name - User name
+ * @property {string} email - User email
+ * @property {string} role - User role
+ * @property {string} photoUrl - User photo url
+ * @property {string[]} permissions - User permissions
+ */
+
 export class UserModel {
     id: string;
     name: string;

@@ -2,6 +2,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
 
+/**
+ * This hook is used to show progress bar when loading
+ */
 export function useProgress(){
 
     type RootState = {

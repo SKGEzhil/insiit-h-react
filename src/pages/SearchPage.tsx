@@ -1,44 +1,51 @@
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import QuestionListItem from "../components/questionListItem.tsx";
-import ProtectedButton from "../components/protectedButton.tsx";
-import {useAuth} from "../context/authContext.tsx";
 import "react-toastify/dist/ReactToastify.css";
-import {useShowToast} from "../context/toastContext.tsx";
 import PaginatorComponent from "../components/paginatorComponent.tsx";
 import SearchBar from "../components/searchBar.tsx";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {searchQuestionThunk} from "../store/actions/questionActions.ts";
 import {setPage} from "../store/slices/paginatorSlice.ts";
+import {AppDispatch} from "../store/store.ts";
+import { QuestionModel } from "../models/questionModel.ts";
 
 
+/**
+ * SearchPage component\
+ * Renders list of questions based on search query
+ * - Uses `useLocation` hook from `react-router-dom` to get the current location
+ * - Gets the query parameters from the url
+ * - Example: `app/search?query=question&page=1&tags=tag1,tag2`
+ * @method SearchPage
+ */
 const SearchPage = () => {
 
-    // const {page} = useParams<{ page: number }>();
+    type RootState = {
+        questionSlice: {
+            questions: QuestionModel[];
+        };
+    }
 
-    const navigate = useNavigate();
-    // const {questionList, setRefresh} = useQuestionFetch(page);
-    const questionList = useSelector((state) => state.questionSlice.questions);
-    const dispatch = useDispatch<never>();
-    const {showToast} = useShowToast();
-    const {login, logout} = useAuth();
+    const questionList = useSelector((state: RootState) => state.questionSlice.questions);
 
+    const dispatch = useDispatch<AppDispatch>();
     const location = useLocation();
 
-    // Function to extract query parameters
+    /*** Function to extract query parameters ***/
     const getQueryParams = () => {
         // console.log(location)
         return new URLSearchParams(location.search);
     };
 
-    // Extracting query and page parameters
+    /*** Extracting query and page parameters ***/
     const query = getQueryParams().get('query') || '';
-    const page = parseInt(getQueryParams().get('page')) || 1;
+    const page = parseInt(getQueryParams().get('page') as string) || 1;
     const tags = getQueryParams().get('tags') || ''
     const tagList = tags.split(',');
     // const tags = getQueryParams().get('tags') || '';
 
-    // Call the search function whenever the component mounts or query/page changes
+    /*** Call the search function whenever the component mounts or query/page changes ***/
     useEffect(() => {
         dispatch(setPage(page));
         console.log('tag!!', tagList);
@@ -60,7 +67,7 @@ const SearchPage = () => {
                     }
 
                     {
-                        questionList.map((question) => {
+                        questionList.map((question: QuestionModel) => {
                             return (
                                 <QuestionListItem question={question} key={question.id}/>
                             )

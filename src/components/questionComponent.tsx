@@ -7,6 +7,42 @@ import {useShowToast} from "../context/toastContext.tsx";
 import {useAuth} from "../context/authContext.tsx";
 import {useNavigate} from "react-router-dom";
 
+/**
+ * `QuestionComponent` is a React component that renders a question.
+ * It provides functionalities to edit, delete, and upvote a question.
+ *
+ * @param {Object} props - The properties for the component.
+ * @param {QuestionModel} props.question - The question data.
+ *
+ * @returns {JSX.Element} The question component.
+ *
+ * @example
+ *
+ * const question = {
+ *   id: "1",
+ *   title: "How to learn React?",
+ *   body: "I am new to React. Can someone guide me on how to learn React?",
+ *   tags: ["React", "JavaScript"],
+ *   answer: [
+ *     {
+ *       id: "1",
+ *       answer: "You can start by reading the official documentation of React."
+ *       author: { name: "John Doe" },
+ *       comments: [
+ *          { comment: "Great answer!", author: { name: "Jane Doe" } }
+ *       ],
+ *       date: "2022-01-01T00:00:00Z",
+ *     }
+ *   ],
+ *   author: { name: "Alice" },
+ *   date: "2022-01-01T00:00:00Z",
+ *   votes: { votes: 10 },
+ *   totalQues: 1
+ * };
+ *
+ * return <QuestionComponent question={question} />;
+ *
+ */
 function QuestionComponent(props: { question: QuestionModel }) {
 
     const title = props.question.title;
@@ -14,17 +50,18 @@ function QuestionComponent(props: { question: QuestionModel }) {
     const body = props.question.body;
 
     const [edited, setEdited] = useState({title, body, author});
+    const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
     const dispatch = useDispatch<never>();
     const {showToast} = useShowToast();
-
     const {profile} = useAuth();
-
-    const [isEditMode, setIsEditMode] = useState<boolean>(false);
-
     const navigate = useNavigate();
 
     // Actions
+
+    /**
+     * `editQuestion` is a function that dispatches an action to edit the question.
+     */
     const editQuestion = () => {
         dispatch(questionActionsThunk({action: 'EDIT', data: {id: props.question.id, title: edited.title, body: edited.body}})).then(
             (result) => {
@@ -38,6 +75,9 @@ function QuestionComponent(props: { question: QuestionModel }) {
         )
     }
 
+    /**
+     * `deleteQuestion` is a function that dispatches an action to delete the question.
+     */
     const deleteQuestion = () => {
         dispatch(questionActionsThunk({action: 'DELETE', data: {id: props.question.id}})).then(
             (result) => {

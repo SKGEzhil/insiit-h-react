@@ -17,9 +17,17 @@ type NavigationStateType = {
     };
 }
 
+/**
+ *
+ * @returns {React.Element} The HeaderComponent
+ *
+ * @description
+ * The HeaderComponent contains the navigation bar for the website.
+ *
+ * @example
+ * return <HeaderComponent/>
+ */
 function HeaderComponent() {
-
-
 
     const currentPage = useSelector((state:NavigationStateType) => state.navigationSlice.current);
     const {profile, login, logout} = useAuth();

@@ -6,6 +6,10 @@ import {useShowToast} from "../context/toastContext.tsx";
 import {useDispatch} from "react-redux";
 import {endProgress, resetProgress, startProgress} from "../store/slices/progressSlice.ts";
 
+/**
+ * This hook is used to get a question by id
+ * @param {string} id
+ */
 export function useGetQuestion(id: string) {
 
     const [question, setQuestion] = useState<QuestionModel>(null);

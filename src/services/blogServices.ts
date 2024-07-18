@@ -1,5 +1,17 @@
 import {endPoint} from "../config/constants.ts";
 
+/**
+ * @namespace BlogServices
+ */
+
+/**
+ * Sends a post request to the server to add a new blog section
+ * @memberof BlogServices
+ * @param {string} time
+ * @param {string} blocks
+ * @param {string} version
+ * @param {string} page
+ */
 export function addSection(time: string, blocks: string, version: string, page: string) {
     const query = `
         mutation CreateBlogSection($time: String!, $blocks: String!, $version: String!, $page: String!) {
@@ -42,6 +54,11 @@ export function addSection(time: string, blocks: string, version: string, page: 
         });
 }
 
+/**
+ * Fetches all blog sections depending on the page provided
+ * @memberof BlogServices
+ * @param {page} page
+ */
 export function getSections(page: string) {
     const query = `
         query GetBlogSections($page: String!) {
@@ -83,6 +100,11 @@ export function getSections(page: string) {
         });
 }
 
+/**
+ * Sends a post request to the server to delete a blog section
+ * @memberof BlogServices
+ * @param {string} id
+ */
 export function deleteSection(id: string) {
     const query = `
         mutation DeleteBlogSection($id: ID!) {
@@ -121,6 +143,12 @@ export function deleteSection(id: string) {
         });
 }
 
+/**
+ * Sends a post request to the server to edit a blog section
+ * @memberof BlogServices
+ * @param {string} id
+ * @param {string} blocks
+ */
 export function editSection(id: string, blocks: string) {
     const query = `
         mutation EditBlogSection($id: ID!, $blocks: String!) {

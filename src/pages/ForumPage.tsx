@@ -1,10 +1,8 @@
 
 
 import {useQuestionFetch} from "../hooks/useQuestionFetch.ts";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import QuestionListItem from "../components/questionListItem.tsx";
-import ProtectedButton from "../components/protectedButton.tsx";
-import {useAuth} from "../context/authContext.tsx";
 import "react-toastify/dist/ReactToastify.css";
 import {useShowToast} from "../context/toastContext.tsx";
 import PaginatorComponent from "../components/paginatorComponent.tsx";
@@ -14,7 +12,12 @@ import {useDispatch} from "react-redux";
 import {setPage} from "../store/slices/paginatorSlice.ts";
 import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
 
-
+/**
+ * ForumPage component\
+ * Renders list of questions in the forum
+ * @method ForumPage
+ * @return JSX.Element
+ */
 const ForumPage = () => {
 
     const location = useLocation();
@@ -28,11 +31,9 @@ const ForumPage = () => {
     const page = parseInt(getQueryParams().get('page') as string) || 1;
     const tags = getQueryParams().get('tags') ? getQueryParams().get('tags').split(',') : [];
 
-    const navigate = useNavigate();
     const {questionList, setRefresh} = useQuestionFetch(tags, page);
     const dispatch = useDispatch<never>();
     const {showToast} = useShowToast();
-    const {login, logout} = useAuth();
 
     useEffect(() => {
         console.log('page!!', page);

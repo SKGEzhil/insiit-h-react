@@ -1,4 +1,9 @@
-
+/**
+ * Home page component.\
+ * Starting page of the website.
+ * @method HomePage
+ * @return JSX.Element
+ */
 function HomePage() {
   return (
     <div>
