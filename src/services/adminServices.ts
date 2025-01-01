@@ -37,14 +37,14 @@ export function getApprovalQueue(action: string) {
         body: JSON.stringify({
             query,
             authRequired: true,
-            variables: { action },
+            variables: {action},
         }),
     })
         .then((response) => {
             return response.json()
         })
         .then((response) => {
-            if(response.status && response.status === 'error'){
+            if (response.status && response.status === 'error') {
                 throw new Error(response.message);
             }
             if (response.errors) {
@@ -83,14 +83,14 @@ export function takeAction(id: string, status: string) {
         body: JSON.stringify({
             query,
             authRequired: true,
-            variables: { id, status },
+            variables: {id, status},
         }),
     })
         .then((response) => {
             return response.json()
         })
         .then((response) => {
-            if(response.status && response.status === 'error'){
+            if (response.status && response.status === 'error') {
                 throw new Error(response.message);
             }
             if (response.errors) {
@@ -98,6 +98,88 @@ export function takeAction(id: string, status: string) {
             } else {
                 console.log(response.data.takeAction);
                 return response.data.takeAction;
+            }
+        });
+}
+
+export function resolveFlag(id: string) {
+    const query = `
+        mutation ResolveFlag($id: ID!) {
+            resolveFlag(id: $id) {
+                _id
+                status
+            }
+        }
+    `;
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            authRequired: true,
+            variables: {id},
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if (response.status && response.status === 'error') {
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                console.log(response.data.flagContent);
+                return response.data.flagContent;
+            }
+        });
+}
+
+export function getFlaggedContent(contentType: string) {
+    const query = `
+        query GetFlaggedContent($contentType: String!) {
+          getFlaggedContent(contentType: $contentType) {
+            questionId
+            contentType
+            contentId
+            _id
+            status
+            content
+          }
+        }
+    `;
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            authRequired: true,
+            variables: {contentType},
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if (response.status && response.status === 'error') {
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                // console.log('CONTENT', response.data.getFlaggedContent);
+                return response.data.getFlaggedContent;
             }
         });
 }

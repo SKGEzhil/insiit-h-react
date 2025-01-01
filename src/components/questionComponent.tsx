@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {QuestionModel} from "../models/questionModel";
 import {formatDate} from "../utils/formatDate.ts";
 import {useDispatch} from "react-redux";
-import {questionActionsThunk, upvoteQuestionThunk} from "../store/actions/questionActions.ts";
+import {questionActionsThunk} from "../store/actions/questionActions.ts";
 import {useShowToast} from "../context/toastContext.tsx";
 import {useAuth} from "../context/authContext.tsx";
 import {useNavigate} from "react-router-dom";
@@ -86,6 +86,38 @@ function QuestionComponent(props: { question: QuestionModel }) {
                 } else {
                     showToast({status: 'success', message: 'Question deleted successfully'});
                     navigate('/forum');
+                }
+            }
+        )
+    }
+
+    /**
+     * `upvoteQuestion` is a function that dispatches an action to upvote the question.
+     */
+    const upvoteQuestion = () => {
+        dispatch(questionActionsThunk({action: 'UPVOTE', data: {id: props.question.id}})).then(
+            (result) => {
+                if (result.error) {
+                    showToast({status: 'error', message: result.error.message})
+                } else {
+                    showToast({status: 'success', message: 'Question upvoted successfully'});
+                    window.location.reload();
+                }
+            }
+        )
+    }
+
+    /**
+     * `reportQuestion` is a function that dispatches an action to report the question.
+     */
+    const reportQuestion = () => {
+        dispatch(questionActionsThunk({action: 'REPORT', data: {id: props.question.id}})).then(
+            (result) => {
+                if (result.error) {
+                    showToast({status: 'error', message: result.error.message})
+                } else {
+                    showToast({status: 'success', message: 'Question reported successfully'});
+                    window.location.reload();
                 }
             }
         )
@@ -180,19 +212,28 @@ function QuestionComponent(props: { question: QuestionModel }) {
                         <button
                             onClick={() => {
                                 console.log("Upvoted");
-                                dispatch(upvoteQuestionThunk({questionId: props.question.id})).then(
-                                    (result) => {
-                                        if (result.error) {
-                                            showToast({status: 'error', message: result.error.message})
-                                        } else {
-                                            window.location.reload();
-                                        }
-                                    }
-                                );
+                                upvoteQuestion();
+                                // dispatch(upvoteQuestionThunk({questionId: props.question.id})).then(
+                                //     (result) => {
+                                //         if (result.error) {
+                                //             showToast({status: 'error', message: result.error.message})
+                                //         } else {
+                                //             window.location.reload();
+                                //         }
+                                //     }
+                                // );
                             }
                             }
                             className="bg-c5 text-white py-2 px-4 rounded-lg hover:bg-red-600">Upvote
                         </button>
+
+                        <button
+                            onClick={() => {
+                                reportQuestion();
+                            }}
+                        className="bg-c5 text-white py-2 px-4 rounded-lg hover:bg-red-600"
+                        >Report</button>
+
                     </div>
 
                 </div>

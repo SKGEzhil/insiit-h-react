@@ -83,6 +83,7 @@ export const routes = createBrowserRouter([
                 {path: `${base_route}/search`, element: <Suspense><SearchPage/></Suspense>},
                 {path: `${base_route}/forum`, element: <Suspense><ForumPage/></Suspense>},
                 {path: `${base_route}/question/:id`, element: <Suspense><QuestionPage/></Suspense>},
+                {path: `${base_route}/question/:id/content/:contentId`, element: <Suspense><QuestionPage/></Suspense>},
             ],
         },
         {

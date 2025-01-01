@@ -71,7 +71,7 @@ export function questionActions(action, data) {
             if (response.errors) {
                 throw new Error(response.errors[0].message);
             } else {
-                console.log(response.data.questionActions);
+                console.log('QA RESPONSE',response.data.questionActions);
                 return response.data.questionActions;
             }
         });
@@ -193,7 +193,7 @@ export function getQuestions(tags: string[], page: number, limit: number) {
         author {
           name
         }
-        answer {
+        answers {
           id
           answer
           author {
@@ -205,6 +205,9 @@ export function getQuestions(tags: string[], page: number, limit: number) {
             author {
               name
             }
+          }
+          votes {
+            votes
           }
           date
         }
@@ -269,7 +272,7 @@ export function getQuestion(getQuestionId: string) {
         id
         tags
         title
-        answer {
+        answers {
           id
           answer
           author {
@@ -283,6 +286,9 @@ export function getQuestion(getQuestionId: string) {
               name
               id
             }
+          }
+          votes {
+            votes
           }
           date
         }
@@ -410,7 +416,7 @@ export function searchQuestion(search: string, tags: string[], page: number, lim
         author {
           name
         }
-        answer {
+        answers {
           id
           answer
           author {

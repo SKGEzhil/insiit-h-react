@@ -43,7 +43,7 @@ import {useAuth} from "../context/authContext.tsx";
 function AnswerComponent(props: { question: QuestionModel }) {
 
 
-    const answers = props.question.answer;
+    const answers = props.question.answers;
     const votes = props.question.votes;
 
     // States
@@ -97,6 +97,23 @@ function AnswerComponent(props: { question: QuestionModel }) {
                     showToast({status: 'error', message: result.error.message})
                 } else {
                     showToast({status: 'success', message: 'Answer deleted successfully'});
+                    window.location.reload();
+                }
+            }
+        )
+    }
+
+    //Upvote Answer
+    const upvoteAnswer = (answerId: string) => {
+        dispatch(answerActionsThunk({
+            action: 'UPVOTE',
+            data: {questionId: props.question.id, answerId: answerId}
+        })).then(
+            (result) => {
+                if (result.error) {
+                    showToast({status: 'error', message: result.error.message})
+                } else {
+                    showToast({status: 'success', message: 'Answer upvoted successfully'});
                     window.location.reload();
                 }
             }
@@ -172,9 +189,17 @@ function AnswerComponent(props: { question: QuestionModel }) {
                                             <div className="p-3 rounded-2xl " key={index}>
 
                                                 <div className="flex items-center">
-                                                    <div className="flex flex-col mr-5">
-                                                        <p className="font-bold text-lg text-c7">Votes</p>
-                                                        <p className="font-bold py-0 text-3xl">{votes.votes}</p>
+                                                    <div>
+                                                        <div className="flex flex-col mr-5">
+                                                            <p className="font-bold text-lg text-c7">Votes</p>
+                                                            <p className="font-bold py-0 text-3xl">{answer.votes.votes}</p>
+                                                        </div>
+                                                        <button
+                                                            onClick={() => {
+                                                                upvoteAnswer(answer.id);
+                                                            }}
+                                                            className="bg-primary text-white py-1 px-2 rounded-md hover:bg-gray-900">Upvote
+                                                        </button>
                                                     </div>
                                                     {
                                                         !isAnswerEditMode[index] ?

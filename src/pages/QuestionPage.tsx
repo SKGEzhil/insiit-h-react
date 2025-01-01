@@ -20,7 +20,7 @@ import {AppDispatch} from "../store/store.ts";
  */
 function QuestionPage() {
 
-    const {id} = useParams<{ id: string }>();
+    const {id} = useParams<{ id: string, contentId: string }>();
     const {question, setRefresh} = useGetQuestion(id!);
 
     /*** State to store user's answer ***/
