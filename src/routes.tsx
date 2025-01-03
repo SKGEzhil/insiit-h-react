@@ -16,6 +16,7 @@ const ProtectedRoute = lazy(() => import("./layouts/ProtectedRoute.tsx"));
 const BlogPageLayout = lazy(() => import("./layouts/blogPageLayout.tsx"));
 const AcademicsPage = lazy(() => import("./pages/AcademicsPage.tsx"));
 const OthersPage = lazy(() => import("./pages/OthersPage.tsx"));
+const FAQPage = lazy(() => import("./pages/FAQPage.tsx"));
 
 /**
  * Base route of the application
@@ -82,6 +83,7 @@ export const routes = createBrowserRouter([
             children: [
                 {path: `${base_route}/search`, element: <Suspense><SearchPage/></Suspense>},
                 {path: `${base_route}/forum`, element: <Suspense><ForumPage/></Suspense>},
+                {path: `${base_route}/faq`, element: <Suspense><FAQPage/></Suspense>},
                 {path: `${base_route}/question/:id`, element: <Suspense><QuestionPage/></Suspense>},
                 {path: `${base_route}/question/:id/content/:contentId`, element: <Suspense><QuestionPage/></Suspense>},
             ],

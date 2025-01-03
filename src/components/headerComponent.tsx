@@ -161,7 +161,7 @@ export const NavContainer = (props: {setMobileMenu: (bool: boolean) => void}) =>
             <NavButton
                 onClick={() => {
                     dispatch(navigateTo("faq"));
-                    navigate("/forum");
+                    navigate("/faq");
                     console.log('CURRENT PAGE', currentPage)
                     props.setMobileMenu(false);
 

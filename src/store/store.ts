@@ -6,6 +6,7 @@ import progressSlice from "./slices/progressSlice.ts";
 import blogSlice from "./slices/blogSlice.ts";
 import approvalQueueSlice from "./slices/approvalQueueSlice.ts";
 import flaggedContentSlice from "./slices/flaggedContentSlice.ts";
+import faqSlice from "./slices/faqSlice.ts";
 
 /**
  * Represents a Redux store.\
@@ -24,7 +25,8 @@ export const store = configureStore({
         progressSlice: progressSlice,
         blogSlice: blogSlice,
         approvalQueueSlice: approvalQueueSlice,
-        flaggedContentSlice: flaggedContentSlice
+        flaggedContentSlice: flaggedContentSlice,
+        faqSlice: faqSlice
     }
 })
 

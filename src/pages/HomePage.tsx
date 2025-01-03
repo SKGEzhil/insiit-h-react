@@ -1,3 +1,7 @@
+import HeroComponent from "../components/homePage/heroComponent.tsx";
+import FeaturesComponent from "../components/homePage/featuresComponent.tsx";
+import FaqSection from "../components/homePage/faqSection.tsx";
+
 /**
  * Home page component.\
  * Starting page of the website.
@@ -7,8 +11,9 @@
 function HomePage() {
   return (
     <div>
-      <h1>Home Page</h1>
-      <p>This is the home page.</p>
+        <HeroComponent/>
+        <FeaturesComponent/>
+        <FaqSection/>
     </div>
   );
 }
