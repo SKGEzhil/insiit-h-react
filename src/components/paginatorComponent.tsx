@@ -1,14 +1,13 @@
-import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
 /**
  * PaginatorComponent is a functional component that renders a paginator.
  * @returns {React.Element} The rendered paginator.
  */
-function PaginatorComponent() {
+function PaginatorComponent(props: {currentPage: number}) {
 
 
-    const currentPage = useSelector((state) => state.paginatorSlice.page);
+    // const currentPage = useSelector((state) => state.paginatorSlice.page);
 
     const navigate = useNavigate();
 
@@ -33,9 +32,9 @@ function PaginatorComponent() {
   return (
     <div className="flex justify-center items-center">
       <button
-          className={currentPage === 1 ? 'hidden text-c8' : 'text-c8'}
+          className={props.currentPage === 1 ? 'hidden text-c8' : 'text-c8'}
           onClick={() => {
-              updatePageParam(currentPage-1);
+              updatePageParam(props.currentPage-1);
           }}
       >
           Previous</button>
@@ -43,7 +42,7 @@ function PaginatorComponent() {
       <button
             className="text-c8"
             onClick={() => {
-                updatePageParam(currentPage+1);
+                updatePageParam(props.currentPage+1);
             }}
       >Next
       </button>

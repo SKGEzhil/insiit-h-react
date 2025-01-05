@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {useShowToast} from "../context/toastContext.tsx";
 import PaginatorComponent from "../components/paginatorComponent.tsx";
 import SearchBar from "../components/searchBar.tsx";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {setPage} from "../store/slices/paginatorSlice.ts";
 import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
@@ -27,6 +27,8 @@ const ForumPage = () => {
         return new URLSearchParams(location.search);
     };
 
+    const [currentPage, setCurrentPage] = useState(1);
+
     // Extracting query and page parameters
     const page = parseInt(getQueryParams().get('page') as string) || 1;
     const tags = getQueryParams().get('tags') ? getQueryParams().get('tags').split(',') : [];
@@ -37,7 +39,8 @@ const ForumPage = () => {
 
     useEffect(() => {
         console.log('page!!', page);
-        dispatch(setPage(page));
+        // dispatch(setPage(page));
+        setCurrentPage(page);
         setRefresh(true)
     }, [page]);
 
@@ -76,7 +79,7 @@ const ForumPage = () => {
                     }
 
                     <div>
-                        <PaginatorComponent/>
+                        <PaginatorComponent currentPage={currentPage}/>
                     </div>
 
 

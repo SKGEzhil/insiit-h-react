@@ -5,7 +5,7 @@ function HeroComponent() {
               <div className={`flex justify-center items-center pt-10`}>
                   <div className={`text-left w-96`}>
                       <h1>InsIIT - The insight to all your questions</h1>
-                      <p>This is a website by IITH for aspirants that gives easy
+                      <p>This is a website by IITH students for aspirants that gives easy
                           access to reliable information to oncoming freshers,
                           and help make the right decision</p>
 
