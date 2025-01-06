@@ -1,7 +1,7 @@
 
 
 import {useQuestionFetch} from "../hooks/useQuestionFetch.ts";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import QuestionListItem from "../components/questionListItem.tsx";
 import "react-toastify/dist/ReactToastify.css";
 import {useShowToast} from "../context/toastContext.tsx";
@@ -37,6 +37,8 @@ const ForumPage = () => {
     const dispatch = useDispatch<never>();
     const {showToast} = useShowToast();
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         console.log('page!!', page);
         // dispatch(setPage(page));
@@ -44,39 +46,42 @@ const ForumPage = () => {
         setRefresh(true)
     }, [page]);
 
+    // const search = (searchTerm: string) => {
+    //     console.log(searchTerm);
+    //     if (searchTerm) {
+    //         navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+    //         props.setMobileMenu && props.setMobileMenu(false);
+    //     } else {
+    //         console.log('empty search');
+    //     }
+    // }
 
     return (
         <div className="flex flex-col h-screen">
             <div className="flex flex-1">
-                <div className="flex-1 p-5">
-                    <div className="tablet:flex hidden justify-end">
-                        <div className="w-1/2">
-                            <SearchBar/>
+                <div className="flex-1 p-1">
+                    <div className="tablet:flex hidden items-center justify-between">
+                        <div>
+                            <h1 className="text-2xl font-bold">Questions</h1>
                         </div>
-
-                        <button onClick={() => {
-                            dispatch(startProgress());
-                            showToast({status: "success", message: "Success message"});
-                        }}>
-                            toast
-                        </button>
-
-                        <button onClick={() => {
-                            dispatch(endProgress());
-                            showToast({status: "success", message: "Success message"});
-                        }}>
-                            toast
-                        </button>
+                        <div className="w-1/2">
+                            <SearchBar onSearch={(searchTerm) => {
+                                    navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+                            }}/>
+                        </div>
 
                     </div>
 
-                    {
-                        questionList.map((question) => {
-                            return (
-                                <QuestionListItem question={question} key={question.id}/>
-                            )
-                        })
-                    }
+                    <div className={`divide-y`}>
+                        {
+                            questionList.map((question) => {
+                                return (
+                                    <QuestionListItem question={question} key={question.id}/>
+                                )
+                            })
+                        }
+                    </div>
+
 
                     <div>
                         <PaginatorComponent currentPage={currentPage}/>

@@ -45,11 +45,11 @@ const ForumLayout = () => {
                     <div className="relative z-20">
                         <HeaderComponent/>
                         <MediaQuery minWidth={640}>
-                            <SideComponent/>
+                                <SideComponent/>
                         </MediaQuery>
 
                     </div>
-                    <div className="top-16 tablet:ml-72 z-10 relative">
+                    <div className="top-16 tablet:ml-72 z-10 mr-4 relative">
                         <Outlet/>
                     </div>
                 </div>

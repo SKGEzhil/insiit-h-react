@@ -130,7 +130,7 @@ export const NavContainer = (props: {setMobileMenu: (bool: boolean) => void}) =>
         <>
             <div className="flex justify-start">
                 <button
-                    className="bg-primary py-2 px-4 my-2 rounded-lg"
+                    className="py-2 px-4 my-2 rounded-lg"
                     onClick={() => {
                         navigate('/ask')
                     }}>

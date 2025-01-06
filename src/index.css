@@ -62,7 +62,7 @@
     button{
         /*@apply bg-primary;*/
         /*@apply rounded-md;*/
-        @apply text-c1;
+        @apply text-black;
         @apply p-2;
         @apply m-1;
     }
@@ -73,6 +73,10 @@
     input{
         @apply p-2;
         @apply rounded-md;
+    }
+
+    p{
+        @apply whitespace-pre-wrap
     }
 
     /*----------------Scrollbar settings-------------------*/

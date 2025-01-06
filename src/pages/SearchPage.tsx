@@ -1,4 +1,4 @@
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import QuestionListItem from "../components/questionListItem.tsx";
 import "react-toastify/dist/ReactToastify.css";
 import PaginatorComponent from "../components/paginatorComponent.tsx";
@@ -45,6 +45,8 @@ const SearchPage = () => {
     const tagList = tags.split(',');
     // const tags = getQueryParams().get('tags') || '';
 
+    const navigate = useNavigate();
+
     /*** Call the search function whenever the component mounts or query/page changes ***/
     useEffect(() => {
         dispatch(setPage(page));
@@ -61,7 +63,9 @@ const SearchPage = () => {
                         location.pathname === '/search' ?
                             <div className="tablet:flex hidden justify-end">
                                 <div className="w-1/2">
-                                    <SearchBar/>
+                                    <SearchBar onSearch={(searchTerm) => {
+                                        navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+                                    }}/>
                                 </div>
                             </div> : null
                     }
@@ -75,7 +79,7 @@ const SearchPage = () => {
                     }
 
                     <div>
-                        <PaginatorComponent/>
+                        <PaginatorComponent currentPage={page}/>
                     </div>
 
 

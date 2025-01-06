@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {addFaqThunk, deleteFaqThunk, getFaqsThunk, updateFaqThunk} from "../actions/faqActions.ts";
+import {addFaqThunk, deleteFaqThunk, getFaqsThunk, searchFaqsThunk, updateFaqThunk} from "../actions/faqActions.ts";
 
 /**
  * @namespace FaqSlice
@@ -71,6 +71,19 @@ const faqSlice = createSlice(
                 state.faqs = action.payload;
             });
             builder.addCase(getFaqsThunk.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            });
+            builder.addCase(searchFaqsThunk.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            });
+            builder.addCase(searchFaqsThunk.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                state.faqs = action.payload;
+            });
+            builder.addCase(searchFaqsThunk.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
             });

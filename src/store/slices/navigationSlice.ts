@@ -15,7 +15,7 @@ export interface NavigationState {
 }
 
 const initialState: NavigationState = {
-    current: 'home',
+    current: localStorage.getItem('currentPage') || 'home',
 };
 
 /**
@@ -37,6 +37,7 @@ const navigationSlice = createSlice({
         navigateTo: (state, action: PayloadAction<string>) => {
             console.log('Navigating to', action.payload);
             state.current = action.payload;
+            localStorage.setItem('currentPage', action.payload);
         },
     },
 });

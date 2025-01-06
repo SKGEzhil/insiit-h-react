@@ -23,7 +23,7 @@ export function useQuestionFetch(tags, currentPage) {
         dispatch(startProgress())
         const fetchQuestions = async () => {
             try {
-                dispatch(updateQuestionList(await getQuestions(tags,parseInt(currentPage), 3).then(
+                dispatch(updateQuestionList(await getQuestions(tags,parseInt(currentPage), 7).then(
                     (response) => {
                         dispatch(endProgress());
                         return response;

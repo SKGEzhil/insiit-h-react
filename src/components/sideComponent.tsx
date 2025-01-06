@@ -10,7 +10,7 @@ import {tagDict} from "../config/constants.ts";
 function SideComponent() {
 
     return (
-        <div className="fixed top-16 bottom-2 mb-6 m-4">
+        <div className="fixed top-16 bottom-2 mb-6 m-4 border-r">
             <div className="bg-white w-full max-w-64 overflow-auto rounded-xl" style={{height: "85vh"}}>
                 <div className="flex flex-col">
                     <div className="p-4">

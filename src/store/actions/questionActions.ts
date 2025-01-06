@@ -160,7 +160,7 @@ export const searchQuestionThunk =
     createAsyncThunk<unknown, {searchTerm: string, tags: string[], page: number}>('questionSlice/searchQuestionsThunk',
         async ({searchTerm, tags, page}) => {
             try {
-                return await searchQuestion(searchTerm, tags, page, 3).catch((error) => {
+                return await searchQuestion(searchTerm, tags, page, 7).catch((error) => {
                     console.error("Error searching questions: ", error.message);
                     throw error.message;
                 });

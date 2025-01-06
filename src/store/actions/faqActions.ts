@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {addFaq, deleteFaq, getFaqs, updateFaq} from "../../services/faqServices.ts";
+import {addFaq, deleteFaq, getFaqs, searchFaqs, updateFaq} from "../../services/faqServices.ts";
 
 /**
  * @namespace FaqSlice
@@ -32,6 +32,20 @@ export const getFaqsThunk =
                 });
             } catch (e) {
                 console.error("Error getting FAQs: ", e);
+                throw e;
+            }
+        });
+
+export const searchFaqsThunk =
+    createAsyncThunk<unknown, {search: string, tags: string[], page: number, limit: number}>('faqSlice/searchFaqsThunk',
+        async ({search, tags, page, limit}) => {
+            try {
+                return await searchFaqs(search, tags, page, limit).catch((error) => {
+                    console.error("Error searching FAQs: ", error.message);
+                    throw error.message;
+                });
+            } catch (e) {
+                console.error("Error searching FAQs: ", e);
                 throw e;
             }
         });

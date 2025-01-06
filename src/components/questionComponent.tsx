@@ -6,6 +6,12 @@ import {questionActionsThunk} from "../store/actions/questionActions.ts";
 import {useShowToast} from "../context/toastContext.tsx";
 import {useAuth} from "../context/authContext.tsx";
 import {useNavigate} from "react-router-dom";
+import {FaEdit, FaFlag, FaRegEdit, FaVoteYea} from "react-icons/fa";
+import {BiFlag, BiSolidUpvote, BiUpvote} from "react-icons/bi";
+import {FiFlag} from "react-icons/fi";
+import {MdOutlineEdit} from "react-icons/md";
+import {IoTrashOutline} from "react-icons/io5";
+import TagComponent from "./tagComponent.tsx";
 
 /**
  * `QuestionComponent` is a React component that renders a question.
@@ -127,14 +133,22 @@ function QuestionComponent(props: { question: QuestionModel }) {
     return (
         <>
             <div className="flex justify-center">
-                <div className="max-w-4xl w-full bg-c8 rounded-2xl p-4">
+                <div className={`flex justify-start `}>
+                    <div className={`mt-16`}>
+                        <div className="flex flex-col mr-5">
+                            <p className="font-bold text-lg text-c7">Votes</p>
+                            <p className="font-bold py-0 text-3xl">{props.question.votes.votes}</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="max-w-5xl w-full p-4 border-l">
                     <div className="flex">
                         {
                             !isEditMode ?
-                                <h1 className="text-3xl font-bold text-c3 text-left">{title}</h1> :
+                                <h1 className="text-3xl font-bold text-left">{title}</h1> :
                                 <input
                                     type="text"
-                                    className="text-3xl font-bold border rounded-xl border-c4/[0.5] focus:outline-none bg-transparent text-c3 text-left"
+                                    className="text-3xl w-full font-bold border rounded-xl border-c4/[0.5] focus:outline-none bg-transparent text-left"
                                     value={edited.title}
                                     onChange={(e) => {
                                         setEdited({...edited, title: e.target.value});
@@ -142,21 +156,47 @@ function QuestionComponent(props: { question: QuestionModel }) {
                         }
                     </div>
                     {/*<hr className="solid my-2"/>*/}
-                    <div className="flex text-left text-c1 my-4">
+                    <div className="flex text-left my-4">
                         {
                             !isEditMode ?
                                 <p className="text-m">{body}</p> :
                                 <textarea
-                                    className="border rounded-xl border-c4/[0.5] w-full focus:outline-none bg-transparent text-c1 text-m"
+                                    className="border rounded-xl min-h-56 border-c4/[0.5] w-full focus:outline-none bg-transparent text-m"
                                     value={edited.body}
                                     onChange={(e) => {
                                         setEdited({...edited, body: e.target.value});
                                     }}/>
                         }
                     </div>
-                    <div className='flex items-end flex-col'>
-                        <p className="text-right text-c1/[.7]">Votes: {props.question.votes.votes} | {formatDate(props.question.date)} |
+                    <div className={`flex gap-2 justify-start`}>
+                        {
+                            props.question.tags.map((tag, index) => {
+                                return <TagComponent key={index} tag={tag}/>
+                            })
+                        }
+                    </div>
+                    <div className={`flex justify-between mt-4`}>
+                        <div className={`flex gap-2`}>
+                            <div
+                                onClick={upvoteQuestion}
+                                className={`flex items-center text-sm p-1 border rounded-full cursor-pointer`}>
+                                <BiUpvote/>
+                                <p>upvote</p>
+                            </div>
+                            <div
+                                onClick={reportQuestion}
+                                className={`flex items-center text-sm p-1 border rounded-full cursor-pointer`}>
+                                <FiFlag/>
+                                <p>Report</p>
+                            </div>
+                        </div>
+                        <p className="text-right text-gray-400 text-sm">{formatDate(props.question.date)} |
                             asked by {author}</p>
+
+                    </div>
+                    <div className='flex items-end flex-col'>
+                        {/*<p className="text-right text-gray-400 text-sm">{formatDate(props.question.date)} |*/}
+                        {/*    asked by {author}</p>*/}
                         {
                             profile?.id === props.question.author.id &&
                             <div>
@@ -167,19 +207,25 @@ function QuestionComponent(props: { question: QuestionModel }) {
                                                 onClick={() => {
                                                     setIsEditMode(!isEditMode);
                                                 }}
-                                                className='text-right'>
-                                                Edit
+                                                className='text-right text-black text-sm p-0'>
+                                                <div className={`flex items-center text-sm`}>
+                                                    <MdOutlineEdit />
+                                                    <p>Edit</p>
+                                                </div>
                                             </button>
 
                                             <button
                                                 onClick={() => {
                                                     console.log("Delete");
-                                                    if(window.confirm('Are u sure u want to delete this question?')){
+                                                    if (window.confirm('Are u sure u want to delete this question?')) {
                                                         deleteQuestion();
                                                     }
                                                 }}
-                                                className='text-right'>
-                                                Delete
+                                                className='text-right text-sm p-0'>
+                                                <div className={`flex items-center text-sm`}>
+                                                    <IoTrashOutline />
+                                                    <p>Delete</p>
+                                                </div>
                                             </button>
 
                                         </div> :
@@ -195,7 +241,7 @@ function QuestionComponent(props: { question: QuestionModel }) {
                                             <button
                                                 onClick={() => {
                                                     console.log("Submit");
-                                                    if(window.confirm("Are you sure you want to submit the changes?")){
+                                                    if (window.confirm("Are you sure you want to submit the changes?")) {
                                                         editQuestion();
                                                     }
                                                 }}
@@ -208,33 +254,34 @@ function QuestionComponent(props: { question: QuestionModel }) {
                         }
                     </div>
 
-                    <div className="flex justify-start">
-                        <button
-                            onClick={() => {
-                                console.log("Upvoted");
-                                upvoteQuestion();
-                                // dispatch(upvoteQuestionThunk({questionId: props.question.id})).then(
-                                //     (result) => {
-                                //         if (result.error) {
-                                //             showToast({status: 'error', message: result.error.message})
-                                //         } else {
-                                //             window.location.reload();
-                                //         }
-                                //     }
-                                // );
-                            }
-                            }
-                            className="bg-c5 text-white py-2 px-4 rounded-lg hover:bg-red-600">Upvote
-                        </button>
+                    {/*<div className="flex justify-start">*/}
+                    {/*    <button*/}
+                    {/*        onClick={() => {*/}
+                    {/*            console.log("Upvoted");*/}
+                    {/*            upvoteQuestion();*/}
+                    {/*            // dispatch(upvoteQuestionThunk({questionId: props.question.id})).then(*/}
+                    {/*            //     (result) => {*/}
+                    {/*            //         if (result.error) {*/}
+                    {/*            //             showToast({status: 'error', message: result.error.message})*/}
+                    {/*            //         } else {*/}
+                    {/*            //             window.location.reload();*/}
+                    {/*            //         }*/}
+                    {/*            //     }*/}
+                    {/*            // );*/}
+                    {/*        }*/}
+                    {/*        }*/}
+                    {/*        className="bg-c5 text-white py-2 px-4 rounded-lg hover:bg-red-600">Upvote*/}
+                    {/*    </button>*/}
 
-                        <button
-                            onClick={() => {
-                                reportQuestion();
-                            }}
-                        className="bg-c5 text-white py-2 px-4 rounded-lg hover:bg-red-600"
-                        >Report</button>
+                    {/*    <button*/}
+                    {/*        onClick={() => {*/}
+                    {/*            reportQuestion();*/}
+                    {/*        }}*/}
+                    {/*        className="bg-c5 text-white py-2 px-4 rounded-lg hover:bg-red-600"*/}
+                    {/*    >Report*/}
+                    {/*    </button>*/}
 
-                    </div>
+                    {/*</div>*/}
 
                 </div>
             </div>

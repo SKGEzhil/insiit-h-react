@@ -19,27 +19,48 @@ import TagComponent from "./tagComponent.tsx";
  */
 
 const QuestionListItem = (props: { question: QuestionModel }) => {
-
     const title = props.question.title;
+    const body = props.question.body;
     const tags = props.question.tags;
     const author = props.question.author.name;
+    const votes = props.question.votes.votes;
+    const answers = (props.question.answers) ? props.question.answers.length : 0;
 
     return (
-        <div className="flex bg-white p-4 mb-4 rounded-lg shadow-sm">
-            <div className="flex flex-col items-start justify-start">
-                <NavLink
-                    to={`/question/${props.question.id}`}
-                    className="text-primary text-left text-lg font-semibold hover:underline">
-                    {title}
-                </NavLink>
-                <div className="mt-2 space-x-2">
-                    {
-                        tags.map((tag, index) => (
-                            <TagComponent tag={tag} key={index}/>
-                    ))}
+        <div className="flex bg-white p-4">
+            <div className={`flex gap-4 w-full`}>
+                <div className={`border-r pr-4`}>
+                    <div className="flex flex-col items-center justify-center mb-2">
+                        <div className="text-center text-lg font-bold">{answers}</div>
+                        <div className="text-center text-c7 text-xs">answers</div>
+                    </div>
+                    <div className="flex flex-col items-center justify-center mt-2">
+                        <div className="text-center text-lg font-bold">{votes}</div>
+                        <div className="text-center text-c7 text-xs">votes</div>
+                    </div>
                 </div>
-                <div className="mt-4 text-sm text-gray-400">
-                    <span className="font-bold">{}</span> asked by {author}
+
+                <div className="flex flex-col items-start justify-start w-full">
+                    <NavLink
+                        to={`/question/${props.question.id}`}
+                        className="text-primary text-left text-lg font-semibold hover:underline">
+                        {title}
+                    </NavLink>
+                    <div className="mt-2 text-gray-500 text-sm text-left line-clamp-2">
+                        {body}
+                    </div>
+                    <div className="flex items-center justify-between mt-2 w-full">
+                        <div className="flex space-x-2">
+                            {
+                                tags.map((tag, index) => (
+                                    <TagComponent tag={tag} key={index} />
+                                ))
+                            }
+                        </div>
+                        <div className="ml-auto text-sm text-gray-400">
+                            asked by {author}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

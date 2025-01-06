@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
  *
  * @returns {JSX.Element} The search bar element.
  */
-function SearchBar(props: { setMobileMenu?: (bool: boolean) => void }) {
+function SearchBar(props: { setMobileMenu?: (bool: boolean) => void, onSearch: (searchTerm: string) => void }) {
     const [searchTerm, setSearchTerm] = useState('');
 
     const navigate = useNavigate();
@@ -28,7 +28,8 @@ function SearchBar(props: { setMobileMenu?: (bool: boolean) => void }) {
     const search = (searchTerm: string) => {
         console.log(searchTerm);
         if (searchTerm) {
-            navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+            // navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+            props.onSearch(searchTerm);
             props.setMobileMenu && props.setMobileMenu(false);
         } else {
             console.log('empty search');
@@ -37,9 +38,9 @@ function SearchBar(props: { setMobileMenu?: (bool: boolean) => void }) {
 
     return (
         <div className="flex w-full min-w-64 p-4">
-            <div className="flex w-full bg-c1 rounded-2xl border border-c8/[.2] ">
+            <div className="flex w-full rounded-2xl border border-c8/[.2] ">
                 <input
-                    className="w-full p-2 bg-c1 focus:outline-none rounded-2xl "
+                    className="w-full focus:outline-none rounded-2xl "
                     type="text"
                     placeholder="Search"
                     value={searchTerm}
@@ -51,7 +52,7 @@ function SearchBar(props: { setMobileMenu?: (bool: boolean) => void }) {
                 />
 
                 <button
-                    className="bg-primary text-white p-2 ml-2 rounded-xl"
+                    className=" text-black border-l px-4 hover:bg-c2 rounded-r-2xl mr-0 my-0"
                     onClick={() => search(searchTerm)}
                 >Search
                 </button>

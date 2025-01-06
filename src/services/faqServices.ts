@@ -21,7 +21,7 @@ export function getFaqs(page: number, limit: number) {
         },
         body: JSON.stringify({
             query,
-            authRequired: true,
+            // authRequired: true,
             variables: {page, limit}
         }),
     })
@@ -39,6 +39,47 @@ export function getFaqs(page: number, limit: number) {
                 return response.data.getFAQs;
             }
         });
+}
+
+export function searchFaqs(search: string, tags: string[], page: number, limit: number) {
+    const query = `
+        query SearchFAQs($search: String!, $page: Int!, $limit: Int!, $tags: [String!]) {
+          searchFAQs(search: $search, page: $page, limit: $limit, tags: $tags) {
+            _id
+            question
+            answer
+          }
+        }
+    `;
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            // authRequired: true,
+            variables: {search, tags, page, limit}
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if (response.status && response.status === 'error') {
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                console.log('FAQs: ',response.data.searchFAQs);
+                return response.data.searchFAQs;
+            }
+        });
+
 }
 
 export function addFaq(question: string, answer: string) {
