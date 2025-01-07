@@ -14,6 +14,7 @@ import {addFaq, deleteFaq, getFaqs, searchFaqs, updateFaq} from "../../services/
 interface addFaqInterface {
     question: string;
     answer: string;
+    tags: string[];
 }
 
 interface updateFaqInterface {
@@ -58,9 +59,9 @@ export const searchFaqsThunk =
 
 export const addFaqThunk =
     createAsyncThunk<unknown, addFaqInterface>('faqSlice/addFaqThunk',
-        async ({question, answer}) => {
+        async ({question, answer, tags}) => {
             try {
-                return await addFaq(question, answer).catch((error) => {
+                return await addFaq(question, answer, tags).catch((error) => {
                     console.error("Error adding FAQ: ", error.message);
                     throw error.message;
                 });

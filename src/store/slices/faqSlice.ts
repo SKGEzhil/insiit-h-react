@@ -9,6 +9,7 @@ interface FAQInterface {
     _id: string;
     question: string;
     answer: string;
+    tags: string[];
 }
 
 const initialState = {

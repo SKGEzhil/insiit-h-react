@@ -45,7 +45,7 @@ function TagComponent({tag} : {tag: string}) {
 
         // Navigate to the new path
         // If the current path is forum or faqs, navigate to the new path or else navigate to forum with the new tags
-        const tagPaths = ['forum', 'faqs']
+        const tagPaths = ['forum', 'faq']
         const currentPath = location.pathname.split('/')[1]
         if(tagPaths.includes(currentPath)) {
             navigate(newPath);

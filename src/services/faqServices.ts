@@ -8,6 +8,7 @@ export function getFaqs(page: number, limit: number) {
             _id
             answer
             question
+            tags
           }
         }
     `;
@@ -48,6 +49,7 @@ export function searchFaqs(search: string, tags: string[], page: number, limit: 
             _id
             question
             answer
+            tags
           }
         }
     `;
@@ -82,13 +84,14 @@ export function searchFaqs(search: string, tags: string[], page: number, limit: 
 
 }
 
-export function addFaq(question: string, answer: string) {
+export function addFaq(question: string, answer: string, tags: string[]) {
     const query = `
-        mutation AddFAQ($question: String!, $answer: String!) {
-            addFAQ(question: $question, answer: $answer) {
+        mutation AddFAQ($question: String!, $answer: String!, $tags: [String]) {
+            addFAQ(question: $question, answer: $answer, tags: $tags) {
                 _id
                 question
                 answer
+                tags
             }
         }
     `;
@@ -103,7 +106,7 @@ export function addFaq(question: string, answer: string) {
         body: JSON.stringify({
             query,
             authRequired: true,
-            variables: {question, answer},
+            variables: {question, answer, tags},
         }),
     })
         .then((response) => {
