@@ -1,5 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
+    getQuestionThunk,
+    getQuestionsThunk,
     answerActionsThunk,
     commentActionsThunk,
     questionActionsThunk, searchQuestionThunk,
@@ -53,6 +55,20 @@ const questionSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(getQuestionsThunk.pending, (state: QuestionState) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getQuestionsThunk.fulfilled, (state: QuestionState, action) => {
+                state.loading = false;
+                console.log("Questions fetched: ", action.payload);
+                state.questions = action.payload as QuestionModel[];
+            })
+            .addCase(getQuestionsThunk.rejected, (state: QuestionState) => {
+                state.loading = false;
+                // console.error("Error fetching questions: ", action.error.message);
+                // state.error = action.error.message;
+            })
             .addCase(questionActionsThunk.pending, (state: QuestionState) => {
                 state.loading = true;
                 state.error = null;

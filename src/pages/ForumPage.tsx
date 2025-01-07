@@ -8,9 +8,10 @@ import {useShowToast} from "../context/toastContext.tsx";
 import PaginatorComponent from "../components/paginatorComponent.tsx";
 import SearchBar from "../components/searchBar.tsx";
 import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setPage} from "../store/slices/paginatorSlice.ts";
 import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
+import {getQuestionsThunk, searchQuestionThunk} from "../store/actions/questionActions.ts";
 
 /**
  * ForumPage component\
@@ -31,9 +32,13 @@ const ForumPage = () => {
 
     // Extracting query and page parameters
     const page = parseInt(getQueryParams().get('page') as string) || 1;
-    const tags = getQueryParams().get('tags') ? getQueryParams().get('tags').split(',') : [];
+    // const tags = getQueryParams().get('tags') ? getQueryParams().get('tags').split(',') : [];
+    const tags = getQueryParams().get('tags') || ''
+    const tagList = tags.split(',');
+    const query = getQueryParams().get('query') || null;
 
-    const {questionList, setRefresh} = useQuestionFetch(tags, page);
+    // const {questionList, setRefresh} = useQuestionFetch(tags, page);
+    const questionList = useSelector((state) => state.questionSlice.questions);
     const dispatch = useDispatch<never>();
     const {showToast} = useShowToast();
 
@@ -41,20 +46,28 @@ const ForumPage = () => {
 
     useEffect(() => {
         console.log('page!!', page);
+        if(query || tags.length > 0) {
+            console.log('searching');
+            dispatch(searchQuestionThunk({searchTerm: query ? query : "", tags: tagList, page}));
+        } else {
+            dispatch(getQuestionsThunk({tags: tagList, page: page, limit: 5}));
+        }
         // dispatch(setPage(page));
         setCurrentPage(page);
-        setRefresh(true)
-    }, [page]);
+        // setRefresh(true)
+    }, [dispatch, page, query, tags]);
 
-    // const search = (searchTerm: string) => {
-    //     console.log(searchTerm);
-    //     if (searchTerm) {
-    //         navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
-    //         props.setMobileMenu && props.setMobileMenu(false);
-    //     } else {
-    //         console.log('empty search');
-    //     }
-    // }
+    const search = (searchTerm: string) => {
+        const queryParams = new URLSearchParams(location.search);
+        queryParams.set('query', searchTerm);
+        queryParams.set('page', "1");
+
+        // Construct the new path
+        const newPath = `${location.pathname}?${queryParams.toString()}`;
+
+        // Navigate to the new path
+        navigate(newPath);
+    }
 
     return (
         <div className="flex flex-col h-screen">
@@ -66,7 +79,7 @@ const ForumPage = () => {
                         </div>
                         <div className="w-1/2">
                             <SearchBar onSearch={(searchTerm) => {
-                                    navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+                                search(searchTerm)
                             }}/>
                         </div>
 

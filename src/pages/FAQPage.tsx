@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {
     getFaqsThunk,
     addFaqThunk,
@@ -35,21 +35,29 @@ function FAQPage() {
     const { profile } = useAuth();
 
     const page = parseInt(new URLSearchParams(location.search).get("page") as string) || 1;
+    const query = new URLSearchParams(location.search).get("query") || null;
+
+    const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(getFaqsThunk({ page, limit: 8 }));
-    }, [dispatch, page]);
+        if(!query){
+            dispatch(getFaqsThunk({ page, limit: 8 }));
+        } else {
+            //TODO: Implement tags feature for faqs
+            dispatch(searchFaqsThunk({ search: query, tags: [], page, limit: 8 }))
+        }
+    }, [dispatch, page, query]);
 
-    const searchFaqs = (search: string) => {
-        //TODO: Add tags feature to FAQs
-        dispatch(searchFaqsThunk({ search, tags: [], page, limit: 8 })).then((result) => {
-            if (result.error) {
-                showToast({ status: "error", message: "Error searching FAQ" });
-            } else {
-                showToast({ status: "success", message: "FAQ searched successfully" });
-                setShowAddFAQ(false);
-            }
-        });
+    const searchFaqs = (searchTerm: string) => {
+        const queryParams = new URLSearchParams(location.search);
+        queryParams.set('query', searchTerm);
+        queryParams.set('page', "1");
+
+        // Construct the new path
+        const newPath = `${location.pathname}?${queryParams.toString()}`;
+
+        // Navigate to the new path
+        navigate(newPath);
     }
 
     const addFAQ = (question: string, answer: string) => {

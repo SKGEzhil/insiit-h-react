@@ -24,8 +24,9 @@ function TagComponent({tag} : {tag: string}) {
      * @method updateTagParam
      * @param {string} newTag - The new tag to be added to the parameters.
      */
+    const queryParams = new URLSearchParams(location.search);
+
     const updateTagParam = (newTag: string) => {
-        const queryParams = new URLSearchParams(location.search);
         const currentTags = queryParams.get('tags') || '';
         const tagList = currentTags ? currentTags.split(',') : [];
 
@@ -36,9 +37,22 @@ function TagComponent({tag} : {tag: string}) {
             tagList.splice(index, 1);
         }
 
-        const newTags = encodeURIComponent(tagList.join(','));
+        const newTags = tagList.join(',');
 
-        navigate(`/search?tags=${newTags}`);
+        queryParams.set('tags', `${newTags}`);
+
+        const newPath = `${location.pathname}?${queryParams.toString()}`;
+
+        // Navigate to the new path
+        // If the current path is forum or faqs, navigate to the new path or else navigate to forum with the new tags
+        const tagPaths = ['forum', 'faqs']
+        const currentPath = location.pathname.split('/')[1]
+        if(tagPaths.includes(currentPath)) {
+            navigate(newPath);
+        } else {
+            navigate(`/forum?tags=${newTags}`);
+        }
+
     };
 
     const handleClick = () => {

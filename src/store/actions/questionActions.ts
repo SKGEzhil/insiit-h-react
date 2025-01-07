@@ -1,7 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {
     answerActions,
-    commentActions,
+    commentActions, getQuestion, getQuestions,
     questionActions,
     searchQuestion,
     upvoteQuestion
@@ -49,6 +49,34 @@ interface commentInterface {
     commentId?: string;
     comment?: string;
 }
+
+export const getQuestionsThunk =
+    createAsyncThunk<unknown, { tags: string[], page: number, limit: number }>('questionSlice/getQuestionsThunk',
+        async ({tags, page, limit}) => {
+            try {
+                return await getQuestions(tags, page, limit).catch((error) => {
+                    console.error("Error getting questions: ", error.message);
+                    throw error.message;
+                });
+            } catch (e) {
+                console.error("Error getting questions: ", e);
+                throw e;
+            }
+        });
+
+export const getQuestionThunk =
+    createAsyncThunk<unknown, { id: string }>('questionSlice/getQuestionThunk',
+        async ({id}) => {
+            try {
+                return await getQuestion(id).catch((error) => {
+                    console.error("Error getting question: ", error.message);
+                    throw error.message;
+                });
+            } catch (e) {
+                console.error("Error getting question: ", e);
+                throw e;
+            }
+        });
 
 /**
  * Question actions thunk
