@@ -1,4 +1,8 @@
 import TagComponent from "./tagComponent.tsx";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {getTagsReducer} from "../store/slices/tagSlice.ts";
+import {getTags} from "../services/tagService.ts";
 import {tagDict} from "../config/constants.ts";
 
 
@@ -7,17 +11,20 @@ import {tagDict} from "../config/constants.ts";
  *
  * @returns {JSX.Element} The side component element.
  */
+
 function SideComponent() {
 
+    const tagDict = useSelector((state) => state.tagSlice.tags);
+
     return (
-        <div className="fixed top-16 bottom-2 mb-6 m-4 border-r">
+        <div className="fixed top-16 bottom-2 w-64 mb-6 m-4 border-r">
             <div className="bg-white w-full max-w-64 overflow-auto rounded-xl" style={{height: "85vh"}}>
                 <div className="flex flex-col">
                     <div className="p-4">
                         <h2 className="text-xl font-bold text-left my-3">Tags</h2>
                         <div className="flex flex-wrap gap-2">
                             {tagDict.map((tag, index) => (
-                                <TagComponent tag={tag} key={index}/>
+                                <TagComponent tag={tag.name} key={index}/>
                             ))}
                         </div>
                     </div>

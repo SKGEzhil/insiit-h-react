@@ -8,8 +8,10 @@ import {ToastProvider} from "./context/toastContext.tsx";
 import "react-toastify/dist/ReactToastify.css";
 import {routes} from "./routes.tsx";
 import {useEffect} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {navigateTo} from "./store/slices/navigationSlice.ts";
+import {getTagsReducer} from "./store/slices/tagSlice.ts";
+import {getTags} from "./services/tagService.ts";
 
 /**
  * App component\
@@ -20,6 +22,7 @@ import {navigateTo} from "./store/slices/navigationSlice.ts";
 function App() {
 
     const dispatch = useDispatch();
+    const tags = useSelector((state) => state.tagSlice.tags);
 
     useEffect(() => {
         // Sync navigation state with current URL on load
@@ -30,6 +33,28 @@ function App() {
         } else {
             dispatch(navigateTo('home'));
         }
+    }, [dispatch]);
+
+    // get tags
+    useEffect(() => {
+        const fetchTags = async () => {
+            dispatch(getTagsReducer(
+                await getTags()
+                    .then(
+                        (response) => {
+                            console.log("Tags: R", response);
+                            return response;
+                        }
+                    )
+                    .catch((error) => {
+                        console.error("Error getting tags: ", error.message);
+                        throw error.message;
+                    })
+            ))
+        }
+        fetchTags().then(() => {
+            console.log("Tags fetched successfully");
+        })
     }, [dispatch]);
 
 

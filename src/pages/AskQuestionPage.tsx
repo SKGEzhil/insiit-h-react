@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useShowToast} from "../context/toastContext.tsx";
 import {questionActionsThunk} from "../store/actions/questionActions.ts";
 import Fuse from "fuse.js";
-import {tagDict} from "../config/constants.ts";
+// import {tagDict} from "../config/constants.ts";
 
 /**
  * Renders the AskQuestionPage
@@ -21,6 +21,9 @@ const AskQuestionPage = () => {
 
     const [tagSuggestions, setTagSuggestions] = useState<string[]>([])
 
+    const tagListJson = useSelector((state) => state.tagSlice.tags);
+    const tagDict = tagListJson.map((tag) => tag.name);
+
     const options = {
         includeScore: true,
         threshold: 0.4, // Adjust to change sensitivity (0.0 to 1.0)
@@ -33,6 +36,7 @@ const AskQuestionPage = () => {
 
 
     useEffect(() => {
+        console.log('tagdict', tagDict);
         if (tagInput.trim()) {
             const result = fuse.search(tagInput);
             const fetchedTagSuggestions = result.map((tag) => tag.item);
