@@ -50,12 +50,12 @@ function ApprovalQueue(props: {queue: QueueItemType[]}) {
 
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-start mt-6">
             {
                 props.queue.length > 0 &&
-                <div className='max-w-4xl w-full'>
+                <div className='w-full'>
                     <div className='flex justify-between'>
-                        <h2 className='text-left'>Pending Approvals</h2>
+                        <h3 className='text-left'>Pending Approvals</h3>
 
                         {/*Returns show more button when queue length exceeds 5 items*/}
 
@@ -149,7 +149,7 @@ function ApprovalQueue(props: {queue: QueueItemType[]}) {
 
                                             {
                                                 isDataVisible[index] &&
-                                                <div className='my-2'>
+                                                <div className='my-2 border rounded-2xl'>
                                                     <ElementRenderer data={
                                                         {
                                                             "blocks": graphqlStringToJson(item.data.blocks),

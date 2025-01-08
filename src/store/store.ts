@@ -8,6 +8,7 @@ import approvalQueueSlice from "./slices/approvalQueueSlice.ts";
 import flaggedContentSlice from "./slices/flaggedContentSlice.ts";
 import faqSlice from "./slices/faqSlice.ts";
 import tagSlice from "./slices/tagSlice.ts";
+import adminSlice from "./slices/adminSlice.ts";
 
 /**
  * Represents a Redux store.\
@@ -28,7 +29,8 @@ export const store = configureStore({
         approvalQueueSlice: approvalQueueSlice,
         flaggedContentSlice: flaggedContentSlice,
         faqSlice: faqSlice,
-        tagSlice: tagSlice
+        tagSlice: tagSlice,
+        adminSlice: adminSlice
     }
 })
 

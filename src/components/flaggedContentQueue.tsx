@@ -40,29 +40,29 @@ const FlaggedContentQueue = (props: {queue: FlaggedContentQueueType[]}) => {
     }
 
     return (
-        <div>
+        <div className={`mb-12`}>
+            <h3 className={`text-left mt-6 mb-4`}>Review Flagged Contents</h3>
             {props.queue.map((content) => {
                 return (
                     <>
-                        <div className="flex">
+                        <div className={`flex justify-between items-center mb-4 gap-2 border rounded-lg p-2`}
+                             key={content.id}>
                             <div>
-                                <div key={content.id}>
-                                    <p className="text-left">{content.contentType}</p>
-                                    <p className="text-left">{content.content}</p>
-                                </div>
+                                <p className="text-left font-bold">{content.contentType}</p>
+                                <p className="text-left">{content.content}</p>
+                            </div>
+                            <div className={`flex gap-2 items-center`}>
                                 <NavLink
                                     to={`/question/${content.questionId}`}
                                     className="text-primary text-left text-lg font-semibold hover:underline">
                                     Link
                                 </NavLink>
-                            </div>
-                            <div>
                                 <button
-                                    className="bg-primary text-white rounded-md p-2 m-2"
+                                    className="bg-primary text-white rounded-md p-2"
                                     onClick={() => {
                                         resolveFlag(content._id);
                                     }
-                                }
+                                    }
                                 >
                                     Resolve
                                 </button>

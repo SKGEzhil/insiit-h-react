@@ -183,3 +183,172 @@ export function getFlaggedContent(contentType: string) {
             }
         });
 }
+
+/** ------  USER ACTIONS  ------- **/
+
+export function getUserData(emailId: string){
+    const query = `
+        query GetUserData($emailId: String!) {
+          getUserData(emailId: $emailId) {
+            email
+            id
+            name
+            permissions
+            photoUrl
+            role
+          }
+        }
+    `;
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            authRequired: true,
+            variables: {emailId},
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if (response.status && response.status === 'error') {
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                console.log(response.data.getUserData);
+                return response.data.getUserData;
+            }
+        });
+
+}
+
+export function editUser(userId: string, name: string, permissions: string[], role: string){
+    const query = `
+        mutation EditUser($userId: ID!, $role: String!, $permissions: [String]!, $name: String!) {
+          editUser(userId: $userId, role: $role, permissions: $permissions, name: $name) {
+            id
+            email
+          }
+        }
+      `;
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            authRequired: true,
+            variables: {userId, role, name, permissions},
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if (response.status && response.status === 'error') {
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                console.log(response.data.editUser);
+                return response.data.editUser;
+            }
+        });
+
+}
+
+export function deleteUser(userId: string){
+    const query = `
+        mutation DeleteUser($userId: ID!) {
+          deleteUser(userId: $userId) {
+            id
+          }
+        }
+    `;
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            authRequired: true,
+            variables: {userId},
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if (response.status && response.status === 'error') {
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                console.log(response.data.deleteUser);
+                return response.data.deleteUser;
+            }
+        });
+
+}
+
+export function getAllUsers(role: string){
+    const query = `
+        query GetAllUsers($role: String!) {
+          getAllUsers(role: $role) {
+            id
+            name
+            email
+            role
+            photoUrl
+            permissions
+          }
+        }
+    `;
+
+    return fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query,
+            authRequired: true,
+            variables: {role},
+        }),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            if (response.status && response.status === 'error') {
+                throw new Error(response.message);
+            }
+            if (response.errors) {
+                throw new Error(response.errors[0].message);
+            } else {
+                console.log(response.data.getAllUsers);
+                return response.data.getAllUsers;
+            }
+        });
+
+}
