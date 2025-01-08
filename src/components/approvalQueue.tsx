@@ -94,7 +94,7 @@ function ApprovalQueue(props: {queue: QueueItemType[]}) {
                                                             newIsDataVisible[index] = !newIsDataVisible[index];
                                                             setIsDataVisible(newIsDataVisible);
                                                         }}
-                                                        className='bg-primary rounded-xl'>{isDataVisible[index] ? 'Hide' : 'View'}
+                                                        className='bg-primary text-white rounded-xl'>{isDataVisible[index] ? 'Hide' : 'View'}
                                                     </button>
                                                     <button
                                                         onClick={() => {
@@ -118,7 +118,7 @@ function ApprovalQueue(props: {queue: QueueItemType[]}) {
                                                                 }
                                                             })
                                                         }}
-                                                        className='bg-primary rounded-xl'>Approve
+                                                        className='bg-green-600 text-white rounded-xl'>Approve
                                                     </button>
                                                     <button
                                                         onClick={() => {
@@ -142,7 +142,7 @@ function ApprovalQueue(props: {queue: QueueItemType[]}) {
                                                                 }
                                                             })
                                                         }}
-                                                        className='bg-red-700 rounded-xl'>Reject
+                                                        className='bg-red-600 text-white rounded-xl'>Reject
                                                     </button>
                                                 </div>
                                             </div>

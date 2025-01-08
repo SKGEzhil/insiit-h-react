@@ -1,3 +1,4 @@
+import {base_route} from "../../routes.tsx";
 
 
 function FeaturesComponent() {
@@ -10,28 +11,28 @@ function FeaturesComponent() {
                       <FeatureCard
                           title="Public Forum"
                           description="This is a place where students can ask questions about the college happenings and can get answers from the IITH community."
-                          linkText="Learn more"
+                          linkText="view"
                           color="bg-blue-500"
-                          linkHref="#"
+                          linkHref={`${base_route}/forum`}
                       />
                       <FeatureCard
                           title="Insights"
                           description="More information about the college, the courses offered and about the clubs. This will help students make an informed decision."
-                          linkText="Learn more"
+                          linkText="View"
                             color="bg-red-500"
-                          linkHref="#"
+                          linkHref={`${base_route}/academics`}
                       />
                       <FeatureCard
                           title="Rank Prediction"
                           description="Here, students can predict their seat availability based on their rank and the previous year's data."
-                          linkText="Learn more"
+                          linkText={`${base_route}/forum`}
                             color="bg-green-500"
                           linkHref="#"
                       />
                       <FeatureCard
                           title="First Feature"
                           description="This is a description of the first feature of our website. We are going to briefly outline what this feature does."
-                          linkText="Learn more"
+                          linkText="View"
                             color="bg-yellow-500"
                           linkHref="#"
                       />

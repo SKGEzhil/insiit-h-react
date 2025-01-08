@@ -337,7 +337,7 @@ function AnswerComponent(props: { question: QuestionModel }) {
                                                     </div>
                                                 </div>
 
-                                                <hr className="solid my-4"/>
+                                                {/*<hr className="solid my-4"/>*/}
 
                                                 <div className='flex my-2 justify-start'>
                                                     <h5 className='font-bold'>Comments</h5>

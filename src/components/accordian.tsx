@@ -5,16 +5,27 @@ interface FAQItem {
     answer: string;
 }
 
-function Accordion (props: { faqs: FAQItem[] }) {
+function Accordion(props: { faqs: FAQItem[] }) {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [heights, setHeights] = useState<number[]>([]); // To store each panel's height
+    const [heights, setHeights] = useState<number[]>([]);
     const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
-        // Calculate and store the height of each panel
-        const calculatedHeights = contentRefs.current.map((ref) => ref?.scrollHeight || 0);
-        setHeights(calculatedHeights);
-    }, []);
+        // Calculate heights dynamically whenever the component renders
+        const calculateHeights = () => {
+            const calculatedHeights = contentRefs.current.map((ref) => ref?.scrollHeight || 0);
+            setHeights(calculatedHeights);
+        };
+
+        calculateHeights();
+
+        // Recalculate heights on window resize to handle dynamic content changes
+        window.addEventListener("resize", calculateHeights);
+
+        return () => {
+            window.removeEventListener("resize", calculateHeights);
+        };
+    }, [props.faqs]);
 
     const toggleAccordion = (index: number) => {
         setActiveIndex(activeIndex === index ? null : index);
@@ -28,10 +39,10 @@ function Accordion (props: { faqs: FAQItem[] }) {
                         onClick={() => toggleAccordion(index)}
                         className="w-full text-left p-4 hover:font-semibold transition-all rounded-lg focus:outline-none"
                     >
-            <span className="flex text-black justify-between items-center">
-              <span>{faq.question}</span>
-              <span>{activeIndex === index ? "−" : "+"}</span>
-            </span>
+                        <span className="flex text-black justify-between items-center">
+                            <span>{faq.question}</span>
+                            <span>{activeIndex === index ? "−" : "+"}</span>
+                        </span>
                     </button>
                     <div
                         ref={(el) => (contentRefs.current[index] = el)}
@@ -48,6 +59,6 @@ function Accordion (props: { faqs: FAQItem[] }) {
             ))}
         </div>
     );
-};
+}
 
 export default Accordion;

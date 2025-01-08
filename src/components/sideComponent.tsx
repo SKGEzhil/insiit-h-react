@@ -28,23 +28,28 @@ function SideComponent() {
                             ))}
                         </div>
                     </div>
-                    <div className="p-4">
-                        <h2 className="text-xl font-bold flex my-3">Categories</h2>
-                        <div className="flex flex-col gap-2">
-                      <span
-                          className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 1</span>
-                            <span
-                                className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 2</span>
-                            <span
-                                className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 3</span>
-                            <span
-                                className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 4</span>
-                            <span
-                                className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 5</span>
-                            <span
-                                className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 6</span>
-                        </div>
+                    <hr></hr>
+                    <div className={`flex-col h-full justify-end`}>
+                        <p>&#169; IIT Hyderabad</p>
                     </div>
+
+                    {/*<div className="p-4">*/}
+                    {/*    <h2 className="text-xl font-bold flex my-3">Categories</h2>*/}
+                    {/*    <div className="flex flex-col gap-2">*/}
+                    {/*  <span*/}
+                    {/*      className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 1</span>*/}
+                    {/*        <span*/}
+                    {/*            className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 2</span>*/}
+                    {/*        <span*/}
+                    {/*            className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 3</span>*/}
+                    {/*        <span*/}
+                    {/*            className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 4</span>*/}
+                    {/*        <span*/}
+                    {/*            className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 5</span>*/}
+                    {/*        <span*/}
+                    {/*            className="inline-block bg-c2 text-c10 text-left text-sm font-medium cursor-pointer px-2 py-1 rounded">Category 6</span>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
 
                 </div>
             </div>

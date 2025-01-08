@@ -1,6 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import {lazy, Suspense} from 'react';
 import ErrorPage from "./pages/ErrorPage.tsx";
+import AboutPage from "./pages/AboutPage.tsx";
 
 
 const MainLayout = lazy(() => import("./layouts/mainLayout.tsx"));
@@ -74,7 +75,7 @@ export const routes = createBrowserRouter([
                         {path: `${base_route}/others`, element: <Suspense><OthersPage/></Suspense>},
                     ]
                 },
-
+                {path: `${base_route}/about`, element: <Suspense><AboutPage/></Suspense>},
             ],
         },
         {
