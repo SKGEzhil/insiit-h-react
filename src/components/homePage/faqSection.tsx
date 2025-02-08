@@ -2,7 +2,13 @@ import React, {useEffect} from "react";
 import Accordion from "./accordian.tsx";
 import {useDispatch, useSelector} from "react-redux";
 
-const FAQPage: React.FC = () => {
+/**
+ * FAQSection component
+ *
+ * @memberOf Components
+ * @returns {JSX.Element} The rendered FAQSection component.
+ */
+const FAQSection: React.FC = () => {
 
     const faqs = useSelector((state) => state.faqSlice.faqs);
 
@@ -14,4 +20,4 @@ const FAQPage: React.FC = () => {
     );
 };
 
-export default FAQPage;
+export default FAQSection;

@@ -16,8 +16,8 @@ import ProtectedComponent from "../components/protectedComponent.tsx";
  * Renders a single question with its answers and comments
  * - Takes ***question id*** as a parameter from url
  * - Example: `app/question/questionId`
- * @method QuestionPage
- * @return JSX.Element
+ * @memberof Pages
+ * @return {JSX.Element}
  */
 function QuestionPage() {
 

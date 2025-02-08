@@ -1,12 +1,8 @@
 import {endPoint, endPointBase} from "../config/constants.ts";
 
 /**
- * @namespace UserServices
- */
-
-/**
  * Sends post request to the server to create a new user
- * @memberof UserServices
+ * @memberof services
  */
 export function createUser() {
     const query = `
@@ -53,7 +49,7 @@ export function createUser() {
  * Sends post request to the server to get user details, indeed checking if user exists
  * @param {string} email
  *
- * @memberof UserServices
+ * @memberof services
  */
 export function isUserExist(email: string) {
     const query = `
@@ -102,7 +98,7 @@ export function isUserExist(email: string) {
  * Sends token to the server via header and verify the user role\
  * **Note:** This function is used to check if the user is admin or not
  * @method login
- * @memberof UserServices
+ * @memberof services
  *
  */
 export function login(){

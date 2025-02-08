@@ -1,6 +1,13 @@
 import {useNavigate} from "react-router-dom";
 import {base_route} from "../../routes.tsx";
 
+/**
+ * HeroComponent
+ *
+ * @memberOf Components
+ * @returns {JSX.Element} The rendered HeroComponent component.
+ */
+
 function HeroComponent() {
 
     const navigate = useNavigate();

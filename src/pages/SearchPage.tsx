@@ -17,7 +17,8 @@ import { QuestionModel } from "../models/questionModel.ts";
  * - Uses `useLocation` hook from `react-router-dom` to get the current location
  * - Gets the query parameters from the url
  * - Example: `app/search?query=question&page=1&tags=tag1,tag2`
- * @method SearchPage
+ * @memberof Pages
+ * @returns {JSX.Element}
  */
 const SearchPage = () => {
 

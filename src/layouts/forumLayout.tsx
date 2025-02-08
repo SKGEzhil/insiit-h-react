@@ -15,7 +15,9 @@ import MediaQuery from "react-responsive";
  * - ForumPage
  * - QuestionPage
  * - SearchPage
+ * - FaqPage
  *
+ * @memberof Layouts
  * @returns {Outlet}
  *
  * @example

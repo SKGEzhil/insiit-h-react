@@ -6,6 +6,7 @@ import MediaQuery from "react-responsive";
 /**
  * This layout is used to display related questions while user is asking a new question
  *
+ * @memberof Layouts
  * @returns {JSX.Element}
  */
 function RelatedQnsLayout() {

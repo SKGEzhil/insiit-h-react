@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {getUserDataThunk, getAllUsersThunk, editUserThunk, deleteUserThunk} from "../actions/adminActions.ts";
 
 /**
- * @namespace AdminSlice
+ * @namespace Slices
  */
 
 const initialState = {
@@ -36,14 +36,15 @@ type AdminState = {
 };
 
 /**
- * Admin Slice
- * @memberof AdminSlice
+ * adminSlice represents the Redux slice for managing admin-related state.
+ * @memberof Slices
+ *
  * @type {Slice<AdminState>}
  * @name adminSlice
  * @property {string} name - The name of the slice ('admin').
  * @property {AdminState} initialState - The initial state of the slice.
- * @property {Function} reducers.getUsers - A reducer function that gets the users.
  * @property {Function} extraReducers - A function that handles all async thunk actions.
+ *
  */
 
 const adminSlice = createSlice(

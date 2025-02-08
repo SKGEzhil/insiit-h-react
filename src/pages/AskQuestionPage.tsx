@@ -8,6 +8,8 @@ import Fuse from "fuse.js";
 
 /**
  * Renders the AskQuestionPage
+ *
+ * @memberof Pages
  * @returns {JSX.Element} AskQuestionPage
  */
 const AskQuestionPage = () => {

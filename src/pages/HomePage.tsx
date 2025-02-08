@@ -9,8 +9,8 @@ import {useDispatch} from "react-redux";
 /**
  * Home page component.\
  * Starting page of the website.
- * @method HomePage
- * @return JSX.Element
+ * @memberof Pages
+ * @return {JSX.Element}
  */
 function HomePage() {
 

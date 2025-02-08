@@ -19,6 +19,7 @@ type NavigationStateType = {
 
 /**
  *
+ * @memberOf Components
  * @returns {React.Element} The HeaderComponent
  *
  * @description

@@ -1,10 +1,26 @@
 import React, { useState, useRef, useEffect } from "react";
 
+/**
+ * FAQItem is an interface that defines the structure of an FAQ item.
+ * @typedef {Object} FAQItem
+ * @property {string} question - The question.
+ * @property {string} answer - The answer.
+ */
 interface FAQItem {
     question: string;
     answer: string;
 }
 
+/**
+ * Accordion is a functional component that renders an accordion of FAQ items.
+ *
+ * @memberOf Components
+ * @param {Object} props - The properties passed to the component.
+ * @param {FAQItem[]} props.faqs - The FAQ items to render.
+ * @param {string} props.faqs.question - The question.
+ * @param {string} props.faqs.answer - The answer.
+ * @returns {React.Element} The rendered accordion.
+ */
 function Accordion(props: { faqs: FAQItem[] }) {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
     const [heights, setHeights] = useState<number[]>([]);

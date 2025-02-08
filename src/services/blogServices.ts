@@ -1,12 +1,8 @@
 import {endPoint} from "../config/constants.ts";
 
 /**
- * @namespace BlogServices
- */
-
-/**
  * Sends a post request to the server to add a new blog section
- * @memberof BlogServices
+ * @memberof services
  * @param {string} time
  * @param {string} blocks
  * @param {string} version
@@ -56,7 +52,7 @@ export function addSection(time: string, blocks: string, version: string, page: 
 
 /**
  * Fetches all blog sections depending on the page provided
- * @memberof BlogServices
+ * @memberof services
  * @param {page} page
  */
 export function getSections(page: string) {
@@ -102,7 +98,7 @@ export function getSections(page: string) {
 
 /**
  * Sends a post request to the server to delete a blog section
- * @memberof BlogServices
+ * @memberof services
  * @param {string} id
  */
 export function deleteSection(id: string) {
@@ -145,7 +141,7 @@ export function deleteSection(id: string) {
 
 /**
  * Sends a post request to the server to edit a blog section
- * @memberof BlogServices
+ * @memberof services
  * @param {string} id
  * @param {string} blocks
  */

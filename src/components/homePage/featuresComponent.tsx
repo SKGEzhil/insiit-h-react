@@ -1,5 +1,11 @@
 import {base_route} from "../../routes.tsx";
 
+/**
+ * FeaturesComponent
+ *
+ * @memberOf Components
+ * @returns {JSX.Element} The rendered FeaturesComponent component.
+ */
 
 function FeaturesComponent() {
   return (

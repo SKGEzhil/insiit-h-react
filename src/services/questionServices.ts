@@ -1,37 +1,14 @@
 import {endPoint} from "../config/constants.ts";
 
 /**
- * @namespace QuestionServices
- */
-
-/**
- * @typedef QuestionInput
- * @property {string} id - The id of the question.
- * @property {string} title - The title of the question.
- * @property {string} body - The body of the question.
- * @property {string[]} tags - The tags of the question.
- */
-
-/**
- * @typedef AnswerInput
- * @property {string} questionId - The id of the question on which the particular answer exists.
- * @property {string} answerId - The id of the answer.
- * @property {string} answer - The answer content.
- */
-
-/**
- * @typedef CommentInput
- * @property {string} questionId - The id of the question on which the particular comment exists.
- * @property {string} answerId - The id of the answer on which the particular comment exists.
- * @property {string} commentId - The id of the comment.
- * @property {string} comment - The comment content.
- */
-
-/**
  * Handles all the actions related to questions
  * @memberof QuestionServices
  * @param {string} action {"CREATE", "EDIT", "DELETE"}
- * @param {QuestionInput} data
+ * @param {Object} data
+ * @param {string} data.id - The id of the question.
+ * @param {string} data.title - The title of the question.
+ * @param {string} data.body - The body of the question.
+ * @param {string[]} data.tags - The tags of the question.
  */
 export function questionActions(action, data) {
 
@@ -79,9 +56,13 @@ export function questionActions(action, data) {
 
 /**
  * Handles all the actions related to answers
- * @memberof QuestionServices
+ * @memberof services
  * @param {string} action {"CREATE", "EDIT", "DELETE"}
- * @param {AnswerInput} data
+ * @param {Object} data
+ * @param {string} data.questionId - The id of the question on which the particular answer exists.
+ * @param {string} data.answerId - The id of the answer.
+ * @param {string} data.answer - The answer content.
+ *
  */
 export function answerActions(action, data) {
 
@@ -129,9 +110,13 @@ export function answerActions(action, data) {
 
 /**
  * Handles all the actions related to comments
- * @memberof QuestionServices
+ * @memberof services
  * @param {string} action {"CREATE", "EDIT", "DELETE"}
- * @param {CommentInput} data
+ * @param {Object} data
+ * @param {string} data.questionId - The id of the question on which the particular comment exists.
+ * @param {string} data.answerId - The id of the answer on which the particular comment exists.
+ * @param {string} data.commentId - The id of the comment.
+ * @param {string} data.comment - The comment content.
  */
 export function commentActions(action, data) {
 
@@ -179,7 +164,7 @@ export function commentActions(action, data) {
 
 /**
  * Fetches all questions from server based page and page limit provided
- * @memberof QuestionServices
+ * @memberof services
  * @param {number} page
  * @param {number} limit
  */
@@ -254,7 +239,7 @@ export function getQuestions(tags: string[], page: number, limit: number) {
 
 /**
  * Fetches a single question from the server based on the question id provided
- * @memberof QuestionServices
+ * @memberof services
  * @param {string} getQuestionId
  */
 export function getQuestion(getQuestionId: string) {
@@ -332,7 +317,7 @@ export function getQuestion(getQuestionId: string) {
 
 /**
  * Upvotes a question based on the question id provided
- * @memberof QuestionServices
+ * @memberof services
  * @param {string} id
  */
 export function upvoteQuestion(id: string) {
@@ -399,7 +384,7 @@ export function upvoteQuestion(id: string) {
 
 /**
  * Searches for questions based on the search query and tags provided
- * @memberof QuestionServices
+ * @memberof services
  * @param search
  * @param tags
  * @param page

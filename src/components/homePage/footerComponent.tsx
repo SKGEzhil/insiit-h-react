@@ -1,5 +1,12 @@
 import React from "react";
 
+/**
+ * FooterComponent
+ *
+ * @memberOf Components
+ * @returns {JSX.Element} The rendered FooterComponent component.
+ */
+
 const FooterComponent: React.FC = () => {
     return (
         <footer className="bg-black text-white py-6">

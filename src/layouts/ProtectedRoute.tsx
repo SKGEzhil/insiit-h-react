@@ -11,6 +11,7 @@ import {login} from "../services/userServices.ts";
  * **Pages**
  * - AdminPage
  *
+ * @memberof Layouts
  * @returns {Outlet|JSX.Element}
  *
  * @example

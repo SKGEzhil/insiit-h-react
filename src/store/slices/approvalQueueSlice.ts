@@ -41,14 +41,16 @@ type ApprovalQueueState = {
 
 
 /**
- * Approval Queue Slice
- * @memberof ApprovalQueueSlice
+ * approvalQueueSlice represents the Redux slice for managing approval queue-related state.
+ * @memberof Slices
+ *
  * @type {Slice<ApprovalQueueState>}
  * @name approvalQueueSlice
  * @property {string} name - The name of the slice ('approvalQueue').
  * @property {ApprovalQueueState} initialState - The initial state of the slice.
- * @property {Function} reducers.getQueue - A reducer function that gets the approval queue.
+ * @property {Function} reducers.getQueue - A reducer function that updates the approval queue.
  * @property {Function} extraReducers - A function that handles all async thunk actions.
+ *
  */
 const approvalQueueSlice = createSlice(
     {

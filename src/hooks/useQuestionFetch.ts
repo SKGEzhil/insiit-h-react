@@ -7,6 +7,8 @@ import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
 
 /**
  * This hook is used to fetch questions
+ *
+ * @memberof Hooks
  * @param {string[]} tags
  * @param {number} currentPage
  */

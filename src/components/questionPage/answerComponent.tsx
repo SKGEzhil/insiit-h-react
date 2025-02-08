@@ -15,6 +15,8 @@ import ProtectedComponent from "../protectedComponent.tsx";
 
 /**
  * `AnswerComponent` is a React component that renders answers and comments on that answer.
+ *
+ * @memberOf Components
  * @param {Object} props - The properties for the component.
  * @param {QuestionModel} props.question - The question data.
  *

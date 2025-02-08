@@ -3,6 +3,14 @@ import { deleteUserThunk, editUserThunk, getUserDataThunk } from "../../store/ac
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
+
+/**
+ * ManageUsersComponent
+ *
+ * @memberOf Components
+ * @returns {JSX.Element} The rendered ManageUsersComponent component.
+ */
+
 function ManageUsersComponent() {
     const dispatch = useDispatch();
     const [name, setName] = useState('');

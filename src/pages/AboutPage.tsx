@@ -1,6 +1,15 @@
 import FooterComponent from "../components/homePage/footerComponent.tsx";
 
+/**
+ * @namespace Pages
+ */
 
+/**
+ * About page of the website
+ *
+ * @memberof Pages
+ * @returns {JSX.Element}
+ */
 function AboutPage() {
 
     const content1 = "The most surprising thing about IIT Hyderabad is its futuristic campus, built with a blend of modern architecture and sustainability. The sprawling campus is not only a hub for cutting-edge research but also a place where innovation meets nature. Students here share their academic journey alongside scenic views, serene lakes, and a vibrant community of peers.\n" +

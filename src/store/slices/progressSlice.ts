@@ -1,10 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 /**
- * @namespace ProgressSlice
- */
-
-/**
  * Represents the progress state of an application.
  * @typedef ProgressState
  * @property {number} value - The current value of the progress.
@@ -16,7 +12,7 @@ type ProgressState = {
 /**
  * Represents a Redux slice for managing progress state.
  *
- * @memberof ProgressSlice
+ * @memberof Slices
  * @type {Slice}
  * @name progressSlice
  * @param {Slice}

@@ -16,6 +16,9 @@ import {FaTrash} from "react-icons/fa6";
 import {FaEdit} from "react-icons/fa";
 import {Outlet} from "react-router-dom";
 
+/**
+ * @namespace Layouts
+ */
 
 /**
  *
@@ -32,6 +35,7 @@ import {Outlet} from "react-router-dom";
  *          <AcademicsPage>
  *      </BlogPageLayout>
  *
+ * @memberof Layouts
  * @return {Outlet} Returns outlet with context `page` and `setPage`
  */
 function BlogPageLayout() {

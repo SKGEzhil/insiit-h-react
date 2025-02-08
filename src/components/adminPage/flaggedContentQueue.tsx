@@ -5,6 +5,20 @@ import {useShowToast} from "../../context/toastContext.tsx";
 import {useDispatch} from "react-redux";
 import {resolveFlagThunk} from "../../store/actions/flaggedContentActions.ts";
 
+/**
+ * @namespace Components
+ */
+
+/**
+ * @typedef {Object} FlaggedContentQueueType
+ * @property {string} _id - Unique identifier for the flagged content.
+ * @property {string} contentType - Type of the content ['QUESTION', 'ANSWER', 'COMMENT'].
+ * @property {string} questionId  - Associated question ID.
+ * @property {string} contentId - Content ID of the flagged item.
+ * @property {string} status - Current status of the flag.
+ * @property {string} content   - The flagged content text.
+ */
+
 interface FlaggedContentQueueType {
     _id: string;
     contentType: string;
@@ -14,7 +28,19 @@ interface FlaggedContentQueueType {
     content: string;
 }
 
-
+/**
+ * FlaggedContentQueue component
+ *
+ * @memberOf Components
+ * @param {Object} props - The properties passed to the component.
+ * @param {FlaggedContentQueueType[]} props.queue - An array of flagged content items to review.
+ * @param {string} props.queue._id - Unique identifier for the flagged content.
+ * @param {string} props.queue.contentType - Type of the content ['QUESTION', 'ANSWER', 'COMMENT'].
+ * @param {string} props.queue.contentId - Content ID of the flagged item.
+ * @param {string} props.queue.status - Current status of the flag.
+ * @param {string} props.queue.content - The flagged content text.
+ * @returns {JSX.Element} The rendered FlaggedContentQueue component.
+ */
 
 const FlaggedContentQueue = (props: {queue: FlaggedContentQueueType[]}) => {
 

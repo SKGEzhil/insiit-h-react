@@ -2,10 +2,6 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {addSection, deleteSection, editSection, getSections} from "../../services/blogServices.ts";
 
 /**
- * @namespace BlogSlice
- */
-
-/**
  * Interface for adding blog section
  * @typedef addSectionInterface
  * @property {string} time
@@ -52,7 +48,7 @@ export interface getSectionsInterface {
 /**
  * Async Thunk to add a blog section
  * @function addSectionThunk
- * @memberof BlogSlice
+ * @memberof Redux-Actions
  * @type {AsyncThunk<unknown, addSectionInterface, {}>}
  * @param {string} time
  * @param {string} blocks
@@ -82,7 +78,7 @@ export const addSectionThunk =
  * Async Thunk to delete a blog section
  *
  * @function deleteSectionThunk
- * @memberof BlogSlice
+ * @memberof Redux-Actions
  * @type {AsyncThunk<unknown, deleteSectionInterface, {}>}
  * @param {string} id
  */
@@ -103,7 +99,7 @@ export const deleteSectionThunk =
 /**
  * Async Thunk to get blog sections
  * @function getSectionsThunk
- * @memberof BlogSlice
+ * @memberof Redux-Actions
  * @type {AsyncThunk<unknown, getSectionsInterface, {}>}
  * @param {string} page
  */
@@ -127,7 +123,7 @@ export const getSectionsThunk =
 /**
  * Async Thunk to edit a blog section
  * @function editSectionThunk
- * @memberof BlogSlice
+ * @memberof Redux-Actions
  * @type {AsyncThunk<unknown, editSectionInterface, {}>}
  * @param {string} id
  * @param {string} blocks

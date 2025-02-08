@@ -1,16 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {addFaq, deleteFaq, getFaqs, searchFaqs, updateFaq} from "../../services/faqServices.ts";
 
-/**
- * @namespace FaqSlice
- */
-
-/**
- * Get FAQs
- * @method getFaqsThunk
- * @memberof FaqSlice
- */
-
 interface addFaqInterface {
     question: string;
     answer: string;
@@ -23,6 +13,14 @@ interface updateFaqInterface {
     answer: string;
 }
 
+/**
+ * Get FAQs
+ * @method getFaqsThunk
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, {page: number, limit: number}, {}>}
+ * @param {number} page
+ * @param {number} limit
+ */
 export const getFaqsThunk =
     createAsyncThunk<unknown, {page: number, limit: number}>('faqSlice/getFaqsThunk',
         async ({page, limit}) => {
@@ -37,6 +35,16 @@ export const getFaqsThunk =
             }
         });
 
+/**
+ * Search FAQs
+ * @method searchFaqsThunk
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, {search: string, tags: string[], page: number, limit: number}, {}>}
+ * @param {string} search
+ * @param {string[]} tags
+ * @param {number} page
+ * @param {number} limit
+ */
 export const searchFaqsThunk =
     createAsyncThunk<unknown, {search: string, tags: string[], page: number, limit: number}>('faqSlice/searchFaqsThunk',
         async ({search, tags, page, limit}) => {
@@ -54,7 +62,11 @@ export const searchFaqsThunk =
 /**
  * Add FAQ
  * @method addFaqThunk
- * @memberof FaqSlice
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, addFaqInterface, {}>}
+ * @param {string} question
+ * @param {string} answer
+ * @param {string[]} tags
  */
 
 export const addFaqThunk =
@@ -74,7 +86,11 @@ export const addFaqThunk =
 /**
  * Update FAQ
  * @method updateFaqThunk
- * @memberof FaqSlice
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, updateFaqInterface, {}>}
+ * @param {string} _id
+ * @param {string} question
+ * @param {string} answer
  */
 
 export const updateFaqThunk =
@@ -91,6 +107,13 @@ export const updateFaqThunk =
             }
         });
 
+/**
+ * Delete FAQ
+ * @method deleteFaqThunk
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, {id: string}, {}>}
+ * @param {string} id
+ */
 export const deleteFaqThunk =
     createAsyncThunk<unknown, { id: string }>('faqSlice/deleteFaqThunk',
         async ({id}) => {

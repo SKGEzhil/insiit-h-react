@@ -6,6 +6,7 @@ import TagComponent from "./tagComponent.tsx";
 /**
  * `QuestionListItem` is a React component that renders a single question item.
  *
+ * @memberOf Components
  * @param {Object} props - The properties for the question list item.
  * @param {QuestionModel} props.question - The question model.
  *

@@ -1,9 +1,6 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-/**
- * @namespace NavigationSlice
- */
 
 /**
  * Represents the navigation state of an application.
@@ -21,7 +18,7 @@ const initialState: NavigationState = {
 /**
  * Represents a Redux slice for navigation.
  *
- * @memberof NavigationSlice
+ * @memberof Slices
  * @name navigationSlice
  * @type {Slice<NavigationState>}
  * @property {string} name - The name of the slice ('navigation').

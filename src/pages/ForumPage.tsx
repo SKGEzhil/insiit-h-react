@@ -16,8 +16,8 @@ import {getQuestionsThunk, searchQuestionThunk} from "../store/actions/questionA
 /**
  * ForumPage component\
  * Renders list of questions in the forum
- * @method ForumPage
- * @return JSX.Element
+ * @memberof Pages
+ * @return {JSX.Element}
  */
 const ForumPage = () => {
 

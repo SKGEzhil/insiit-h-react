@@ -2,6 +2,15 @@ import {createSlice} from "@reduxjs/toolkit";
 
 import {getFlaggedContentThunk, resolveFlagThunk} from "../actions/flaggedContentActions.ts";
 
+/**
+ * @typedef FlaggedContentType
+ * @property {string} _id
+ * @property {string} contentType
+ * @property {string} questionId
+ * @property {string} contentId
+ * @property {string} status
+ * @property {string} content
+ */
 type FlaggedContentType = {
     _id: string;
     contentType: string;
@@ -17,12 +26,30 @@ const initialState = {
     error: null,
 };
 
+/**
+ * @typedef FlaggedContentState
+ * @property {FlaggedContentType[]} flaggedContentList
+ * @property {boolean} loading
+ * @property {string} error
+ */
 type FlaggedContentState = {
     flaggedContentList: FlaggedContentType[];
     loading: boolean;
     error: string | null;
 };
 
+/**
+ * flaggedContentSlice represents the Redux slice for managing flagged content-related state.
+ * @memberof Slices
+ *
+ * @type {Slice<FlaggedContentState>}
+ * @name flaggedContentSlice
+ * @property {string} name - The name of the slice ('flaggedContent').
+ * @property {FlaggedContentState} initialState - The initial state of the slice.
+ * @property {Function} reducers.getFlaggedContent - A reducer function that updates the flagged content list.
+ * @property {Function} extraReducers - A function that handles all async thunk actions.
+ *
+ */
 const flaggedContentSlice = createSlice(
     {
         name: 'flaggedContent',

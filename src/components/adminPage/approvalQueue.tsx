@@ -27,8 +27,16 @@ type QueueItemType = {
 
 /**
  * ApprovalQueue component
+ *
+ * @memberOf Components
  * @param {Object} props
  * @param {QueueItemType[]} props.queue List of items in the approval queue
+ * @param {string} props.queue.id Unique identifier for the approval queue item
+ * @param {string} props.queue.action Action to be taken on the item
+ * @param {UserModel} props.queue.user User who initiated the action
+ * @param {string} props.queue.date Date the action was initiated
+ * @param {string} props.queue.status Status of the action
+ * @param {never} props.queue.data Data associated with the action
  *
  * @returns {React.Element} The ApprovalQueue component
  */

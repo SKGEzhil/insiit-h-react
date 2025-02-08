@@ -8,10 +8,6 @@ import {
 } from "../../services/questionServices.ts";
 
 /**
- * @namespace QuestionSlice
- */
-
-/**
  * @typedef questionInterface
  * @property {string} id
  * @property {string} title
@@ -50,6 +46,15 @@ interface commentInterface {
     comment?: string;
 }
 
+/**
+ * Get questions thunk
+ * @method getQuestionsThunk
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, {tags: string[], page: number, limit: number}, {}>}
+ * @param {string[]} tags
+ * @param {number} page
+ * @param {number} limit
+ */
 export const getQuestionsThunk =
     createAsyncThunk<unknown, { tags: string[], page: number, limit: number }>('questionSlice/getQuestionsThunk',
         async ({tags, page, limit}) => {
@@ -64,6 +69,13 @@ export const getQuestionsThunk =
             }
         });
 
+/**
+ * Get question thunk
+ * @method getQuestionThunk
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, {id: string}, {}>}
+ * @param {string} id   Question ID
+ */
 export const getQuestionThunk =
     createAsyncThunk<unknown, { id: string }>('questionSlice/getQuestionThunk',
         async ({id}) => {
@@ -81,7 +93,8 @@ export const getQuestionThunk =
 /**
  * Question actions thunk
  * @method questionActionsThunk
- * @memberof QuestionSlice
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, {action: string, data: questionInterface}, {}>}
  * @param {string} action
  * @param {questionInterface} data
  */
@@ -107,7 +120,8 @@ export const questionActionsThunk
 /**
  * Answer actions thunk
  * @method answerActionsThunk
- * @memberof QuestionSlice
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, {action: string, data: answerInterface}, {}>}
  * @param {string} action
  * @param {answerInterface} data
  */
@@ -133,7 +147,8 @@ export const answerActionsThunk
 /**
  * Comment actions thunk
  * @method commentActionsThunk
- * @memberof QuestionSlice
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, {action: string, data: commentInterface}, {}>}
  * @param {string} action
  * @param {commentInterface} data
  */
@@ -159,7 +174,8 @@ export const commentActionsThunk
 /**
  * Upvote question thunk
  * @method upvoteQuestionThunk
- * @memberof QuestionSlice
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, {questionId: string}, {}>}
  * @param {string} questionId
  */
 export const upvoteQuestionThunk =
@@ -179,7 +195,8 @@ export const upvoteQuestionThunk =
 /**
  * Search question thunk
  * @method searchQuestionThunk
- * @memberof QuestionSlice
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, {searchTerm: string, tags: string[], page: number}, {}>}
  * @param {string} searchTerm
  * @param {string[]} tags
  * @param {number} page

@@ -1,6 +1,16 @@
 
 import {endPoint} from '../config/constants';
 
+/**
+ * @namespace services
+ */
+
+/**
+ * Fetches all FAQs from the server
+ * @memberof services
+ * @param {number} page
+ * @param {number} limit
+ */
 export function getFaqs(page: number, limit: number) {
     const query = `
         query GetFAQs($page: Int!, $limit: Int!) {
@@ -42,6 +52,14 @@ export function getFaqs(page: number, limit: number) {
         });
 }
 
+/**
+ * Searches FAQs from the server
+ * @memberof services
+ * @param {string} search
+ * @param {string[]} tags
+ * @param {number} page
+ * @param {number} limit
+ */
 export function searchFaqs(search: string, tags: string[], page: number, limit: number) {
     const query = `
         query SearchFAQs($search: String!, $page: Int!, $limit: Int!, $tags: [String!]) {
@@ -84,6 +102,13 @@ export function searchFaqs(search: string, tags: string[], page: number, limit: 
 
 }
 
+/**
+ * Adds a new FAQ to the server
+ * @memberof services
+ * @param {string} question
+ * @param {string} answer
+ * @param {string[]} tags
+ */
 export function addFaq(question: string, answer: string, tags: string[]) {
     const query = `
         mutation AddFAQ($question: String!, $answer: String!, $tags: [String]) {
@@ -126,6 +151,13 @@ export function addFaq(question: string, answer: string, tags: string[]) {
 
 }
 
+/**
+ * Updates a FAQ on the server
+ * @memberof services
+ * @param {string} id
+ * @param {string} question
+ * @param {string} answer
+ */
 export function updateFaq(id: string, question: string, answer: string) {
     const query = `
         mutation UpdateFAQ($id: ID!, $question: String!, $answer: String!) {
@@ -168,6 +200,11 @@ export function updateFaq(id: string, question: string, answer: string) {
 
 }
 
+/**
+ * Deletes a FAQ from the server
+ * @memberof services
+ * @param {string} id
+ */
 export function deleteFaq(id: string) {
     const query = `
         mutation DeleteFAQ($id: ID!) {

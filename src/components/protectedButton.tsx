@@ -11,6 +11,7 @@ interface buttonProps {
  * - If the user is **not authenticated**, clicking the button will trigger the **login process**.
  * - If the user is **authenticated**, it will execute the `onClick` function passed in the `buttonProps`.
  *
+ * @memberOf Components
  * @param {Object} buttonProps - The properties for the button.
  * @param {function} buttonProps.onClick - The function to be executed when the button is clicked.
  * @param {React.ReactNode} buttonProps.children - The child elements to be rendered inside the button.

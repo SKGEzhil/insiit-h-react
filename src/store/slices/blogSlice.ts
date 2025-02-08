@@ -38,7 +38,7 @@ type ActionPayload = [{
 
 /**
  * Blog Slice
- * @memberof BlogSlice
+ * @memberof Slices
  * @type {Slice<BlogState>}
  * @name blogSlice
  * @property {string} name - The name of the slice ('blogSlice').

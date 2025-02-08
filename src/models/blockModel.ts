@@ -7,7 +7,7 @@ type BlockType = 'header' | 'paragraph' | 'list' | 'image' | 'table' | 'raw';
 
 /**
  * Interface for block data
- * @interface BlockData
+ * @typedef BlockData
  * @property {string} [text]
  * @property {number} [level]
  * @property {'left' | 'right' | 'center' | 'justify'} [align]
@@ -28,7 +28,7 @@ interface BlockData {
 
 /**
  * Interface for block
- * @interface Block
+ * @typedef Block
  * @property {string} id
  * @property {BlockType} type
  * @property {BlockData} data
@@ -41,7 +41,7 @@ interface Block {
 
 /**
  * Interface for model
- * @interface Model
+ * @typedef Model
  * @property {number} time
  * @property {Block[]} blocks
  * @property {string} version

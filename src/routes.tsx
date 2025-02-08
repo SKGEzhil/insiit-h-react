@@ -19,15 +19,6 @@ const AcademicsPage = lazy(() => import("./pages/AcademicsPage.tsx"));
 const OthersPage = lazy(() => import("./pages/OthersPage.tsx"));
 const FAQPage = lazy(() => import("./pages/FAQPage.tsx"));
 
-/**
- * Base route of the application
- * Every route in the application is prefixed with this route
- * @example
- * // If base_route is "/app"
- * // The route "/app/home" will be the home route
- * @type {string}
- * @name base_route
- */
 export const base_route = "";
 
 /**
@@ -50,7 +41,9 @@ export const base_route = "";
  * ├── /ForumLayout
  *     ├── /search
  *     ├── /forum
+ *     ├── /faq
  *     └── /question/:id
+ *
  *
  */
 export const routes = createBrowserRouter([

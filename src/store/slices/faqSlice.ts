@@ -1,10 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {addFaqThunk, deleteFaqThunk, getFaqsThunk, searchFaqsThunk, updateFaqThunk} from "../actions/faqActions.ts";
 
-/**
- * @namespace FaqSlice
- */
-
 interface FAQInterface {
     _id: string;
     question: string;
@@ -33,7 +29,7 @@ type FaqState = {
 
 /**
  * FAQ Slice
- * @memberof FaqSlice
+ * @memberof Slices
  * @type {Slice<FaqState>}
  * @name faqSlice
  * @property {string} name - The name of the slice ('faq').

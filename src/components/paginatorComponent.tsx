@@ -2,6 +2,10 @@ import {useNavigate} from "react-router-dom";
 
 /**
  * PaginatorComponent is a functional component that renders a paginator.
+ *
+ * @memberOf Components
+ * @param {Object} props - The properties for the paginator.
+ * @param {number} props.currentPage - The current page number.
  * @returns {React.Element} The rendered paginator.
  */
 function PaginatorComponent(props: {currentPage: number}) {
@@ -11,14 +15,7 @@ function PaginatorComponent(props: {currentPage: number}) {
 
     const navigate = useNavigate();
 
-
-    /**
-     * Function to update only the page query parameter.
-     * @method updatePageParam
-     * @param {number} newPage - The new page number.
-     */
     const updatePageParam = (newPage: number) => {
-        /** @type {URLSearchParams} The current query parameters. */
         const queryParams = new URLSearchParams(location.search);
         queryParams.set('page', newPage.toString());
 

@@ -1,5 +1,9 @@
 import {endPoint} from "../config/constants.ts";
 
+/**
+ * Fetches all tags from the server
+ * @memberof services
+ */
 export function getTags() {
     const query = `
         query GetTags {

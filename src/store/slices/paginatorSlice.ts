@@ -1,12 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 /**
- * @namespace PaginatorSlice
- */
-
-/**
  * Paginator Slice
- * @memberof PaginatorSlice
+ * @memberof Slices
  * @type {Slice<PaginatorState>}
  * @name paginatorSlice
  * @property {string} name - The name of the slice ('paginator').

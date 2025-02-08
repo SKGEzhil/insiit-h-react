@@ -9,6 +9,7 @@ import {tagDict} from "../config/constants.ts";
 /**
  * `SideComponent` is a React component that renders a side component with tags and categories.
  *
+ * @memberOf Components
  * @returns {JSX.Element} The side component element.
  */
 

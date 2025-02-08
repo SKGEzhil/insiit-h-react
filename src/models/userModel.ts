@@ -1,6 +1,5 @@
 /**
  * User model
- * @class
  * @property {string} id - User id
  * @property {string} name - User name
  * @property {string} email - User email

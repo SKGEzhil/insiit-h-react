@@ -1,12 +1,12 @@
 import {endPoint} from "../config/constants.ts";
 
 /**
- * @namespace AdminServices
+ * @namespace services
  */
 
 /**
  * Fetches all the pending requests from server
- * @memberof AdminServices
+ * @memberof services
  * @param {string} action
  */
 export function getApprovalQueue(action: string) {
@@ -58,7 +58,7 @@ export function getApprovalQueue(action: string) {
 
 /**
  * Takes action on approval request
- * @memberof AdminServices
+ * @memberof services
  * @param {string} id Queue ID
  * @param {string} status {'approved', 'rejected'}
  */
@@ -102,6 +102,13 @@ export function takeAction(id: string, status: string) {
         });
 }
 
+/** ------  FLAGGED CONTENT  ------- **/
+
+/**
+ * Resolves a flag
+ * @memberof services
+ * @param {string} id
+ */
 export function resolveFlag(id: string) {
     const query = `
         mutation ResolveFlag($id: ID!) {
@@ -141,6 +148,11 @@ export function resolveFlag(id: string) {
         });
 }
 
+/**
+ * Flags a content
+ * @memberof services
+ * @param {string} contentType
+ */
 export function getFlaggedContent(contentType: string) {
     const query = `
         query GetFlaggedContent($contentType: String!) {
@@ -186,6 +198,11 @@ export function getFlaggedContent(contentType: string) {
 
 /** ------  USER ACTIONS  ------- **/
 
+/**
+ * Fetches user data
+ * @memberof services
+ * @param {string} emailId
+ */
 export function getUserData(emailId: string){
     const query = `
         query GetUserData($emailId: String!) {
@@ -230,6 +247,14 @@ export function getUserData(emailId: string){
 
 }
 
+/**
+ * Edits user data
+ * @memberof services
+ * @param {string} userId
+ * @param {string} name
+ * @param {string[]} permissions
+ * @param {string} role
+ */
 export function editUser(userId: string, name: string, permissions: string[], role: string){
     const query = `
         mutation EditUser($userId: ID!, $role: String!, $permissions: [String]!, $name: String!) {
@@ -270,6 +295,11 @@ export function editUser(userId: string, name: string, permissions: string[], ro
 
 }
 
+/**
+ * Deletes user
+ * @memberof services
+ * @param {string} userId
+ */
 export function deleteUser(userId: string){
     const query = `
         mutation DeleteUser($userId: ID!) {
@@ -309,6 +339,11 @@ export function deleteUser(userId: string){
 
 }
 
+/**
+ * Fetches all users of a specific role
+ * @memberof services
+ * @param {string} role
+ */
 export function getAllUsers(role: string){
     const query = `
         query GetAllUsers($role: String!) {

@@ -1,10 +1,22 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {getFlaggedContent, resolveFlag} from "../../services/adminServices";
 
+/**
+ * Interface for getting flagged content
+ * @typedef getFlaggedContentInterface
+ * @property {string} contentType
+ */
 interface getFlaggedContentInterface {
     contentType: string;
 }
 
+/**
+ * Get flagged content
+ * @method getFlaggedContentThunk
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, getFlaggedContentInterface, {}>}
+ * @param {string} contentType
+ */
 export const getFlaggedContentThunk =
     createAsyncThunk<unknown, getFlaggedContentInterface>('flaggedContentSlice/getFlaggedContentThunk',
         async ({
@@ -21,6 +33,14 @@ export const getFlaggedContentThunk =
             }
         });
 
+/**
+ * Resolve flag
+ * @method resolveFlagThunk
+ * @memberof Redux-Actions
+ * @type {AsyncThunk<unknown, {id: string, status: string}, {}>}
+ * @param {string} id Flag ID
+ * @param {string} status {'resolved'}
+ */
 export const resolveFlagThunk = createAsyncThunk<unknown, { id: string, status: string }>('flaggedContentSlice/resolveFlagThunk',
     async ({id}) => {
         try {

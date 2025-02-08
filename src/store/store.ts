@@ -17,7 +17,6 @@ import adminSlice from "./slices/adminSlice.ts";
  * @type {Store}
  * @name store
  * @property {Object} reducer - The reducer object. Contains all the slices.\
- * [questionSlice, navigationSlice, paginatorSlice, progressSlice, blogSlice, approvalQueueSlice]
  */
 export const store = configureStore({
     reducer: {

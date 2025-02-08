@@ -1,6 +1,4 @@
-/**
- * @namespace Elements
- */
+
 
 /**
  * @typedef {Object} Block - A block has specified the type and the data to be rendered in
@@ -16,6 +14,7 @@ type Block = {
 /**
  * ElementRenderer is a functional component that renders different types of blocks.
  *
+ * @memberof Components
  * @param {Object} props - The properties passed to the component.
  * @param {Block[]} props.data.blocks - The blocks to be rendered.
  *

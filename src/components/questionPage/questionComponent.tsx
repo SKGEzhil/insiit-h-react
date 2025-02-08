@@ -17,6 +17,7 @@ import TagComponent from "../tagComponent.tsx";
  * `QuestionComponent` is a React component that renders a question.
  * It provides functionalities to edit, delete, and upvote a question.
  *
+ * @memberOf Components
  * @param {Object} props - The properties for the component.
  * @param {QuestionModel} props.question - The question data.
  *

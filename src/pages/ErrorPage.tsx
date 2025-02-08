@@ -1,4 +1,8 @@
-
+/**
+ * Error Page - Renders 404 Page
+ * @memberof Pages
+ * @returns {JSX.Element} Error Page
+ */
 function ErrorPage() {
 
     return (

@@ -7,7 +7,13 @@ import {useDispatch} from "react-redux";
 import {endProgress, resetProgress, startProgress} from "../store/slices/progressSlice.ts";
 
 /**
+ * @namespace Hooks
+ */
+
+/**
  * This hook is used to get a question by id
+ *
+ * @memberof Hooks
  * @param {string} id
  */
 export function useGetQuestion(id: string) {

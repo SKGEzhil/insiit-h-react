@@ -7,13 +7,14 @@ import '../../App.css'
 /**
  * Editor component is used to render the editorjs (Rich Text Editor)
  *
- * @method EditorComponent
+ * @memberOf Components
  * @param {Object} data Data in the Editor
  * @param {string} data.time
  * @param {Array} data.blocks
  * @param {string} data.version
  * @param {function} onChange Function to handle data change
  * @param editorblock
+ * @returns {JSX.Element} Renders WYSIYG editor.
  */
 const EditorComponent = ({ data, onChange, editorblock }) => {
     const ref = useRef();

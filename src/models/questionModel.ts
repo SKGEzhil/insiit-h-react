@@ -1,7 +1,6 @@
 
 /**
  * QuestionModel class.
- * @class
  * @param {string} id - The id of the question.
  * @param {string} title - The title of the question.
  * @param {string} body - The body of the question.

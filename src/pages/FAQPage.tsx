@@ -20,6 +20,13 @@ import Fuse from "fuse.js";
 import {questionActionsThunk} from "../store/actions/questionActions.ts";
 import {tagDict} from "../config/constants.ts";
 
+/**
+ * @typedef FAQInterface
+ * @property {string} _id
+ * @property {string} question
+ * @property {string} answer
+ * @property {string[]} tags
+ */
 interface FAQInterface {
     _id: string;
     question: string;
@@ -27,6 +34,12 @@ interface FAQInterface {
     tags: string[];
 }
 
+/**
+ * FAQ page of the website
+ *
+ * @memberof Pages
+ * @returns {JSX.Element}
+ */
 function FAQPage() {
     const dispatch = useDispatch<never>();
     const location = useLocation();

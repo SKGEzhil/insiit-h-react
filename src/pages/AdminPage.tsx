@@ -10,6 +10,7 @@ import ManageUsersComponent from "../components/adminPage/manageUsersComponent.t
  * Admin Page
  * - All admin related actions can be viewed here
  *
+ * @memberof Pages
  * @returns {JSX.Element} Admin Page
  */
 

@@ -14,6 +14,7 @@ import LoadingBar from "react-top-loading-bar";
  * - HomePage
  * - AdminPage
  *
+ * @memberof Layouts
  * @returns {Outlet}
  *
  * @example

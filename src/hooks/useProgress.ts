@@ -4,6 +4,7 @@ import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
 
 /**
  * This hook is used to show progress bar when loading
+ * @memberof Hooks
  */
 export function useProgress(){
 

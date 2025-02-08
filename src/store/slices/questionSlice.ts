@@ -29,7 +29,7 @@ type QuestionState = {
 
 /**
  * questionSlice represents the Redux slice for managing question-related state.
- * @memberof QuestionSlice
+ * @memberof Slices
  *
  * @type {Slice<QuestionState>}
  * @name questionSlice
