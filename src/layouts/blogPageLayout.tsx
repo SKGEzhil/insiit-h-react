@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import EditorComponent from "../components/editorComponent.tsx";
-import ElementRenderer from "../components/elementRenderer.tsx";
+import EditorComponent from "../components/blogPage/editorComponent.tsx";
+import ElementRenderer from "../components/blogPage/elementRenderer.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {
     addSectionThunk,

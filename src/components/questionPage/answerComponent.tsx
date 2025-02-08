@@ -1,17 +1,17 @@
 import React, {useState} from "react";
-import {QuestionModel} from "../models/questionModel.ts";
+import {QuestionModel} from "../../models/questionModel.ts";
 import {useDispatch} from "react-redux";
-import {useShowToast} from "../context/toastContext.tsx";
-import {answerActionsThunk, commentActionsThunk} from "../store/actions/questionActions.ts";
-import {formatDate} from "../utils/formatDate.ts";
-import {useAuth} from "../context/authContext.tsx";
+import {useShowToast} from "../../context/toastContext.tsx";
+import {answerActionsThunk, commentActionsThunk} from "../../store/actions/questionActions.ts";
+import {formatDate} from "../../utils/formatDate.ts";
+import {useAuth} from "../../context/authContext.tsx";
 import {MdEdit, MdOutlineEdit} from "react-icons/md";
 import {IoMdClose, IoMdTrash} from "react-icons/io";
 import {IoTrashOutline} from "react-icons/io5";
 import {TiTick} from "react-icons/ti";
 import {BiUpvote} from "react-icons/bi";
 import {FiFlag} from "react-icons/fi";
-import ProtectedComponent from "./protectedComponent.tsx";
+import ProtectedComponent from "../protectedComponent.tsx";
 
 /**
  * `AnswerComponent` is a React component that renders answers and comments on that answer.

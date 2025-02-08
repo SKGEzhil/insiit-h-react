@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import Accordion from "../accordian.tsx";
+import Accordion from "./accordian.tsx";
 import {useDispatch, useSelector} from "react-redux";
 
 const FAQPage: React.FC = () => {

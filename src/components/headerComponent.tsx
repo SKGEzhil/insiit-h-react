@@ -36,7 +36,7 @@ function HeaderComponent() {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-white text-center z-20 my-0 p-1 fixed w-full">
+        <div className="bg-white border-b text-center z-20 my-0 p-1 fixed w-full">
             <div className="flex w-full justify-between items-center">
                 <div className="mx-4 flex items-center">
                     <button
@@ -53,7 +53,7 @@ function HeaderComponent() {
                             navigate('/')
                         }}
                     >
-                        <h1 className="text-3xl text-left font-bold">InsIIT-H</h1>
+                        <h1 className="text-3xl text-left font-roundf font-bold">InsIIT</h1>
                     </div>
                 </div>
                 <div className="flex">
@@ -130,7 +130,7 @@ export const NavContainer = (props: {setMobileMenu: (bool: boolean) => void}) =>
         <>
             <div className="flex justify-start">
                 <button
-                    className="py-2 px-4 my-2 rounded-lg"
+                    className="py-1 px-4 my-2 mx-4 bg-black text-white rounded-full"
                     onClick={() => {
                         navigate('/ask')
                     }}>

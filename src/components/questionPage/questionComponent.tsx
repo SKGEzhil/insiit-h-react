@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
-import {QuestionModel} from "../models/questionModel";
-import {formatDate} from "../utils/formatDate.ts";
+import {QuestionModel} from "../../models/questionModel.ts";
+import {formatDate} from "../../utils/formatDate.ts";
 import {useDispatch} from "react-redux";
-import {questionActionsThunk} from "../store/actions/questionActions.ts";
-import {useShowToast} from "../context/toastContext.tsx";
-import {useAuth} from "../context/authContext.tsx";
+import {questionActionsThunk} from "../../store/actions/questionActions.ts";
+import {useShowToast} from "../../context/toastContext.tsx";
+import {useAuth} from "../../context/authContext.tsx";
 import {useNavigate} from "react-router-dom";
 import {FaEdit, FaFlag, FaRegEdit, FaVoteYea} from "react-icons/fa";
 import {BiFlag, BiSolidUpvote, BiUpvote} from "react-icons/bi";
 import {FiFlag} from "react-icons/fi";
 import {MdOutlineEdit} from "react-icons/md";
 import {IoTrashOutline} from "react-icons/io5";
-import TagComponent from "./tagComponent.tsx";
+import TagComponent from "../tagComponent.tsx";
 
 /**
  * `QuestionComponent` is a React component that renders a question.

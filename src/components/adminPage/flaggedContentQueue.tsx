@@ -1,9 +1,9 @@
 
 import {NavLink} from "react-router-dom";
-import {AppDispatch} from "../store/store.ts";
-import {useShowToast} from "../context/toastContext.tsx";
+import {AppDispatch} from "../../store/store.ts";
+import {useShowToast} from "../../context/toastContext.tsx";
 import {useDispatch} from "react-redux";
-import {resolveFlagThunk} from "../store/actions/flaggedContentActions.ts";
+import {resolveFlagThunk} from "../../store/actions/flaggedContentActions.ts";
 
 interface FlaggedContentQueueType {
     _id: string;

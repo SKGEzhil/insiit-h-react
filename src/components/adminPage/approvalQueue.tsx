@@ -1,10 +1,10 @@
-import {getApprovalQueueThunk, takeActionThunk} from "../store/actions/approvalQueueActions.ts";
-import ElementRenderer from "./elementRenderer.tsx";
-import {graphqlStringToJson} from "../utils/graphqlStringConversion.ts";
-import {useShowToast} from "../context/toastContext.tsx";
+import {getApprovalQueueThunk, takeActionThunk} from "../../store/actions/approvalQueueActions.ts";
+import ElementRenderer from "../blogPage/elementRenderer.tsx";
+import {graphqlStringToJson} from "../../utils/graphqlStringConversion.ts";
+import {useShowToast} from "../../context/toastContext.tsx";
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import {UserModel} from "../models/userModel.ts";
+import {UserModel} from "../../models/userModel.ts";
 
 /**
  * @typedef {Object} QueueItemType

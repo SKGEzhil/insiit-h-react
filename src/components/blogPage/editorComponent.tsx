@@ -1,8 +1,8 @@
 
 import { memo, useEffect, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
-import { EDITOR_JS_TOOLS } from "../editorTools.js";
-import '../App.css'
+import { EDITOR_JS_TOOLS } from "../../editorTools.js";
+import '../../App.css'
 
 /**
  * Editor component is used to render the editorjs (Rich Text Editor)

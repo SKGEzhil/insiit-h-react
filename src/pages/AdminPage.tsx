@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
-import ApprovalQueue from "../components/approvalQueue.tsx";
-import FlaggedContentQueue from "../components/flaggedContentQueue.tsx";
+import ApprovalQueue from "../components/adminPage/approvalQueue.tsx";
+import FlaggedContentQueue from "../components/adminPage/flaggedContentQueue.tsx";
 import {useEffect} from "react";
 import {getFlaggedContentThunk} from "../store/actions/flaggedContentActions.ts";
 import {getAllUsersThunk} from "../store/actions/adminActions.ts";

@@ -38,7 +38,7 @@ function SearchBar(props: { setMobileMenu?: (bool: boolean) => void, onSearch: (
 
     return (
         <div className="flex w-full min-w-64 p-4">
-            <div className="flex w-full rounded-2xl border border-c8/[.2] ">
+            <div className="flex w-full rounded-2xl border border-b8/[.2] ">
                 <input
                     className="w-full focus:outline-none rounded-2xl "
                     type="text"
@@ -52,7 +52,7 @@ function SearchBar(props: { setMobileMenu?: (bool: boolean) => void, onSearch: (
                 />
 
                 <button
-                    className=" text-black border-l px-4 hover:bg-c2 rounded-r-2xl mr-0 my-0"
+                    className=" text-b10 border-l border-b8/[.2] px-4 hover:bg-c2 rounded-r-2xl mr-0 my-0"
                     onClick={() => search(searchTerm)}
                 >Search
                 </button>

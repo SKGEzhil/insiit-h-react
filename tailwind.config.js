@@ -8,6 +8,10 @@ export default {
 
     extend: {
 
+      fontFamily: {
+        'roundf': ['Varela Round', 'serif']
+      },
+
       screens: {
         'tablet': '640px',
         // => @media (min-width: 640px) { ... }
@@ -23,17 +27,18 @@ export default {
         // 'primary': '#0077B2',
         'primary': '#000000',
 
-        // 'c1': '#F6FBFD',
-        // // 'c2': '#E0F0F9',
-        // 'c2': '#EEEEEE',
-        // 'c3': '#B1DBEF',
-        // 'c4': '#84C5E6',
-        // 'c5': '#53AFDC',
-        // 'c6': '#1993D0',
-        // 'c7': '#0077B2',
-        // 'c8': '#006596',
-        // 'c9': '#005179',
-        // 'c10': '#003C5A',
+        // 'b1': '#0077B2',
+
+        'b1': '#F6FBFD',
+        'b2': '#E0F0F9',
+        'b3': '#B1DBEF',
+        'b4': '#84C5E6',
+        'b5': '#53AFDC',
+        'b6': '#1993D0',
+        'b7': '#0077B2',
+        'b8': '#006596',
+        'b9': '#005179',
+        'b10': '#003C5A',
 
         'bg-1': '#252525',
         'bg-2': '#2d2d2d',
