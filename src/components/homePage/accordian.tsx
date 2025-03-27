@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaChevronDown } from "react-icons/fa";
 
 /**
  * FAQItem is an interface that defines the structure of an FAQ item.
@@ -23,55 +25,78 @@ interface FAQItem {
  */
 function Accordion(props: { faqs: FAQItem[] }) {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [heights, setHeights] = useState<number[]>([]);
-    const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-    useEffect(() => {
-        // Calculate heights dynamically whenever the component renders
-        const calculateHeights = () => {
-            const calculatedHeights = contentRefs.current.map((ref) => ref?.scrollHeight || 0);
-            setHeights(calculatedHeights);
-        };
-
-        calculateHeights();
-
-        // Recalculate heights on window resize to handle dynamic content changes
-        window.addEventListener("resize", calculateHeights);
-
-        return () => {
-            window.removeEventListener("resize", calculateHeights);
-        };
-    }, [props.faqs]);
 
     const toggleAccordion = (index: number) => {
         setActiveIndex(activeIndex === index ? null : index);
     };
 
     return (
-        <div className="max-w-2xl mx-auto mt-10">
+        <div className="max-w-3xl mx-auto space-y-4">
             {props.faqs.map((faq, index) => (
-                <div key={index} className={`mb-3 border rounded-lg ${activeIndex === index ? "divide-y" : ""}`}>
-                    <button
+                <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className={`bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100
+                        ${activeIndex === index ? 'ring-2 ring-blue-100' : ''}`}
+                >
+                    <motion.button
                         onClick={() => toggleAccordion(index)}
-                        className="w-full text-left p-4 hover:font-semibold transition-all rounded-lg focus:outline-none"
+                        className="w-full text-left p-6 focus:outline-none"
+                        whileHover={{ backgroundColor: "rgba(59, 130, 246, 0.05)" }}
                     >
-                        <span className="flex text-black justify-between items-center">
-                            <span>{faq.question}</span>
-                            <span>{activeIndex === index ? "−" : "+"}</span>
-                        </span>
-                    </button>
-                    <div
-                        ref={(el) => (contentRefs.current[index] = el)}
-                        className="overflow-hidden transition-all duration-300"
-                        style={{
-                            maxHeight: activeIndex === index ? `${heights[index]}px` : "0",
-                        }}
-                    >
-                        <div className="p-4 rounded-b-lg text-left">
-                            <p className="text-gray-700">{faq.answer}</p>
+                        <div className="flex items-center justify-between">
+                            <span className="text-lg font-semibold text-gray-900 pr-8">{faq.question}</span>
+                            <motion.div
+                                animate={{ rotate: activeIndex === index ? 180 : 0 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className={`flex-shrink-0 ${activeIndex === index ? 'text-blue-600' : 'text-gray-400'}`}
+                            >
+                                <FaChevronDown className="w-5 h-5" />
+                            </motion.div>
                         </div>
-                    </div>
-                </div>
+                    </motion.button>
+                    <AnimatePresence initial={false}>
+                        {activeIndex === index && (
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                    height: "auto",
+                                    opacity: 1,
+                                    transition: {
+                                        height: { duration: 0.3, ease: "easeOut" },
+                                        opacity: { duration: 0.2, delay: 0.1 }
+                                    }
+                                }}
+                                exit={{ 
+                                    height: 0,
+                                    opacity: 0,
+                                    transition: {
+                                        height: { duration: 0.3, ease: "easeIn" },
+                                        opacity: { duration: 0.2 }
+                                    }
+                                }}
+                                className="overflow-hidden bg-blue-50/30"
+                            >
+                                <motion.div 
+                                    initial={{ y: 10, opacity: 0 }}
+                                    animate={{ 
+                                        y: 0, 
+                                        opacity: 1,
+                                        transition: { delay: 0.1 }
+                                    }}
+                                    exit={{ y: -10, opacity: 0 }}
+                                    className="p-6 pt-0 text-gray-600 leading-relaxed"
+                                >
+                                    <div className="border-t border-gray-100 pt-4">
+                                        {faq.answer}
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </motion.div>
             ))}
         </div>
     );

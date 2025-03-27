@@ -1,5 +1,3 @@
-
-
 import {useQuestionFetch} from "../hooks/useQuestionFetch.ts";
 import {useLocation, useNavigate} from "react-router-dom";
 import QuestionListItem from "../components/questionListItem.tsx";
@@ -50,7 +48,7 @@ const ForumPage = () => {
             console.log('searching');
             dispatch(searchQuestionThunk({searchTerm: query ? query : "", tags: tagList, page}));
         } else {
-            dispatch(getQuestionsThunk({tags: tagList, page: page, limit: 5}));
+            dispatch(getQuestionsThunk({tags: tagList, page: page, limit: 10}));
         }
         // dispatch(setPage(page));
         setCurrentPage(page);
@@ -70,12 +68,12 @@ const ForumPage = () => {
     }
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col min-h-screen">
             <div className="flex flex-1">
                 <div className="flex-1 p-1">
                     <div className="tablet:flex hidden items-center justify-between">
                         <div>
-                            <h1 className="text-2xl font-bold">Questions</h1>
+                            <h1 className="text-2xl font-bold">Public Forum</h1>
                         </div>
                         <div className="w-1/2">
                             <SearchBar onSearch={(searchTerm) => {

@@ -60,6 +60,17 @@ export default {
 
 
       },
+      keyframes: {
+        'loading-bar': {
+          '0%': { width: '0%' },
+          '50%': { width: '70%' },
+          '100%': { width: '100%' }
+        }
+      },
+      animation: {
+        'loading-bar': 'loading-bar 2s ease-in-out infinite',
+        'spin-slow': 'spin 3s linear infinite',
+      }
     },
   },
   plugins: [],

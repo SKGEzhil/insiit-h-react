@@ -10,6 +10,7 @@ import {tagDict} from "../config/constants.ts";
 import TagComponent from "./tagComponent.tsx";
 import {useAuth} from "../context/authContext.tsx";
 import {IoMdArrowDropright} from "react-icons/io";
+import { motion, AnimatePresence } from "framer-motion";
 
 type NavigationStateType = {
     navigationSlice: {
@@ -29,255 +30,253 @@ type NavigationStateType = {
  * return <HeaderComponent/>
  */
 function HeaderComponent() {
-
     const currentPage = useSelector((state:NavigationStateType) => state.navigationSlice.current);
     const {profile, login, logout} = useAuth();
-
     const [mobileMenu, setMobileMenu] = useState(false);
     const navigate = useNavigate();
 
     return (
-        <div className="bg-white border-b text-center z-20 my-0 p-1 fixed w-full">
-            <div className="flex w-full justify-between items-center">
-                <div className="mx-4 flex items-center">
-                    <button
-                        onClick={() => {
-                            setMobileMenu(!mobileMenu)
-                        }}
-                        className="tablet:hidden"
-                    >
-                        <TiThMenu className="text-black mr-2"/>
-                    </button>
-                    <div
-                        className="cursor-pointer"
-                        onClick={() => {
-                            navigate('/')
-                        }}
-                    >
-                        <h1 className="text-3xl text-left font-roundf font-bold">InsIIT</h1>
-                    </div>
-                </div>
-                <div className="flex">
-
-                {/* For larger screens */}
-                    <MediaQuery minWidth={640}>
-                        <NavContainer setMobileMenu={setMobileMenu}/>
-                    </MediaQuery>
-
-                    <button
-                        className="font-bold text-black rounded-lg px-4"
-                        onClick={() => {
-                        profile ? logout() : login();
-                    }}>
-                        {profile ? 'Logout' : 'Login'}
-                    </button>
-                </div>
-            </div>
-
-            {/* For mobile screens */}
-            {
-                mobileMenu &&
-                <div className=" w-screen h-screen bg-white overflow-scroll ">
-                    <div className="mb-36">
-                        <div className="flex justify-end">
-                            <button
-                                onClick={() => {
-                                    setMobileMenu(false)
-                                }}
-                                className="m-2"
+        <div className="fixed w-full z-20 top-0">
+            {/* Backdrop blur and gradient container */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-white/75 backdrop-blur-md border-b border-slate-200/50" />
+            
+            {/* Main header content */}
+            <div className="relative">
+                <div className="max-w-7xl mx-auto h-16">
+                    <div className="flex items-center justify-between h-full px-4 sm:px-6 lg:px-8">
+                        {/* Left section */}
+                        <div className="flex items-center gap-6">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => setMobileMenu(!mobileMenu)}
+                                className="tablet:hidden text-slate-700 hover:text-slate-900 transition-colors"
                             >
-                                <FaWindowClose size={20} className="text-c9 mx-4"/>
-                            </button>
+                                <TiThMenu className="w-5 h-5" />
+                            </motion.button>
+                            
+                            <motion.div
+                                className="cursor-pointer relative group"
+                                onClick={() => navigate('/')}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                <h1 className="text-2xl font-roundf font-bold text-slate-800">
+                                    InsIIT
+                                </h1>
+                                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300" />
+                            </motion.div>
                         </div>
-                        <div className="flex justify-center">
-                            <SearchBar setMobileMenu={setMobileMenu}/>
-                        </div>
-                        <div className="flex flex-col justify-start">
+
+                        {/* Center section - Navigation */}
+                        <div className="hidden tablet:flex items-center">
                             <NavContainer setMobileMenu={setMobileMenu}/>
                         </div>
-                        {
-                            currentPage === 'forum' &&
-                            <div className="p-4 pr-16">
-                                <h2 className="text-xl font-bold text-left my-3">Tags</h2>
-                                <div className="flex flex-wrap gap-2">
-                                    {tagDict.map((tag, index) => (
-                                        <div onClick={() => {
-                                            setMobileMenu(false);
-                                        }}>
-                                            <TagComponent tag={tag} key={index}/>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        }
+
+                        {/* Right section */}
+                        <div className="flex items-center gap-3">
+                            <motion.button
+                                className="hidden sm:flex px-4 py-1.5 rounded-full text-sm bg-blue-50 text-blue-600 font-medium hover:bg-blue-100 transition-colors"
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                onClick={() => navigate('/ask')}
+                            >
+                                Ask a question
+                            </motion.button>
+
+                            <motion.button
+                                className="px-4 py-1.5 rounded-full text-sm font-medium transition-all"
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                style={{
+                                    backgroundColor: profile ? 'rgb(248, 113, 113)' : 'rgb(59, 130, 246)',
+                                    color: 'white',
+                                }}
+                                onClick={() => profile ? logout() : login()}
+                            >
+                                {profile ? 'Logout' : 'Login'}
+                            </motion.button>
+                        </div>
                     </div>
-
                 </div>
-            }
 
+                {/* Mobile menu */}
+                <AnimatePresence>
+                    {mobileMenu && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            className="fixed inset-0 top-16 bg-white/95 backdrop-blur-md z-50 overflow-y-auto tablet:hidden"
+                        >
+                            <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+                                <motion.button
+                                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-slate-100 transition-colors"
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    onClick={() => setMobileMenu(false)}
+                                >
+                                    <FaWindowClose className="w-5 h-5 text-slate-600" />
+                                </motion.button>
+
+                                <div className="flex justify-center mb-6">
+                                    <SearchBar setMobileMenu={setMobileMenu} onSearch={() => {}} />
+                                </div>
+
+                                <nav className="space-y-2">
+                                    <NavContainer setMobileMenu={setMobileMenu}/>
+                                </nav>
+
+                                {currentPage === 'forum' && (
+                                    <motion.div 
+                                        className="mt-8 p-4 bg-slate-50 rounded-xl"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: 0.2 }}
+                                    >
+                                        <h2 className="text-base font-medium text-slate-900 mb-3">Popular Tags</h2>
+                                        <div className="flex flex-wrap gap-2">
+                                            {tagDict.map((tag, index) => (
+                                                <motion.div 
+                                                    key={index}
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={() => setMobileMenu(false)}
+                                                >
+                                                    <TagComponent tag={tag} />
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
         </div>
     );
 }
 
 export const NavContainer = (props: {setMobileMenu: (bool: boolean) => void}) => {
-
     const currentPage = useSelector((state: NavigationStateType) => state.navigationSlice.current);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {profile} = useAuth();
 
-
     return (
-        <>
-            <div className="flex justify-start">
-                <button
-                    className="py-1 px-4 my-2 mx-4 bg-black text-white rounded-full"
-                    onClick={() => {
-                        navigate('/ask')
-                    }}>
-                    Ask a question
-                </button>
-            </div>
+        <div className="flex tablet:items-center flex-col tablet:flex-row tablet:space-x-1">
+            <div className="flex tablet:items-center flex-col tablet:flex-row tablet:space-x-1">
+                {[
+                    { label: "Home", path: "/", page: "home" },
+                    { label: "Public Forum", path: "/forum", page: "forum" },
+                    { label: "FAQs", path: "/faq", page: "faq" },
+                    // { label: "JoSAA", path: "/forum", page: "josaa" },
+                    // { label: "About Us", path: "/about", page: "about" },
+                    ...(profile?.role === 'admin' ? [{ label: "Admin", path: "/admin", page: "admin" }] : [])
+                ].map((item) => (
+                    <NavButton
+                        key={item.page}
+                        onClick={() => {
+                            dispatch(navigateTo(item.page));
+                            navigate(item.path);
+                            props.setMobileMenu(false);
+                        }}
+                        page={item.page}
+                    >
+                        {item.label}
+                    </NavButton>
+                ))}
 
-            <NavButton
-                onClick={() => {
-                    dispatch(navigateTo("home"));
-                    navigate("/");
-                    console.log('CURRENT PAGE', currentPage)
-                    props.setMobileMenu(false);
-                }}
-                page={"home"}>
-                Home
-            </NavButton>
-            <NavButton
-                onClick={() => {
-                    dispatch(navigateTo("forum"));
-                    navigate("/forum");
-                    console.log('CURRENT PAGE', currentPage)
-                    props.setMobileMenu(false);
-
-                }} page={"forum"}>
-                Public Forum
-            </NavButton>
-            <NavButton
-                onClick={() => {
-                    dispatch(navigateTo("faq"));
-                    navigate("/faq");
-                    console.log('CURRENT PAGE', currentPage)
-                    props.setMobileMenu(false);
-
-                }} page={"faq"}>
-                FAQs
-            </NavButton>
-            <NavButton
-                dropdownItems={['Academics', 'Courses', 'Campus Life', 'Clubs']}
-                onClick={(index) => {
-                    dispatch(navigateTo("insights"));
-
-                    switch (index) {
-                        case 0:
-                            navigate("/academics");
-                            break;
-                        case 1:
-                            navigate("/others");
-                            break;
-                        case 2:
-                            navigate("/others");
-                            break;
-                        case 3:
-                            navigate("/others");
-                            break;
-                        default:
-                            navigate("/others");
-                    }
-
-                    console.log('CURRENT PAGE', currentPage)
-                    props.setMobileMenu(false);
-                }} page={"insights"}>
-                Insights
-            </NavButton>
-            <NavButton
-                onClick={() => {
-                    dispatch(navigateTo("josaa"));
-                    navigate("/forum");
-                    console.log('CURRENT PAGE', currentPage)
-                    props.setMobileMenu(false);
-
-                }} page={"josaa"}>
-                JoSAA
-            </NavButton>
-            <NavButton
-                onClick={() => {
-                    dispatch(navigateTo("about"));
-                    navigate("/about");
-                    console.log('CURRENT PAGE', currentPage)
-                    props.setMobileMenu(false);
-                }} page={"about"}>
-                About Us
-            </NavButton>
-
-            {
-                profile?.role === 'admin' &&
                 <NavButton
-                onClick={() => {
-                    dispatch(navigateTo("admin"));
-                    navigate("/admin");
-                    console.log('CURRENT PAGE', currentPage)
-                    props.setMobileMenu(false);
-                }} page={"admin"}>
-                Admin
-            </NavButton>}
-        </>
+                    dropdownItems={['Academics', 'Courses', 'Campus Life', 'Clubs']}
+                    onClick={(index) => {
+                        dispatch(navigateTo("insights"));
+                        navigate(index === 0 ? "/academics" : "/others");
+                        props.setMobileMenu(false);
+                    }}
+                    page="insights"
+                >
+                    Insights
+                </NavButton>
+
+                <NavButton
+                    key={"about"}
+                    onClick={() => {
+                        dispatch(navigateTo("about"));
+                        navigate("/about");
+                        props.setMobileMenu(false);
+                    }}
+                    page={"about"}
+                >
+                    {"About Us"}
+                </NavButton>
+
+            </div>
+        </div>
     );
 }
 
 export const NavButton = (props: {page: string, onClick: (index?: number) => void, children: React.ReactNode, dropdownItems?: string[]}) => {
-
     const currentPage = useSelector((state: NavigationStateType) => state.navigationSlice.current);
     const [isDropdownVisible, setDropdownVisible] = useState(false);
 
     return (
-        <div className="relative flex flex-col items-start tablet:items-center justify-center"
-             onMouseEnter={() => setDropdownVisible(true)}
-             onMouseLeave={() => setDropdownVisible(false)}
+        <div 
+            className="relative group"
+            onMouseEnter={() => setDropdownVisible(true)}
+            onMouseLeave={() => setDropdownVisible(false)}
         >
-            <div className='flex justify-start items-center'>
-                <button
-                    onClick={() => {
-                        !props.dropdownItems ? props.onClick() : setDropdownVisible(!isDropdownVisible)
-                    }}
-                    className={currentPage === props.page ? 'text-primary font-bold text-nowrap text-left ' +
-                        'flex py-0 items-center' : `${(props.dropdownItems && isDropdownVisible) ? 'text-primary font-bold tablet:text-black' : ''} text-black text-left text-nowrap items-center flex py-0`}>
-                    {props.children}
-                </button>
-                {
-                    props.dropdownItems &&
-                    <MediaQuery maxWidth={640}>
-                        <IoMdArrowDropright onClick={() => !props.dropdownItems ? props.onClick() : setDropdownVisible(!isDropdownVisible)}/>
-                    </MediaQuery>
+            <motion.button
+                className={`px-3 py-2 text-sm font-medium transition-colors relative ${
+                    currentPage === props.page 
+                        ? 'text-blue-600' 
+                        : 'text-slate-600 hover:text-slate-900'
+                }`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => !props.dropdownItems && props.onClick()}
+            >
+                <span className="relative z-10">{props.children}</span>
+                {currentPage === props.page && (
+                    <motion.div
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500"
+                        layoutId="nav-underline"
+                        transition={{ type: "spring", stiffness: 400, damping: 40 }}
+                    />
+                )}
+            </motion.button>
 
-                }
-            </div>
-            {isDropdownVisible && props.dropdownItems && (
-                <div className="tablet:absolute mx-4 tablet:mx-0 top-full bg-white tablet:shadow-lg tablet:rounded-lg z-10">
-                    {props.dropdownItems.map((item, index) => (
-                        <div
-                            onClick={() => {
-                                props.onClick(index)
-                                setDropdownVisible(false)
-                            }}
-                            key={index} className="dropdown-item p-2 w-full cursor-pointer tablet:hover:bg-gray-200">
-                            <p className='text-left whitespace-nowrap'>{item}</p>
-                        </div>
-                    ))}
-                </div>
+            {props.dropdownItems && (
+                <AnimatePresence>
+                    {isDropdownVisible && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute left-0 mt-1 w-48 rounded-lg bg-white shadow-lg ring-1 ring-black/5 overflow-hidden"
+                        >
+                            {props.dropdownItems.map((item, index) => (
+                                <motion.div
+                                    key={item}
+                                    className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors"
+                                    whileHover={{ x: 2 }}
+                                    onClick={() => {
+                                        props.onClick(index);
+                                        setDropdownVisible(false);
+                                    }}
+                                >
+                                    {item}
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             )}
-            <MediaQuery minWidth={640}>
-                <div className={`w-10 h-1 rounded-xl bg-primary ${currentPage !== props.page && 'hidden'}`}>
-                </div>
-            </MediaQuery>
         </div>
-    )
+    );
 }
 
 export default HeaderComponent;

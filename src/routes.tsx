@@ -53,14 +53,19 @@ export const routes = createBrowserRouter([
             errorElement: <ErrorPage/>,
             children: [
                 {
-                    element: <Suspense><ProtectedRoute/></Suspense>,
+                    element: <Suspense><ProtectedRoute requireAdmin={true} heading={"Admin Page"} subheading={"Login as admin to continue"}/></Suspense>,
                     children: [
                         {path: `${base_route}/admin`, element: <Suspense><AdminPage/></Suspense>},
                     ]
                 },
+                {
+                    element: <Suspense><ProtectedRoute heading={"Ask your Questions"} subheading={"Please sign up to ask questions"}/></Suspense>,
+                    children: [
+                        {path: `${base_route}/ask`, element: <Suspense><AskQuestionPage/></Suspense>},
+                        {path: `${base_route}/ask/related`, element: <Suspense><RelatedQnsLayout/></Suspense>},
+                    ]
+                },
                 {path: `${base_route}/`, element: <Suspense><HomePage/></Suspense>},
-                {path: `${base_route}/ask`, element: <Suspense><AskQuestionPage/></Suspense>},
-                {path: `${base_route}/ask/related`, element: <Suspense><RelatedQnsLayout/></Suspense>},
                 {
                     element: <Suspense><BlogPageLayout/></Suspense>,
                     children: [

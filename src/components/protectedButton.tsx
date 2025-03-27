@@ -4,6 +4,7 @@ import React from "react";
 interface buttonProps {
     onClick: () => void;
     children: React.ReactNode;
+    className?: string;
 }
 
 /**
@@ -15,6 +16,7 @@ interface buttonProps {
  * @param {Object} buttonProps - The properties for the button.
  * @param {function} buttonProps.onClick - The function to be executed when the button is clicked.
  * @param {React.ReactNode} buttonProps.children - The child elements to be rendered inside the button.
+ * @param {string} [buttonProps.className] - Optional custom class name for styling the button.
  *
  * @returns {JSX.Element} The button element.
  */
@@ -31,7 +33,7 @@ function ProtectedButton(buttonProps: buttonProps) {
                     buttonProps.onClick();
                 }
             }}
-            className="font-bold py-2 px-4 text-c1 bg-primary rounded-xl text-nowrap"
+            className={buttonProps.className || "font-bold py-2 px-4 text-c1 bg-primary rounded-xl text-nowrap"}
         >
             {buttonProps.children}
         </button>

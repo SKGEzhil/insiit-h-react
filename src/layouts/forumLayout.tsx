@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {resetProgress} from "../store/slices/progressSlice.ts";
 import {useProgress} from "../hooks/useProgress.ts";
 import MediaQuery from "react-responsive";
+import FooterComponent from "../components/footerComponent.tsx";
 
 
 /**
@@ -28,36 +29,40 @@ import MediaQuery from "react-responsive";
  *
  */
 const ForumLayout = () => {
-
-    // const progress = useSelector((state) => state.progressSlice.value);
     const dispatch = useDispatch();
     const {progress} = useProgress();
 
     return (
-        <div>
-            {
-                <div>
-                    <LoadingBar
-                        color='#0077B2'
-                        progress={progress}
-                        onLoaderFinished={() => {
-                            dispatch(resetProgress)
-                        }}
-                        height={3}/>
-                    <div className="relative z-20">
-                        <HeaderComponent/>
-                        <MediaQuery minWidth={640}>
-                                <SideComponent/>
-                        </MediaQuery>
-
+        <div className="min-h-screen flex flex-col">
+            <LoadingBar
+                color='#0077B2'
+                progress={progress}
+                onLoaderFinished={() => dispatch(resetProgress())}
+                height={3}
+            />
+            
+            <HeaderComponent/>
+            
+            <div className="relative top-16 flex flex-1">
+                <MediaQuery minWidth={640}>
+                    <div className="w-72 shrink-0">
+                        <SideComponent/>
                     </div>
-                    <div className="top-16 tablet:ml-72 z-10 mr-4 relative">
+                </MediaQuery>
+                
+                <div className="flex-1 flex flex-col ">
+                    <div className="z-10 flex-1 px-4">
                         <Outlet/>
                     </div>
                 </div>
-            }
+            </div>
 
+
+            <div className="relative top-16 w-full">
+                <FooterComponent/>
+            </div>
         </div>
+        
     );
 };
 

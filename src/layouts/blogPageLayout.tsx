@@ -74,7 +74,7 @@ function BlogPageLayout() {
             <Outlet context={{page, setPage}}/>
             {
                 page === '' ? <div>Loading...</div> :
-                <div>
+                <div className="relative top-6">
                 {
                     profile?.role === 'admin' || profile?.permissions.includes('write') ?
                         <ProtectedButton onClick={() => {

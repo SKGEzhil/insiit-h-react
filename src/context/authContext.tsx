@@ -17,25 +17,20 @@ import {endPointBase} from "../config/constants.ts";
  */
 type authContextType = {
     profile: UserModel | null;
-    login: () => void;
+    login: () => Promise<void>;
     logout: () => void;
-    // message: { status: string, message: string } | null;
+    isLoading: boolean;
     setPostLoginAction: (action: () => void) => void;
-    // token: string | null;
 };
 
 
 const AuthContext = createContext<authContextType>(
     {
         profile: null,
-        login: () => {
-        },
-        logout: () => {
-        },
-        // message: null,
-        setPostLoginAction: () => {
-        },
-        // token: null
+        login: async () => {},
+        logout: () => {},
+        isLoading: false,
+        setPostLoginAction: () => {},
     }
 );
 
@@ -46,21 +41,23 @@ const AuthContext = createContext<authContextType>(
  * @param {React.ReactNode} props.children
  */
 export const AuthProvider = ({children}: {children: React.ReactNode}) => {
-
-    type TokenResponse = googleUserInterface & {
-        error: string;
-        error_description: string;
-        error_uri: string;
+    type GoogleResponse = {
+        code: string;
+        scope: string;
+        authuser: string;
+        prompt: string;
     };
 
-    type googleUserInterface = Omit<TokenResponse, "error" | "error_description" | "error_uri">;
+    type TokenResponse = GoogleResponse & {
+        error?: string;
+        error_description?: string;
+        error_uri?: string;
+    };
 
-
-    const [profile, setProfile]
-        = useState<UserModel | null>(localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData') as string) : null);
-    // const [message, setMessage] = useState<{ status: string, message: string } | null>(null);
-
-    const [postLoginAction, setPostLoginAction] = useState<(() => void)>(() => () => {});
+    const [profile, setProfile] = useState<UserModel | null>(
+        localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData') as string) : null
+    );
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const {showToast} = useShowToast();
 
     type tokenType = {
@@ -69,79 +66,84 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
         photoUrl: string;
     }
 
-    const login = useGoogleLogin({
-        onSuccess: (codeResponse) => {
-            console.log('Login Success:', codeResponse);
-            // setUser(codeResponse)
+    const googleLoginHook = useGoogleLogin({
+        onSuccess: async (codeResponse) => {
+            try {
+                setIsLoading(true);
+                console.log('Login Success:', codeResponse);
 
-            fetch(`${endPointBase}/auth/google`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    code: codeResponse.code,
-                }),
-            })
-                .then(r => r.json())
-                .then(r => {
-                    console.log("GOOGLE RESPONSE", r)
-                    if(r.status === 'error'){
-                        throw new Error(r.message)
-                    } else {
-                        localStorage.setItem('token', JSON.stringify(r.data.token));
-
-                        const decodedToken: tokenType = jwtDecode(r.data.token);
-                        console.log("DECODED TOKEN", decodedToken);
-
-                        isUserExist(decodedToken.email).then((response) => {
-                            console.log("RESPONSE", response);
-                            if (response !== null) {
-                                console.log("USER EXIST");
-                                setProfile(response);
-                                localStorage.setItem('userData', JSON.stringify(response));
-                                console.log(typeof postLoginAction);
-                                postLoginAction();
-                            } else {
-                                console.log("USER NOT EXIST");
-                                createUser().then((response) => {
-                                    console.log("RESPONSE", response);
-                                    setProfile(response);
-                                    localStorage.setItem('userData', JSON.stringify(response));
-                                    postLoginAction();
-                                }).catch(
-                                    (error) => {
-                                        console.error('Error:', error);
-                                        showToast({status: 'error', message: error.message});
-                                    }
-                                );
-                            }
-                        }).catch(
-                            (error) => {
-                                console.error('Error:', error);
-                                showToast({status: 'error', message: error.message});
-                            }
-                        );
-
-                    }
+                const response = await fetch(`${endPointBase}/auth/google`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        code: codeResponse.code,
+                    }),
                 });
 
-            // console.log("User", user);
+                const data = await response.json();
+                console.log("GOOGLE RESPONSE", data);
+
+                if (data.status === 'error') {
+                    throw new Error(data.message);
+                }
+
+                localStorage.setItem('token', JSON.stringify(data.data.token));
+                const decodedToken: tokenType = jwtDecode(data.data.token);
+                console.log("DECODED TOKEN", decodedToken);
+
+                const userExists = await isUserExist(decodedToken.email);
+                if (userExists) {
+                    console.log("USER EXISTS");
+                    setProfile(userExists);
+                    localStorage.setItem('userData', JSON.stringify(userExists));
+                    postLoginAction();
+                } else {
+                    console.log("USER DOES NOT EXIST");
+                    const newUser = await createUser();
+                    setProfile(newUser);
+                    localStorage.setItem('userData', JSON.stringify(newUser));
+                    postLoginAction();
+                }
+            } catch (error: any) {
+                console.error('Error:', error);
+                showToast({status: 'error', message: error.message || 'Failed to authenticate with Google'});
+                throw error;
+            } finally {
+                setIsLoading(false);
+            }
         },
         flow: 'auth-code',
-        onError: (error) => console.log('Login Failed:', error)
+        onError: (error) => {
+            console.log('Login Failed:', error);
+            showToast({status: 'error', message: 'Google login failed'});
+            throw error;
+        }
     });
+
+    const login = async () => {
+        try {
+            await googleLoginHook();
+        } catch (error: any) {
+            console.error('Login error:', error);
+            showToast({status: 'error', message: error.message || 'Failed to login'});
+            throw error;
+        }
+    };
 
     const logout = () => {
         googleLogout();
         localStorage.setItem('userData', JSON.stringify(null));
         localStorage.setItem('token', JSON.stringify(null));
         setProfile(null);
+        showToast({status: 'success', message: 'Logged out successfully'});
     };
 
+    const [postLoginAction, setPostLoginAction] = useState<(() => void)>(() => () => {});
 
     return (
-        <AuthContext.Provider value={{profile, login, logout, setPostLoginAction}}>
+        <AuthContext.Provider value={{profile, login, logout, isLoading, setPostLoginAction}}>
             {children}
         </AuthContext.Provider>
     );

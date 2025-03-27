@@ -21,13 +21,9 @@ function SearchBar(props: { setMobileMenu?: (bool: boolean) => void, onSearch: (
     };
 
     const search = (searchTerm: string) => {
-        console.log(searchTerm);
         if (searchTerm) {
-            // navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
             props.onSearch(searchTerm);
             props.setMobileMenu && props.setMobileMenu(false);
-        } else {
-            console.log('empty search');
         }
     }
 
@@ -45,15 +41,12 @@ function SearchBar(props: { setMobileMenu?: (bool: boolean) => void, onSearch: (
                         search(searchTerm)
                     }}
                 />
-
                 <button
                     className=" text-b10 border-l border-b8/[.2] px-4 hover:bg-c2 rounded-r-2xl mr-0 my-0"
                     onClick={() => search(searchTerm)}
                 >Search
                 </button>
             </div>
-
-
         </div>
     );
 }

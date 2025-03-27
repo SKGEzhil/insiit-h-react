@@ -1,9 +1,9 @@
-
 import {NavLink} from "react-router-dom";
 import {AppDispatch} from "../../store/store.ts";
 import {useShowToast} from "../../context/toastContext.tsx";
 import {useDispatch} from "react-redux";
 import {resolveFlagThunk} from "../../store/actions/flaggedContentActions.ts";
+import {HiOutlineExternalLink, HiOutlineCheck} from "react-icons/hi";
 
 /**
  * @namespace Components
@@ -43,13 +43,11 @@ interface FlaggedContentQueueType {
  */
 
 const FlaggedContentQueue = (props: {queue: FlaggedContentQueueType[]}) => {
-
     const dispatch = useDispatch<AppDispatch>();
     const {showToast} = useShowToast();
 
-
     const resolveFlag = (id: string) => {
-        dispatch(resolveFlagThunk({id: id, status: 'RESOLVED'})).then((result) => {
+        dispatch(resolveFlagThunk({id: id, status: 'RESOLVED'}) as any).then((result) => {
             if (result.error) {
                 showToast({
                     status: 'error',
@@ -66,38 +64,41 @@ const FlaggedContentQueue = (props: {queue: FlaggedContentQueueType[]}) => {
     }
 
     return (
-        <div className={`mb-12`}>
-            <h3 className={`text-left mt-6 mb-4`}>Review Flagged Contents</h3>
-            {props.queue.map((content) => {
-                return (
-                    <>
-                        <div className={`flex justify-between items-center mb-4 gap-2 border rounded-lg p-2`}
-                             key={content.id}>
-                            <div>
-                                <p className="text-left font-bold">{content.contentType}</p>
-                                <p className="text-left">{content.content}</p>
+        <div className="space-y-4">
+            <h3 className="text-lg text-left font-semibold text-gray-900">Flagged Content</h3>
+            <div className="space-y-3">
+                {props.queue.map((content) => (
+                    <div 
+                        key={content._id}
+                        className="bg-white rounded-lg shadow-sm border border-gray-100 p-4"
+                    >
+                        <div className="flex items-start justify-between">
+                            <div className="space-y-2 text-left">
+                                <div className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                    {content.contentType}
+                                </div>
+                                <p className="text-sm text-gray-900">{content.content}</p>
                             </div>
-                            <div className={`flex gap-2 items-center`}>
+                            <div className="flex items-center space-x-2">
                                 <NavLink
                                     to={`/question/${content.questionId}`}
-                                    className="text-primary text-left text-lg font-semibold hover:underline">
-                                    Link
+                                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                >
+                                    <HiOutlineExternalLink className="w-4 h-4 mr-1.5" />
+                                    View
                                 </NavLink>
                                 <button
-                                    className="bg-primary text-white rounded-md p-2"
-                                    onClick={() => {
-                                        resolveFlag(content._id);
-                                    }
-                                    }
+                                    onClick={() => resolveFlag(content._id)}
+                                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-green-700 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                                 >
+                                    <HiOutlineCheck className="w-4 h-4 mr-1.5" />
                                     Resolve
                                 </button>
                             </div>
                         </div>
-                    </>
-
-                );
-            })}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
