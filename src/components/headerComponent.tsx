@@ -172,9 +172,7 @@ export const NavContainer = (props: {setMobileMenu: (bool: boolean) => void}) =>
                     { label: "Home", path: "/", page: "home" },
                     { label: "Public Forum", path: "/forum", page: "forum" },
                     { label: "FAQs", path: "/faq", page: "faq" },
-                    // { label: "JoSAA", path: "/forum", page: "josaa" },
-                    // { label: "About Us", path: "/about", page: "about" },
-                    ...(profile?.role === 'admin' ? [{ label: "Admin", path: "/admin", page: "admin" }] : [])
+                    { label: "About Us", path: "/about", page: "about" }
                 ].map((item) => (
                     <NavButton
                         key={item.page}
@@ -201,18 +199,31 @@ export const NavContainer = (props: {setMobileMenu: (bool: boolean) => void}) =>
                     Insights
                 </NavButton>
 
-                <NavButton
-                    key={"about"}
-                    onClick={() => {
-                        dispatch(navigateTo("about"));
-                        navigate("/about");
-                        props.setMobileMenu(false);
-                    }}
-                    page={"about"}
-                >
-                    {"About Us"}
-                </NavButton>
-
+                {/* Profile and Admin links at the end */}
+                {profile && (
+                    <NavButton
+                        onClick={() => {
+                            dispatch(navigateTo("profile"));
+                            navigate(`/profile/${profile.email}`);
+                            props.setMobileMenu(false);
+                        }}
+                        page="profile"
+                    >
+                        Profile
+                    </NavButton>
+                )}
+                {profile?.role === 'admin' && (
+                    <NavButton
+                        onClick={() => {
+                            dispatch(navigateTo("admin"));
+                            navigate("/admin");
+                            props.setMobileMenu(false);
+                        }}
+                        page="admin"
+                    >
+                        Admin
+                    </NavButton>
+                )}
             </div>
         </div>
     );

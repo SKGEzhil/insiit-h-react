@@ -2,6 +2,7 @@ import {createBrowserRouter} from "react-router-dom";
 import {lazy, Suspense} from 'react';
 import ErrorPage from "./pages/ErrorPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
+import UnderConstructionPage from "./pages/UnderConstructionPage.tsx";
 
 
 const MainLayout = lazy(() => import("./layouts/mainLayout.tsx"));
@@ -18,6 +19,7 @@ const BlogPageLayout = lazy(() => import("./layouts/blogPageLayout.tsx"));
 const AcademicsPage = lazy(() => import("./pages/AcademicsPage.tsx"));
 const OthersPage = lazy(() => import("./pages/OthersPage.tsx"));
 const FAQPage = lazy(() => import("./pages/FAQPage.tsx"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage.tsx"));
 
 export const base_route = "";
 
@@ -52,6 +54,7 @@ export const routes = createBrowserRouter([
             element: <Suspense><MainLayout/></Suspense>,
             errorElement: <ErrorPage/>,
             children: [
+                {path: `${base_route}/bookmarks`, element: <Suspense><UnderConstructionPage/></Suspense>},
                 {
                     element: <Suspense><ProtectedRoute requireAdmin={true} heading={"Admin Page"} subheading={"Login as admin to continue"}/></Suspense>,
                     children: [
@@ -69,11 +72,12 @@ export const routes = createBrowserRouter([
                 {
                     element: <Suspense><BlogPageLayout/></Suspense>,
                     children: [
-                        {path: `${base_route}/academics`, element: <Suspense><AcademicsPage/></Suspense>},
-                        {path: `${base_route}/others`, element: <Suspense><OthersPage/></Suspense>},
+                        {path: `${base_route}/academics`, element: <Suspense><UnderConstructionPage/></Suspense>},
+                        {path: `${base_route}/others`, element: <Suspense><UnderConstructionPage/></Suspense>},
                     ]
                 },
                 {path: `${base_route}/about`, element: <Suspense><AboutPage/></Suspense>},
+                {path: `${base_route}/profile/:email`, element: <Suspense><ProfilePage/></Suspense>},
             ],
         },
         {
