@@ -9,6 +9,7 @@ import flaggedContentSlice from "./slices/flaggedContentSlice.ts";
 import faqSlice from "./slices/faqSlice.ts";
 import tagSlice from "./slices/tagSlice.ts";
 import adminSlice from "./slices/adminSlice.ts";
+import userSlice from "./slices/userSlice.ts";
 
 /**
  * Represents a Redux store.\
@@ -29,7 +30,8 @@ export const store = configureStore({
         flaggedContentSlice: flaggedContentSlice,
         faqSlice: faqSlice,
         tagSlice: tagSlice,
-        adminSlice: adminSlice
+        adminSlice: adminSlice,
+        userSlice: userSlice
     }
 })
 

@@ -49,7 +49,7 @@ function SideComponent() {
                             <h2 className="text-sm font-semibold text-gray-900">Popular Tags</h2>
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            {tagDict.map((tag: TagInterface, index: number) => (
+                            {tagDict.slice(0, 15).map((tag: TagInterface, index: number) => (
                                 <TagComponent tag={tag.name} key={index}/>
                             ))}
                         </div>
