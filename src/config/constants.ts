@@ -2,12 +2,11 @@
 // export const  endPointBase = 'http://localhost:4000';
 
 
-export const endPoint = 'https://4.213.58.198/graphql';
-export const  endPointBase = 'https://4.213.58.198';
+// export const endPoint = 'https://4.213.58.198/graphql';
+// export const  endPointBase = 'https://4.213.58.198';
 
-
-// export const endPoint = import.meta.env.VITE_ENDPOINT;
-// export const  endPointBase = import.meta.env.VITE_ENDPOINTBASE;
+export const endPoint = import.meta.env.VITE_ENDPOINT;
+export const  endPointBase = import.meta.env.VITE_ENDPOINTBASE;
 
 // console.log('endPoint', endPoint);
 
