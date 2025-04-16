@@ -15,6 +15,7 @@ export function getTags() {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',

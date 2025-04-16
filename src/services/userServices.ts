@@ -19,6 +19,7 @@ export function createUser() {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') !== 'null' ? JSON.parse(<string>(localStorage.getItem('token'))) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -67,6 +68,7 @@ export function isUserExist(email: string) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') !== 'null' ? JSON.parse(<string>(localStorage.getItem('token'))) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -104,6 +106,7 @@ export function isUserExist(email: string) {
 export function login(){
     return fetch(`${endPointBase}/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') !== 'null' ? JSON.parse(<string>(localStorage.getItem('token'))) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',

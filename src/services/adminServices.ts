@@ -29,6 +29,7 @@ export function getApprovalQueue(action: string) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -75,6 +76,7 @@ export function takeAction(id: string, status: string) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -121,6 +123,7 @@ export function resolveFlag(id: string) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -169,6 +172,7 @@ export function getFlaggedContent(contentType: string) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -219,6 +223,7 @@ export function getUserData(emailId: string){
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -267,6 +272,7 @@ export function editUser(userId: string, name: string, permissions: string[], ro
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -311,6 +317,7 @@ export function deleteUser(userId: string){
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -360,6 +367,7 @@ export function getAllUsers(role: string){
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',

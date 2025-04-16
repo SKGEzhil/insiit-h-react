@@ -26,6 +26,7 @@ export function questionActions(action, data) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') !== 'null' ? JSON.parse(localStorage.getItem('token') as string) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -80,6 +81,7 @@ export function answerActions(action, data) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') !== 'null' ? JSON.parse(localStorage.getItem('token') as string) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -134,6 +136,7 @@ export function commentActions(action, data) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') !== 'null' ? JSON.parse(localStorage.getItem('token') as string) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -210,6 +213,7 @@ export function getQuestions(tags: string[], page: number, limit: number) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             // 'Authorization': `Bearer ${localStorage.getItem('userData') !== 'null' ? JSON.parse(localStorage.getItem('userData')).token : 'NONE'}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -288,6 +292,7 @@ export function getQuestion(getQuestionId: string) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
@@ -355,6 +360,7 @@ export function upvoteQuestion(id: string) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token') as string) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -425,6 +431,7 @@ export function searchQuestion(search: string, tags: string[], page: number, lim
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',

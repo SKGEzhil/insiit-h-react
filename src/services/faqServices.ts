@@ -1,4 +1,3 @@
-
 import {endPoint} from '../config/constants';
 
 /**
@@ -25,6 +24,7 @@ export function getFaqs(page: number, limit: number) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -74,6 +74,7 @@ export function searchFaqs(search: string, tags: string[], page: number, limit: 
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -123,6 +124,7 @@ export function addFaq(question: string, answer: string, tags: string[]) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -171,6 +173,7 @@ export function updateFaq(id: string, question: string, answer: string) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -218,6 +221,7 @@ export function deleteFaq(id: string) {
 
     return fetch(endPoint, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token') ? JSON.parse(<string>localStorage.getItem('token')) : null}`, // 'Bearer ' + token,
             'Content-Type': 'application/json',
