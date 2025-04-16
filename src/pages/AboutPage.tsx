@@ -231,7 +231,7 @@ function AboutPage() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <DeveloperCard 
-                                imageSrc={"https://camo.githubusercontent.com/ca1d5fd586913719c7d708c7ba7cdc081658f44acdf98ced8ccaf98038912d24/68747470733a2f2f692e6962622e636f2f634c444c62664e2f494d472d323333382d322e6a7067"}
+                                imageSrc={"https://i.ibb.co/WWsbCyxt/PHOTO-2025-04-02-22-19-48.jpg"}
                                 name="Jaideep Nirmal AJ"
                                 role="Ideation & Vision"
                                 socialLinks={{
