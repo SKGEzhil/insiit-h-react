@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaGithub, FaLinkedin, FaInstagram, FaDiscord } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import tlLogo from "../assets/logo/tl_logo.jpeg";
+import { getShowTinkerersLabSupport } from "../services/userServices";
 
 /**
  * FooterComponent
@@ -10,6 +12,12 @@ import { NavLink } from "react-router-dom";
  */
 
 const FooterComponent: React.FC = () => {
+    const [showTinkerersLab, setShowTinkerersLab] = useState(false);
+
+    useEffect(() => {
+        getShowTinkerersLabSupport().then(setShowTinkerersLab);
+    }, []);
+
     return (
         <footer className="bg-gray-900">
             {/* Main Footer Content */}
@@ -25,7 +33,7 @@ const FooterComponent: React.FC = () => {
                             Your comprehensive guide to IIT Hyderabad. Get insights, share experiences, and connect with the community.
                         </p>
                         <div className="flex space-x-4">
-                            <a href="https://github.com/your-repo" className="text-gray-400 hover:text-white transition-colors">
+                            <a href="https://github.com/SKGEzhil/insiit-h-react" className="text-gray-400 hover:text-white transition-colors">
                                 <FaGithub className="w-5 h-5" />
                             </a>
                             <a href="https://linkedin.com/company/your-company" className="text-gray-400 hover:text-white transition-colors">
@@ -33,9 +41,6 @@ const FooterComponent: React.FC = () => {
                             </a>
                             <a href="https://instagram.com/your-handle" className="text-gray-400 hover:text-white transition-colors">
                                 <FaInstagram className="w-5 h-5" />
-                            </a>
-                            <a href="https://discord.gg/your-server" className="text-gray-400 hover:text-white transition-colors">
-                                <FaDiscord className="w-5 h-5" />
                             </a>
                         </div>
                     </div>
@@ -50,9 +55,9 @@ const FooterComponent: React.FC = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/contact" className="text-gray-400 hover:text-white text-sm transition-colors">
+                                <a href="mailto:skgezhil2005@gmail.com" className="text-gray-400 hover:text-white text-sm transition-colors">
                                     Contact
-                                </NavLink>
+                                </a>
                             </li>
                             <li>
                                 <NavLink to="/faq" className="text-gray-400 hover:text-white text-sm transition-colors">
@@ -101,11 +106,22 @@ const FooterComponent: React.FC = () => {
                             Have questions? We'd love to hear from you.
                         </p>
                         <a 
-                            href="mailto:contact@insiit.com"
+                            href="mailto:skgezhil2005@gmail.com"
                             className="inline-flex items-center px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition-colors"
                         >
                             Contact Us
                         </a>
+                        {showTinkerersLab && (
+                            <div className="flex justify-center mt-10 pt-10">
+                                <div className="flex items-center space-x-3 border border-gray-300 rounded-xl bg-white/10 px-6 py-3 shadow-sm">
+                                    <img src={tlLogo} alt="Tinkerers' Lab Logo" className="w-16 h-16 rounded-full object-cover border border-gray-300 bg-white p-1 shadow" />
+                                    <div className="flex flex-col text-left">
+                                        <span className="text-gray-400 text-base font-medium leading-tight">With support from</span>
+                                        <span className="text-gray-400 text-base font-medium leading-tight">Tinkerers' Lab</span>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

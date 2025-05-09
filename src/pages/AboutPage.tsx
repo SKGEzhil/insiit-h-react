@@ -2,6 +2,9 @@ import FooterComponent from "../components/footerComponent.tsx";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {FaGithub, FaInstagram, FaLinkedin} from "react-icons/fa";
 import { HiOutlineLightBulb, HiOutlineUsers, HiOutlineChatBubbleLeftRight, HiOutlineAcademicCap } from "react-icons/hi2";
+import React, { useEffect, useState } from "react";
+import tlLogo from "../assets/logo/tl_logo.jpeg";
+import { getShowTinkerersLabSupport } from "../services/userServices";
 
 /**
  * @namespace Pages
@@ -16,6 +19,7 @@ import { HiOutlineLightBulb, HiOutlineUsers, HiOutlineChatBubbleLeftRight, HiOut
 function AboutPage() {
     const { scrollYProgress } = useScroll();
     const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+    const [showTinkerersLab, setShowTinkerersLab] = useState(false);
 
     const milestones = [
         {
@@ -61,6 +65,10 @@ function AboutPage() {
             description: "Cross-disciplinary knowledge sharing"
         }
     ];
+
+    useEffect(() => {
+        getShowTinkerersLabSupport().then(setShowTinkerersLab);
+    }, []);
 
     return (
         <motion.div 
@@ -241,7 +249,7 @@ function AboutPage() {
                                 }}
                             />
                             <DeveloperCard 
-                                imageSrc={"https://camo.githubusercontent.com/ca1d5fd586913719c7d708c7ba7cdc081658f44acdf98ced8ccaf98038912d24/68747470733a2f2f692e6962622e636f2f634c444c62664e2f494d472d323333382d322e6a7067"}
+                                imageSrc={"https://i.ibb.co/TDc6DGzg/IMG-2338-3.jpg"}
                                 name="Karthik Gnana Ezhil S"
                                 role="Development Lead"
                                 socialLinks={{
@@ -262,6 +270,29 @@ function AboutPage() {
                             />
                         </div>
                     </motion.div>
+
+                    {/* Brought to you by Tinkerers' Lab Section */}
+                    {showTinkerersLab && (
+                        <motion.div 
+                            className="max-w-3xl mx-auto mb-16"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="flex flex-col items-center bg-white/20 backdrop-blur-xl rounded-2xl p-8 border border-white/30 shadow-[0_8px_32px_rgba(37,99,235,0.08)] hover:shadow-[0_8px_32px_rgba(37,99,235,0.12)] transition-all duration-500">
+                                <img 
+                                    src={tlLogo} 
+                                    alt="Tinkerers' Lab Logo" 
+                                    className="w-16 h-16 rounded-full object-cover border border-gray-300 bg-white p-1 shadow mb-4" 
+                                />
+                                <h3 className="text-xl font-semibold text-gray-800 mb-2 text-center">Brought to you by Tinkerers' Lab</h3>
+                                <p className="text-base text-gray-700 text-center max-w-xl">
+                                    This platform is made possible with the generous support and resources of Tinkerers' Lab, IIT Hyderabad. We thank Tinkerers' Lab for empowering student-driven innovation and community building.
+                                </p>
+                            </div>
+                        </motion.div>
+                    )}
+                </div>
 
                     {/* Impact Stats */}
                     <motion.div 
@@ -379,7 +410,6 @@ function AboutPage() {
                             </motion.button>
                         </div>
                     </motion.div>
-                </div>
 
                 {/* Footer */}
                 <div className="relative z-10 mt-auto">

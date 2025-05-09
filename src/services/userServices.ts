@@ -126,3 +126,26 @@ export function login(){
         }
     });
 }
+
+/**
+ * Checks if the Tinkerers' Lab support section should be shown
+ * Sends a GET request to the backend and returns true/false
+ * Returns false if backend is unreachable or any error occurs
+ */
+export async function getShowTinkerersLabSupport() {
+    try {
+        const response = await fetch(`${endPointBase}/show-tinkerers-lab-support`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+            },
+        });
+        if (!response.ok) return false;
+        const data = await response.json();
+        // Expecting { show: true } or { show: false }
+        return !!data.show;
+    } catch (e) {
+        return false;
+    }
+}

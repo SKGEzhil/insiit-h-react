@@ -78,6 +78,7 @@ export const routes = createBrowserRouter([
                 },
                 {path: `${base_route}/about`, element: <Suspense><AboutPage/></Suspense>},
                 {path: `${base_route}/profile/:email`, element: <Suspense><ProfilePage/></Suspense>},
+                {path: `${base_route}/privacy`, element: <Suspense><UnderConstructionPage/></Suspense>},
             ],
         },
         {
