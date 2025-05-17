@@ -5,6 +5,7 @@ import FooterComponent from "../components/footerComponent.tsx";
 import {useEffect} from "react";
 import {getFaqsThunk} from "../store/actions/faqActions.ts";
 import {useDispatch} from "react-redux";
+import { Helmet } from 'react-helmet-async';
 
 /**
  * Home page component.\
@@ -20,12 +21,17 @@ function HomePage() {
     }, [dispatch]);
 
   return (
-    <div>
+    <>
+      <Helmet>
+        <title>Home | InsIIT</title>
+      </Helmet>
+      <div>
         <HeroComponent/>
         <FeaturesComponent/>
         <FaqSection/>
         <FooterComponent/>
-    </div>
+      </div>
+    </>
   );
 }
 

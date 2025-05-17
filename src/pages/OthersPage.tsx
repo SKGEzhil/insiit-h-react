@@ -1,5 +1,6 @@
 import {useOutletContext} from "react-router";
 import {useEffect} from "react";
+import { Helmet } from 'react-helmet-async';
 
 function OthersPage() {
 
@@ -10,7 +11,11 @@ function OthersPage() {
     }, []);
 
     return (
-        <></>
+        <>
+            <Helmet>
+                <title>Others | InsIIT</title>
+            </Helmet>
+        </>
     );
 }
 

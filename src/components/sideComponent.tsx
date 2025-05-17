@@ -35,7 +35,18 @@ function SideComponent() {
         { name: "Mechanical Engineering", url: "https://mae.iith.ac.in" },
         { name: "Chemical Engineering", url: "https://che.iith.ac.in" },
         { name: "Civil Engineering", url: "https://ce.iith.ac.in" },
-        { name: "Materials Science", url: "https://msme.iith.ac.in" }
+        { name: "Materials Science", url: "https://msme.iith.ac.in" },
+        { name: "Biotechnology", url: "https://biotech.iith.ac.in" },
+        { name: "Mathematics", url: "https://math.iith.ac.in" },
+        { name: "Physics", url: "https://physics.iith.ac.in" },
+        { name: "Chemistry", url: "https://chemistry.iith.ac.in" },
+        { name: "Biomedical Engineering", url: "https://bme.iith.ac.in" },
+        { name: "Artificial Intelligence", url: "https://ai.iith.ac.in" },
+        { name: "Engineering Science", url: "https://es.iith.ac.in" },
+        { name: "Design", url: "https://design.iith.ac.in" },
+        { name: "Climate Change", url: "https://cc.iith.ac.in" },
+        { name: "Liberal Arts", url: "https://la.iith.ac.in" },
+        { name: "Entrepreneurship and Management", url: "https://em.iith.ac.in" },
     ];
 
     return (
@@ -86,7 +97,7 @@ function SideComponent() {
                                     href={dept.url} 
                                     target="_blank" 
                                     rel="noopener noreferrer"
-                                    className="flex items-center text-sm text-gray-600 hover:text-gray-900 p-2 rounded-lg hover:bg-gray-50"
+                                    className="flex items-center text-sm text-left text-gray-600 hover:text-gray-900 p-2 rounded-lg hover:bg-gray-50"
                                 >
                                     {dept.name}
                                 </a>
@@ -102,7 +113,7 @@ function SideComponent() {
                         </div>
                         <div className="space-y-2">
                             <a 
-                                href="https://iith.ac.in/academics/academic-calendar/" 
+                                href="https://iith.ac.in/academics/assets/files/calendars/IITH-Academic_Calendar_Jan-Apr-2025.pdf"
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="flex items-center text-sm text-gray-600 hover:text-gray-900 p-2 rounded-lg hover:bg-gray-50"

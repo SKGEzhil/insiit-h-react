@@ -11,6 +11,7 @@ import TagComponent from "./tagComponent.tsx";
 import {useAuth} from "../context/authContext.tsx";
 import {IoMdArrowDropright} from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
+import appIcon from "../assets/logo/icon.png";
 
 type NavigationStateType = {
     navigationSlice: {
@@ -54,7 +55,8 @@ function HeaderComponent() {
                             >
                                 <TiThMenu className="w-5 h-5" />
                             </motion.button>
-                            
+                            {/* Icon before logo */}
+                            {/* <img src={appIcon} alt="Site Icon" className="h-8 object-cover " /> */}
                             <motion.div
                                 className="cursor-pointer relative group"
                                 onClick={() => navigate('/')}

@@ -1,4 +1,3 @@
-
 import './App.css'
 import {RouterProvider} from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google"
@@ -12,6 +11,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {navigateTo} from "./store/slices/navigationSlice.ts";
 import {getTagsReducer} from "./store/slices/tagSlice.ts";
 import {getTags} from "./services/tagService.ts";
+import { HelmetProvider } from 'react-helmet-async';
+import { store } from './store/store';
+type RootState = ReturnType<typeof store.getState>;
 
 /**
  * App component\
@@ -22,7 +24,7 @@ import {getTags} from "./services/tagService.ts";
 function App() {
 
     const dispatch = useDispatch();
-    const tags = useSelector((state) => state.tagSlice.tags);
+    const tags = useSelector((state: RootState) => state.tagSlice.tags);
 
     useEffect(() => {
         // Sync navigation state with current URL on load
@@ -60,13 +62,15 @@ function App() {
 
     return (
     <>
-        <GoogleOAuthProvider clientId={"443325784274-so7rpegs6mnn820jag6f1hdja048r3gf.apps.googleusercontent.com"}>
-            <ToastProvider>
-                <AuthProvider>
-                    <RouterProvider router={routes} />
-                </AuthProvider>
-            </ToastProvider>
-        </GoogleOAuthProvider>
+        <HelmetProvider>
+            <GoogleOAuthProvider clientId={"443325784274-so7rpegs6mnn820jag6f1hdja048r3gf.apps.googleusercontent.com"}>
+                <ToastProvider>
+                    <AuthProvider>
+                        <RouterProvider router={routes} />
+                    </AuthProvider>
+                </ToastProvider>
+            </GoogleOAuthProvider>
+        </HelmetProvider>
         <ToastContainer/>
     </>)
 }

@@ -374,7 +374,7 @@ function AnswerComponent(props: { question: QuestionModel }) {
                                                                         {!isCommentEditMode[index][commentIndex] ? (
                                                                             <div>
                                                                                 <div className="flex justify-between items-start mb-1.5">
-                                                                                    <p className="text-gray-700 text-sm leading-relaxed">
+                                                                                    <p className="text-gray-700 text-sm text-left leading-relaxed">
                                                                                         {comment.comment}
                                                                                     </p>
                                                                                     

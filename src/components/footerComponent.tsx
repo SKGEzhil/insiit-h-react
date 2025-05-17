@@ -32,17 +32,24 @@ const FooterComponent: React.FC = () => {
                         <p className="text-gray-400 text-sm">
                             Your comprehensive guide to IIT Hyderabad. Get insights, share experiences, and connect with the community.
                         </p>
-                        <div className="flex space-x-4">
-                            <a href="https://github.com/SKGEzhil/insiit-h-react" className="text-gray-400 hover:text-white transition-colors">
-                                <FaGithub className="w-5 h-5" />
-                            </a>
-                            <a href="https://linkedin.com/company/your-company" className="text-gray-400 hover:text-white transition-colors">
-                                <FaLinkedin className="w-5 h-5" />
-                            </a>
-                            <a href="https://instagram.com/your-handle" className="text-gray-400 hover:text-white transition-colors">
-                                <FaInstagram className="w-5 h-5" />
+                        <div className="flex space-x-4 items-center pt-3">
+                            <a
+                                href="https://github.com/SKGEzhil/insiit-h-react"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center px-3 py-1 bg-gray-800 text-gray-200 text-xs font-semibold rounded hover:bg-gray-700 hover:text-white transition-colors border border-gray-700"
+                                style={{ lineHeight: '1.5' }}
+                            >
+                                <FaGithub className="w-5 h-5 mr-2" />
+                                Source Code
                             </a>
                         </div>
+                        {/*<a href="https://linkedin.com/company/your-company" className="text-gray-400 hover:text-white transition-colors">*/}
+                        {/*    <FaLinkedin className="w-5 h-5" />*/}
+                        {/*</a>*/}
+                        {/*<a href="https://instagram.com/your-handle" className="text-gray-400 hover:text-white transition-colors">*/}
+                        {/*    <FaInstagram className="w-5 h-5" />*/}
+                        {/*</a>*/}
                     </div>
 
                     {/* Quick Links */}
@@ -65,9 +72,10 @@ const FooterComponent: React.FC = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
+                                <a href="https://docs.google.com/document/d/1iv9FHRJZF-PsF1zHc7paFu9wXeKspw1i6CBVb4rdFqs/edit?usp=sharingl"
+                                   className="text-gray-400 hover:text-white text-sm transition-colors">
                                     Privacy Policy
-                                </NavLink>
+                                </a>
                             </li>
                         </ul>
                     </div>

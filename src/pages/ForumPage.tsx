@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setPage} from "../store/slices/paginatorSlice.ts";
 import {endProgress, startProgress} from "../store/slices/progressSlice.ts";
 import {getQuestionsThunk, searchQuestionThunk} from "../store/actions/questionActions.ts";
+import { Helmet } from 'react-helmet-async';
 
 /**
  * ForumPage component\
@@ -68,34 +69,41 @@ const ForumPage = () => {
     }
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <div className="flex flex-1">
-                <div className="flex-1 p-1">
-                    <div className="tablet:flex hidden items-center justify-between">
+        <>
+            <Helmet>
+                <title>Forum | InsIIT</title>
+            </Helmet>
+            <div className="flex flex-col min-h-screen">
+                <div className="flex flex-1">
+                    <div className="flex-1 p-1">
+                        <div className="tablet:flex hidden items-center justify-between">
+                            <div>
+                                <h1 className="text-2xl font-bold">Public Forum</h1>
+                            </div>
+                            <div className="w-1/2">
+                                <SearchBar onSearch={(searchTerm) => {
+                                    search(searchTerm)
+                                }}/>
+                            </div>
+
+                        </div>
+
+                        <div className={`divide-y`}>
+                            {
+                                questionList.map((question) => {
+                                    return (
+                                        <QuestionListItem question={question} key={question.id}/>
+                                    )
+                                })
+                            }
+                        </div>
+
+
                         <div>
-                            <h1 className="text-2xl font-bold">Public Forum</h1>
-                        </div>
-                        <div className="w-1/2">
-                            <SearchBar onSearch={(searchTerm) => {
-                                search(searchTerm)
-                            }}/>
+                            <PaginatorComponent currentPage={currentPage}/>
                         </div>
 
-                    </div>
 
-                    <div className={`divide-y`}>
-                        {
-                            questionList.map((question) => {
-                                return (
-                                    <QuestionListItem question={question} key={question.id}/>
-                                )
-                            })
-                        }
-                    </div>
-
-
-                    <div>
-                        <PaginatorComponent currentPage={currentPage}/>
                     </div>
 
 
@@ -105,7 +113,7 @@ const ForumPage = () => {
             </div>
 
 
-        </div>
+        </>
     );
 }
 
