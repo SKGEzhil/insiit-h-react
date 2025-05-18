@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Home Page -->
+  <url>
+    <loc>https://insiit.in/</loc>
+    <lastmod>2024-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Privacy Policy Page (external) -->
+  <url>
+    <loc>https://insiit.in/api/privacy-policy</loc>
+    <lastmod>2024-05-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- About Page -->
+  <url>
+    <loc>https://insiit.in/about</loc>
+    <lastmod>2024-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- FAQ Page -->
+  <url>
+    <loc>https://insiit.in/faq</loc>
+    <lastmod>2024-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Ask Page -->
+  <url>
+    <loc>https://insiit.in/ask</loc>
+    <lastmod>2024-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Academics Page -->
+  <url>
+    <loc>https://insiit.in/academics</loc>
+    <lastmod>2024-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Forum Page -->
+  <url>
+    <loc>https://insiit.in/forum</loc>
+    <lastmod>2024-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset> 

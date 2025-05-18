@@ -73,7 +73,7 @@ const FooterComponent: React.FC = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <a href={`${endPointBase}/privacy-policy`} target="_blank" rel="noopener noreferrer"
+                                <a href="https://insiit.in/api/privacy-policy" target="_blank" rel="noopener noreferrer"
                                    className="text-gray-400 hover:text-white text-sm transition-colors">
                                     Privacy Policy
                                 </a>
