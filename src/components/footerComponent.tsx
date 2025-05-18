@@ -3,6 +3,7 @@ import { FaGithub, FaLinkedin, FaInstagram, FaDiscord } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import tlLogo from "../assets/logo/tl_logo.jpeg";
 import { getShowTinkerersLabSupport } from "../services/userServices";
+import {endPointBase} from "../config/constants.ts";
 
 /**
  * FooterComponent
@@ -72,7 +73,7 @@ const FooterComponent: React.FC = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <a href="https://docs.google.com/document/d/1iv9FHRJZF-PsF1zHc7paFu9wXeKspw1i6CBVb4rdFqs/edit?usp=sharingl"
+                                <a href={`${endPointBase}/privacy-policy`} target="_blank" rel="noopener noreferrer"
                                    className="text-gray-400 hover:text-white text-sm transition-colors">
                                     Privacy Policy
                                 </a>
